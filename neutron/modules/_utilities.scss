@@ -1,20 +1,12 @@
+//Adds block element self clearing
 @mixin self-clear() {
 	content: "";
 	display: table;
 	clear: both;
 }
 
-//@mixin hide($selector:"", $media-query:"") {
-//	@if $selector != "" and $media-query != "" {
-//
-//		@media #{$media-query} {
-//			#{$selector} {
-//				display:none;
-//			}
-//		}
-//	}
-//}
-
+//hides the element when the 
+//provided media query is supplied.
 @mixin hide($media-query:"") {
 	@if $media-query != "" {
 
@@ -26,18 +18,8 @@
 	}
 }
 
-//@mixin show($selector:"", $media-query:"",$display-as:"block") {
-//	@if $selector != "" and $media-query != "" {
-//
-//		@media #{$media-query} {
-//			#{$selector} {
-//				display: unquote($display-as);
-//				display: initial;
-//			}
-//		}
-//	}
-//}
-
+//shows the element when the 
+//provided media query is supplied.
 @mixin show($media-query:"", $display-as:"block") {
 	@if $media-query != "" {
 
