@@ -386,6 +386,212 @@ html * {
   -moz-box-sizing: inherit;
   box-sizing: inherit; }
 
+/* Code Examples
+-----------------------------*/
+body {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  content: "";
+  display: table;
+  clear: both; }
+
+.example-1,
+.example-2,
+.example-3,
+.example-4,
+.example-5,
+.example-5-alt,
+.example-6,
+.example-7,
+.example-8,
+.example-9,
+.example-10 {
+  content: "";
+  display: table;
+  clear: both; }
+  .example-1 > *,
+  .example-2 > *,
+  .example-3 > *,
+  .example-4 > *,
+  .example-5 > *,
+  .example-5-alt > *,
+  .example-6 > *,
+  .example-7 > *,
+  .example-8 > *,
+  .example-9 > *,
+  .example-10 > * {
+    width: 100%/""; }
+  .example-1 > *,
+  .example-2 > *,
+  .example-3 > *,
+  .example-4 > *,
+  .example-5 > *,
+  .example-5-alt > *,
+  .example-6 > *,
+  .example-7 > *,
+  .example-8 > *,
+  .example-9 > *,
+  .example-10 > * {
+    padding: 10px 25px; }
+
+.example-1 {
+  content: "";
+  display: table; }
+  .example-1 > * {
+    float: left; }
+  .example-1 > *:nth-child(1) {
+    width: 16.66667%; }
+  .example-1 > *:nth-child(2) {
+    width: 41.66667%; }
+  .example-1 > *:nth-child(3) {
+    width: 41.66667%; }
+  .example-1 > * {
+    padding: 10px 25px; }
+
+.example-2 {
+  content: "";
+  display: table; }
+  .example-2 > * {
+    float: left; }
+  .example-2 > *:nth-child(1) {
+    width: 16.66667%; }
+  .example-2 > *:nth-child(2) {
+    width: 66.66667%; }
+  .example-2 > *:nth-child(3) {
+    width: 16.66667%; }
+  .example-2 > * {
+    padding: 10px 25px; }
+
+.example-3 {
+  content: "";
+  display: table; }
+  .example-3 > * {
+    float: left; }
+  .example-3 > *:nth-child(1) {
+    width: 25%; }
+  .example-3 > *:nth-child(2) {
+    width: 75%; }
+
+.example-4 {
+  content: "";
+  display: table;
+  clear: both; }
+  .example-4 > * {
+    width: 100%/""; }
+  .example-4 > div {
+    float: left; }
+    .example-4 > div:nth-child(1) {
+      width: 50%; }
+    .example-4 > div:nth-child(2) {
+      width: 25%; }
+    .example-4 > div:nth-child(3) {
+      width: 25%; }
+
+@media (min-width: 750px) {
+  .example-5 {
+    display: none; } }
+@media (min-width: 1200px) {
+  .example-5 {
+    display: block;
+    display: initial; } }
+
+.example-6 {
+  content: "";
+  display: table; }
+  .example-6 > * {
+    float: left; }
+  .example-6 > * {
+    width: 25%; }
+
+.example-7 {
+  content: "";
+  display: table; }
+  .example-7 > * {
+    float: left; }
+  .example-7 > * {
+    width: 25%; }
+  .example-7 > *:first-child {
+    padding-left: 0; }
+  .example-7 > *:last-child {
+    padding-right: 0; }
+
+.example-8 {
+  content: "";
+  display: table; }
+  .example-8 > * {
+    float: left; }
+  .example-8 > * {
+    width: 25%; }
+  .example-8 > *:nth-child(4) {
+    right: 75%;
+    position: relative; }
+  .example-8 > *:nth-child(1) {
+    left: 25%;
+    position: relative; }
+  .example-8 > *:nth-child(2) {
+    left: 50%;
+    position: relative; }
+
+.example-9 {
+  content: "";
+  display: table; }
+  .example-9 > * {
+    float: left; }
+  .example-9 > * {
+    width: 50%; }
+  .example-9 .nested {
+    content: "";
+    display: table; }
+    .example-9 .nested > * {
+      float: left; }
+    .example-9 .nested > * {
+      width: 50%; }
+
+.example-10 {
+  content: "";
+  display: table; }
+  .example-10 > * {
+    float: left; }
+  .example-10 > *:nth-child(1) {
+    width: 33.33333%; }
+  .example-10 > *:nth-child(2) {
+    width: 66.66667%; }
+  .example-10 > * {
+    padding: 10px; }
+  .example-10 .content .article {
+    content: "";
+    display: table; }
+    .example-10 .content .article > * {
+      float: left; }
+    .example-10 .content .article > * {
+      width: 50%; }
+    .example-10 .content .article > * {
+      padding: 10px; }
+  .example-10 .content aside {
+    content: "";
+    display: table; }
+    .example-10 .content aside > * {
+      float: left; }
+    .example-10 .content aside > *:nth-child(1) {
+      width: 83.33333%; }
+    .example-10 .content aside > *:nth-child(2) {
+      width: 16.66667%; }
+    .example-10 .content aside > * {
+      padding: 10px; }
+
+.example-10 {
+  outline: black solid 1px; }
+  .example-10 .sidebar, .example-10 .content {
+    outline: red solid 1px; }
+    .example-10 .sidebar .article, .example-10 .sidebar aside, .example-10 .content .article, .example-10 .content aside {
+      outline: blue solid 1px; }
+      .example-10 .sidebar .article div, .example-10 .sidebar aside div, .example-10 .content .article div, .example-10 .content aside div {
+        outline: green solid 1px; }
+
+/* Example Styling
+-----------------------------*/
 body {
   position: relative;
   width: 100%;
@@ -402,186 +608,7 @@ body > * {
 h1, h2 {
   outline: none !important; }
 
-#intro,
-article,
-.single,
-.example,
-.flush,
-.order {
-  content: "";
-  display: table;
-  clear: both; }
-  #intro > *,
-  article > *,
-  .single > *,
-  .example > *,
-  .flush > *,
-  .order > * {
-    width: 100%/""; }
-  #intro > *,
-  article > *,
-  .single > *,
-  .example > *,
-  .flush > *,
-  .order > * {
-    padding: 10px 25px; }
-
-@media (min-width: 750px) {
-  .example {
-    display: none; } }
-@media (min-width: 1200px) {
-  .example {
-    display: block;
-    display: initial; } }
-#intro {
-  content: "";
-  display: table; }
-  #intro > * {
-    float: left; }
-  #intro > * {
-    width: 50%; }
-
-.nested {
-  content: "";
-  display: table; }
-  .nested > * {
-    float: left; }
-  .nested > * {
-    width: 50%; }
-
-#trevor {
-  content: "";
-  display: table; }
-  #trevor > * {
-    float: left; }
-  #trevor > *:nth-child(1) {
-    width: 16.66667%; }
-  #trevor > *:nth-child(2) {
-    width: 41.66667%; }
-  #trevor > *:nth-child(3) {
-    width: 41.66667%; }
-  #trevor > * {
-    padding: 10px 25px; }
-
-#trevorsimple {
-  content: "";
-  display: table; }
-  #trevorsimple > * {
-    float: left; }
-  #trevorsimple > *:nth-child(1) {
-    width: 16.66667%; }
-  #trevorsimple > *:nth-child(2) {
-    width: 66.66667%; }
-  #trevorsimple > *:nth-child(3) {
-    width: 16.66667%; }
-  #trevorsimple > * {
-    padding: 10px 25px; }
-
-.single {
-  content: "";
-  display: table; }
-  .single > * {
-    float: left; }
-  .single > *:nth-child(1) {
-    width: 25%; }
-  .single > *:nth-child(2) {
-    width: 75%; }
-
-article {
-  content: "";
-  display: table; }
-  article > * {
-    float: left; }
-  article > * {
-    width: 25%; }
-
-.order {
-  content: "";
-  display: table; }
-  .order > * {
-    float: left; }
-  .order > * {
-    width: 25%; }
-  .order > *:nth-child(4) {
-    right: 75%;
-    position: relative; }
-  .order > *:nth-child(1) {
-    left: 25%;
-    position: relative; }
-  .order > *:nth-child(2) {
-    left: 50%;
-    position: relative; }
-
-.flush {
-  content: "";
-  display: table; }
-  .flush > * {
-    float: left; }
-  .flush > * {
-    width: 25%; }
-  .flush > *:first-child {
-    padding-left: 0; }
-  .flush > *:last-child {
-    padding-right: 0; }
-
-.even {
-  content: "";
-  display: table;
-  clear: both; }
-  .even > * {
-    width: 100%/""; }
-
-.even > div {
-  float: left; }
-  .even > div:nth-child(1) {
-    width: 50%; }
-  .even > div:nth-child(2) {
-    width: 25%; }
-  .even > div:nth-child(3) {
-    width: 25%; }
-
 div p {
   word-wrap: break-word; }
-
-#complex {
-  content: "";
-  display: table; }
-  #complex > * {
-    float: left; }
-  #complex > *:nth-child(1) {
-    width: 33.33333%; }
-  #complex > *:nth-child(2) {
-    width: 66.66667%; }
-  #complex > * {
-    padding: 10px; }
-  #complex .content .article {
-    content: "";
-    display: table; }
-    #complex .content .article > * {
-      float: left; }
-    #complex .content .article > * {
-      width: 50%; }
-    #complex .content .article > * {
-      padding: 10px; }
-  #complex .content aside {
-    content: "";
-    display: table; }
-    #complex .content aside > * {
-      float: left; }
-    #complex .content aside > *:nth-child(1) {
-      width: 83.33333%; }
-    #complex .content aside > *:nth-child(2) {
-      width: 16.66667%; }
-    #complex .content aside > * {
-      padding: 10px; }
-
-#complex {
-  outline: black solid 1px; }
-  #complex .sidebar, #complex .content {
-    outline: red solid 1px; }
-    #complex .sidebar .article, #complex .sidebar aside, #complex .content .article, #complex .content aside {
-      outline: blue solid 1px; }
-      #complex .sidebar .article div, #complex .sidebar aside div, #complex .content .article div, #complex .content aside div {
-        outline: green solid 1px; }
 
 /*# sourceMappingURL=main.css.map */

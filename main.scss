@@ -1,100 +1,85 @@
 @import "neutron/neutron";
 
+/* Code Examples
+-----------------------------*/
 body {
 	@include container();
-	margin-bottom: 24px;
 }
 
-body > * {
-	outline: 1px solid red; 
-}
-h1, h2 {
-	outline: none !important;
-}
-
-#intro,
-article,
-.single,
-.example,
-.flush,
-.order {
+.example-1,
+.example-2,
+.example-3,
+.example-4,
+.example-5,
+.example-5-alt,
+.example-6,
+.example-7,
+.example-8,
+.example-9,
+.example-10 {
 	@include row($padding:10px 25px); 
 }
 
-@include hide(".example", $qry-desktop-small);
-@include show(".example", $qry-desktop-large);
-
-#intro {
-	@include row(2);
-}
-
-.nested {
-	@include row(2);
-}
-
-
-#trevor {
+.example-1 {
 	@include row((2,5,5), $padding:10px 25px);
 }
 
-#trevorsimple {
+.example-2 {
 	@include row((2,8,2), $padding:10px 25px);
 }
 
-.single {
+.example-3 {
 	@include row((2,6));
 }
+.example-4 {
+	@include row();
+	
+	& > div {
+		@include column((2,1,1));
+	}
+}
 
-article {
+.example-5 {
+	@include hide($qry-desktop-small);
+	@include show($qry-desktop-large);
+}
+
+.example-6 {
 	@include row(4);
 }
 
-.order {
+.example-7 {
+	@include row(4, $flush-padding:true);
+}
+
+.example-8 {
 	@include row(4);
 	@include order((4,1,3,2));
 }
 
-.flush {
-	@include row(4, $flush-padding:true);
+.example-9 {
+	@include row(2);
+	
+	.nested {
+		@include row(2);
+	}
 }
 
-.even {
-	@include row();
-}
-.even > div {
-	@include column((2,1,1));
-}
-
-
-//section#complex,
-//.content,
-//.article,
-//aside {
-//	@include row($padding: 10px);
-//}
-
-div p {
-	word-wrap: break-word;
-}
-
-#complex {
+.example-10 {
 	@include row((1,2), 10px);
 	
 	.content {
-
 		.article {
 			@include row(2, 10px);
 		}
-		
+
 		aside {
 			@include row((5,1), 10px);
 		}
 	}
 }
 
-
-
-#complex {
+.example-10 {
 	outline: black solid 1px;
 	
 	.sidebar, .content {
@@ -110,4 +95,22 @@ div p {
 	}
 }
 
+/* Example Styling
+-----------------------------*/
+
+body {
+	@include container();
+	margin-bottom: 24px;
+}
+
+body > * {
+	outline: 1px solid red; 
+}
+h1, h2 {
+	outline: none !important;
+}
+
+div p {
+	word-wrap: break-word;
+}
 
