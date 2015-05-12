@@ -6,14 +6,14 @@
 @import "modules/queries";
 @import "modules/utilities";
 
-/* Theme
+/* Themes
 -------------------------------------*/
-@import "theme/typography";
-@import "theme/buttons";
-@import "theme/forms";
-@import "theme/lists";
-@import "theme/code";
-@import "theme/tables";
+@import "themes/neutron/typography";
+@import "themes/neutron/buttons";
+@import "themes/neutron/forms";
+@import "themes/neutron/lists";
+@import "themes/neutron/code";
+@import "themes/neutron/tables";
 
 /* Helper Functions
 -------------------------------------*/
