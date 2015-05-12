@@ -397,8 +397,6 @@ body {
   display: table;
   clear: both; }
 
-.example-1,
-.example-2,
 .example-3,
 .example-4,
 .example-5,
@@ -411,8 +409,6 @@ body {
   content: "";
   display: table;
   clear: both; }
-  .example-1 > *,
-  .example-2 > *,
   .example-3 > *,
   .example-4 > *,
   .example-5 > *,
@@ -423,8 +419,6 @@ body {
   .example-9 > *,
   .example-10 > * {
     width: 100%/""; }
-  .example-1 > *,
-  .example-2 > *,
   .example-3 > *,
   .example-4 > *,
   .example-5 > *,
