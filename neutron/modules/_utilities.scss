@@ -4,22 +4,45 @@
 	clear: both;
 }
 
-@mixin hide($selector:"", $media-query:"") {
-	@if $selector != "" and $media-query != "" {
+//@mixin hide($selector:"", $media-query:"") {
+//	@if $selector != "" and $media-query != "" {
+//
+//		@media #{$media-query} {
+//			#{$selector} {
+//				display:none;
+//			}
+//		}
+//	}
+//}
+
+@mixin hide($media-query:"") {
+	@if $media-query != "" {
 
 		@media #{$media-query} {
-			#{$selector} {
+			& {
 				display:none;
 			}
 		}
 	}
 }
 
-@mixin show($selector:"", $media-query:"",$display-as:"block") {
-	@if $selector != "" and $media-query != "" {
+//@mixin show($selector:"", $media-query:"",$display-as:"block") {
+//	@if $selector != "" and $media-query != "" {
+//
+//		@media #{$media-query} {
+//			#{$selector} {
+//				display: unquote($display-as);
+//				display: initial;
+//			}
+//		}
+//	}
+//}
+
+@mixin show($media-query:"", $display-as:"block") {
+	@if $media-query != "" {
 
 		@media #{$media-query} {
-			#{$selector} {
+			& {
 				display: unquote($display-as);
 				display: initial;
 			}
