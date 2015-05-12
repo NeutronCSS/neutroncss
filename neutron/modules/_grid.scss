@@ -2,10 +2,10 @@
 ---------------------------------------------*/
 
 //Declares the container element of the child rows and columns
-@mixin container($width:960px) {
+@mixin container($max-width:960px) {
 	position: relative;
 	width: 100%;
-	max-width: $width;
+	max-width: $max-width;
 	margin: 0 auto;
 	
 	//self clear
