@@ -1,14 +1,14 @@
-/* Larger than mobile */
+// Larger than mobile
 $qry-phablet: "(min-width: 400px)";
 
-/* Larger than phablet (also point when grid becomes active) */
+// Larger than phablet (also point when grid becomes active)
 $qry-tablet: "(min-width: 550px)";
 
-/* Larger than tablet */
+// Larger than tablet
 $qry-desktop-small: "(min-width: 750px)";
 
-/* Larger than small desktop */
+// Larger than small desktop
 $qry-desktop: "(min-width: 1000px)";
 
-/* Larger than desktop */
+// Larger than desktop
 $qry-desktop-large: "(min-width: 1200px)";
