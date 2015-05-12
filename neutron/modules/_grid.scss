@@ -1,0 +1,177 @@
+/* Grid
+---------------------------------------------*/
+
+//Declares the container element of the child rows and columns
+@mixin container($width:960px) {
+	position: relative;
+	width: 100%;
+	max-width: $width;
+	margin: 0 auto;
+	
+	//self clear
+	content: "";
+	display: table;
+	clear: both;
+}
+
+//Declares the row element of child columns
+@mixin row($columns:"", $padding:"", $flush-padding:false) {
+	
+	//self clear
+	content: "";
+	display: table;
+	
+	@if $columns != "" {
+		& > * {
+			float:left;
+		}
+	} @else {
+		clear: both;
+	}
+	
+	@if type-of($columns) != list {
+		& > * {
+			width: (100% / $columns);
+		}
+	}
+	
+	@if type-of($columns) == list {
+		//columns are a list
+		
+		$total: sum($columns);
+		$index: 0;
+
+		@each $column in $columns {	
+
+			$index: $index + 1;
+			
+			& > *:nth-child(#{$index}) {
+				width: (100% / $total) * $column;
+			}
+
+		}
+		
+	}
+		
+	//if padding argument passed set padding
+	@if $padding != "" {
+		& > * {
+			padding: $padding;	
+		}
+	}
+
+	//if padding is set to be flush remove 
+	//padding on left and right padding on 
+	//the first and last columns respectively.
+	@if $flush-padding == true {
+		& > * {
+			&:first-child {
+				padding-left: 0;
+			}
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+	}
+
+}
+
+@mixin push($column, $push-by, $total-columns) {
+
+	& > *:nth-child(#{$column}) {
+		left: (100% / $total-columns) * $push-by;
+		position: relative;
+	}
+
+}
+
+
+@mixin pull($column, $pull-by, $total-columns) {
+
+	& > *:nth-child(#{$column}) {
+		right: (100% / $total-columns) * $pull-by;
+		position: relative;
+	}
+
+}
+
+@mixin order($order:"") {
+	
+	@if type-of($order) == list {
+
+		$total: length($order);
+		
+		$index: 0;
+		@each $column in $order {	
+			$index: $index + 1;
+			
+			//push
+			@if $column < $index {
+				$push-by: $index - $column;
+				@include push($column,$push-by,$total);
+			}
+			
+			//pull
+			@if $column > $index {
+				$pull-by: $column - $index;
+				@include pull($column,$pull-by,$total);
+			}
+
+		}
+	}
+
+}
+
+//Declares the column elements
+@mixin columns($columns:"", $padding:"", $flush-padding:false) { 
+	float:left;
+
+	//If column argument passed, set width
+	@if $columns != "" {
+		
+		@if type-of($columns) != list {
+					
+			width: (100% / $columns);
+			
+		} @else {
+			
+			$total: sum($columns);
+			$index: 0;
+	
+			@each $column in $columns {
+				$index: $index + 1;
+				
+				&:nth-child(#{$index}) {
+					width: (100% / $total) * $column;
+				}
+			}
+		}
+	}
+	
+	//if padding argument passed set padding
+	@if $padding != "" {
+		padding: $padding;		
+	}
+
+	//if padding is set to be flush remove 
+	//padding on left and right padding on 
+	//the first and last columns respectively.
+	@if $flush-padding == true {
+		&:first-child {
+			padding-left: 0;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+
+
+	
+
+
+}
+
+//Non-plural alias for columns mixin
+@mixin column($columns:"", $padding:"", $flush-padding:false) {
+	@include columns($columns, $padding, $flush-padding);
+}

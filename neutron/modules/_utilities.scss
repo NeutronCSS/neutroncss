@@ -1,0 +1,30 @@
+@mixin self-clear() {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+@mixin hide($selector:"", $media-query:"") {
+	@if $selector != "" and $media-query != "" {
+
+		@media #{$media-query} {
+			#{$selector} {
+				display:none;
+			}
+		}
+	}
+}
+
+@mixin show($selector:"", $media-query:"",$display-as:"block") {
+	@if $selector != "" and $media-query != "" {
+
+		@media #{$media-query} {
+			#{$selector} {
+				display: unquote($display-as);
+				display: initial;
+			}
+		}
+	}
+}
+
+

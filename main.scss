@@ -1,0 +1,113 @@
+@import "neutron/neutron";
+
+body {
+	@include container();
+	margin-bottom: 24px;
+}
+
+body > * {
+	outline: 1px solid red; 
+}
+h1, h2 {
+	outline: none !important;
+}
+
+#intro,
+article,
+.single,
+.example,
+.flush,
+.order {
+	@include row($padding:10px 25px); 
+}
+
+@include hide(".example", $qry-desktop-small);
+@include show(".example", $qry-desktop-large);
+
+#intro {
+	@include row(2);
+}
+
+.nested {
+	@include row(2);
+}
+
+
+#trevor {
+	@include row((2,5,5), $padding:10px 25px);
+}
+
+#trevorsimple {
+	@include row((2,8,2), $padding:10px 25px);
+}
+
+.single {
+	@include row((2,6));
+}
+
+article {
+	@include row(4);
+}
+
+.order {
+	@include row(4);
+	@include order((4,1,3,2));
+}
+
+.flush {
+	@include row(4, $flush-padding:true);
+}
+
+.even {
+	@include row();
+}
+.even > div {
+	@include column((2,1,1));
+}
+
+
+//section#complex,
+//.content,
+//.article,
+//aside {
+//	@include row($padding: 10px);
+//}
+
+div p {
+	word-wrap: break-word;
+}
+
+#complex {
+	@include row((1,2), 10px);
+	
+	.content {
+
+		.article {
+			@include row(2, 10px);
+		}
+		
+		aside {
+			@include row((5,1), 10px);
+		}
+	}
+}
+
+
+
+#complex {
+	outline: black solid 1px;
+	
+	.sidebar, .content {
+		outline: red solid 1px;
+		
+		.article, aside {
+			outline: blue solid 1px;
+			
+			div {
+				outline: green solid 1px;
+			}
+		}
+	}
+}
+
+
