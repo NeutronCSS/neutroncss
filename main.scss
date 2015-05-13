@@ -59,10 +59,10 @@ body {
 
 .example-9 {
 	@include container(2);
-	
-	.nested {
-		@include container(2);
-	}
+}
+
+.nested {
+	@include container(2);
 }
 
 .example-10 {
