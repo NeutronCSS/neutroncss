@@ -15,23 +15,23 @@ body {
 .example-8,
 .example-9,
 .example-10 {
-	@include row-padding(10px 25px); 
+	@include column-padding(10px 25px); 
 }
 
 .example-1 {
-	@include row((2,5,5));
-	@include row-padding(10px 25px);
+	@include container((2,5,5));
+	@include column-padding(10px 25px);
 }
 
 .example-2 {
-	@include row((2,8,2));
-	@include row-padding(10px 25px);}
+	@include container((2,8,2));
+	@include column-padding(10px 25px);}
 
 .example-3 {
-	@include row((2,6));
+	@include container((2,6));
 }
 .example-4 {
-	@include row();
+	@include container();
 	
 	& > div {
 		@include column((2,1,1));
@@ -44,39 +44,39 @@ body {
 }
 
 .example-6 {
-	@include row(4);
+	@include container(4);
 }
 
 .example-7 {
-	@include row(4);
-	@include row-padding($flush-padding:true);
+	@include container(4);
+	@include column-padding($flush-padding:true);
 }
 
 .example-8 {
-	@include row(4);
+	@include container(4);
 	@include order((4,1,3,2));
 }
 
 .example-9 {
-	@include row(2);
+	@include container(2);
 	
 	.nested {
-		@include row(2);
+		@include container(2);
 	}
 }
 
 .example-10 {
-	@include row((1,2));
-	@include row-padding(10px);
+	@include container((1,2));
+	@include column-padding(10px);
 	.content {
 		.article {
-			@include row(2);
-			@include row-padding(10px);
+			@include container(2);
+			@include column-padding(10px);
 		}
 
 		aside {
-			@include row((5,1));
-			@include row-padding(10px);
+			@include container((5,1));
+			@include column-padding(10px);
 		}
 	}
 }
@@ -98,9 +98,9 @@ body {
 }
 
 .example-11 {
-	//@include row((2,2,2,3.5));
-	@include row((1,1,1,1.75));
-	@include row-padding(10px 25px);
+	//@include container((2,2,2,3.5));
+	@include container((1,1,1,1.75));
+	@include column-padding(10px 25px);
 }
 
 /* Example Styling
@@ -134,3 +134,16 @@ nav ul .subhead {
 
 
 
+
+/* Theme Example Styling
+-----------------------------*/
+
+.themes-1 {
+	@include container(2);
+	@include column-padding(15px);
+	
+	.test {
+		@include button();
+	}
+
+}

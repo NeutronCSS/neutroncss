@@ -2,16 +2,19 @@
 ---------------------------------------------*/
 
 //Declares the container element of the child rows and columns
-@mixin container($max-width:960px) {
-	position: relative;
+//@mixin container($max-width:960px) {
+//	//position: relative;
+//	width: 100%;
+//	max-width: $max-width;
+//	margin: 0 auto;
+//	@include clear-fix();
+//}
+
+//Declares the row element of child columns
+@mixin container($columns:"", $max-width:960px) {
 	width: 100%;
 	max-width: $max-width;
 	margin: 0 auto;
-	@include clear-fix();
-}
-
-//Declares the row element of child columns
-@mixin row($columns:"") {
 	@include clear-fix();
 
 	@if $columns != "" {
@@ -43,7 +46,7 @@
 	}
 }
 
-@mixin row-padding($padding:"", $flush-padding:false) {
+@mixin column-padding($padding:"", $flush-padding:false) {
 	//if padding argument passed, set padding
 	@if $padding != "" {
 		& > * {
