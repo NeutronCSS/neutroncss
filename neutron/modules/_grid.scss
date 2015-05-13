@@ -3,25 +3,24 @@
 
 //Declares the container element of child rows or columns
 @mixin container($columns:"", $max-width:960px, $align:"") {
-	width: 100%;
 	max-width: $max-width;
-	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
 	@include clear-fix();
-
-	@if $columns != "" {
-		& > * {
-			float:left;
-		}
-
-	}
 	
+	//If argument is not a list, 
+	//and is not empty, set equal 
+	//width to all immediate child elements
 	@if type-of($columns) != list and $columns != "" {
-
 		& > * {
 			width: (100% / $columns);
+			float:left;
 		}
 	}
 	
+	//If argument is a list, set 
+	//width of each immediate child 
+	//as instructed by passed list
 	@if type-of($columns) == list {
 		$total: sum($columns);
 		$index: 0;
@@ -32,10 +31,19 @@
 
 			& > *:nth-child(#{$index}) {
 				width: (100% / $total) * $column;
+				float:left;
 			}
 		}
 	}
 	
+	//Set alignment of container
+	@if $align != "" {
+		@include container-alignment($align);
+	}
+}
+
+@mixin container-alignment($align:"") {
+	//Set alignment 
 	@if $align != "" {
 		
 		@if $align == left {
@@ -52,8 +60,6 @@
 		}
 
 	}
-	
-	
 }
 
 @mixin column-padding($padding:"", $flush-padding:false) {
