@@ -1,16 +1,7 @@
 /* Grid
 ---------------------------------------------*/
 
-//Declares the container element of the child rows and columns
-//@mixin container($max-width:960px) {
-//	//position: relative;
-//	width: 100%;
-//	max-width: $max-width;
-//	margin: 0 auto;
-//	@include clear-fix();
-//}
-
-//Declares the row element of child columns
+//Declares the container element of child rows or columns
 @mixin container($columns:"", $max-width:960px) {
 	width: 100%;
 	max-width: $max-width;
