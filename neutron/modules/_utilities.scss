@@ -1,13 +1,6 @@
 /* Utilities
 ---------------------------------------------*/
 
-//Adds block element self clearing
-@mixin self-clear() {
-	content: "";
-	display: table;
-	clear: both;
-}
-
 //hides the element when the 
 //provided media query is supplied.
 @mixin hide($media-query:"") {
@@ -35,4 +28,19 @@
 	}
 }
 
+// converts list containing
+// li elements containing anchor
+// tags into a row of buttons.
+@mixin navify() {
+	& li {
+		list-style-type: none;
+		display: block;
+			float: left;
+		
+		& a {
+			display: block;
+            text-decoration: none;
+		}
+	}
+}
 

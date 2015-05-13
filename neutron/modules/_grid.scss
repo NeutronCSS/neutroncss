@@ -7,53 +7,44 @@
 	width: 100%;
 	max-width: $max-width;
 	margin: 0 auto;
-	
-	//self clear
-	content: "";
-	display: table;
-	clear: both;
+	@include clear-fix();
 }
 
 //Declares the row element of child columns
-@mixin row($columns:"", $padding:"", $flush-padding:false) {
-	
-	//self clear
-	content: "";
-	display: table;
-	
+@mixin row($columns:"") {
+	@include clear-fix();
+
 	@if $columns != "" {
 		& > * {
 			float:left;
 		}
-	} @else {
-		clear: both;
+
 	}
 	
-	@if type-of($columns) != list {
+	@if type-of($columns) != list and $columns != "" {
+
 		& > * {
 			width: (100% / $columns);
 		}
 	}
 	
 	@if type-of($columns) == list {
-		//columns are a list
-		
 		$total: sum($columns);
 		$index: 0;
 
 		@each $column in $columns {	
 
 			$index: $index + 1;
-			
+
 			& > *:nth-child(#{$index}) {
 				width: (100% / $total) * $column;
 			}
-
 		}
-		
 	}
-		
-	//if padding argument passed set padding
+}
+
+@mixin row-padding($padding:"", $flush-padding:false) {
+	//if padding argument passed, set padding
 	@if $padding != "" {
 		& > * {
 			padding: $padding;	
@@ -73,7 +64,6 @@
 			}
 		}
 	}
-
 }
 
 @mixin push($column, $push-by, $total-columns) {
@@ -82,7 +72,6 @@
 		left: (100% / $total-columns) * $push-by;
 		position: relative;
 	}
-
 }
 
 
@@ -92,7 +81,6 @@
 		right: (100% / $total-columns) * $pull-by;
 		position: relative;
 	}
-
 }
 
 @mixin order($order:"") {
@@ -116,10 +104,8 @@
 				$pull-by: $column - $index;
 				@include pull($column,$pull-by,$total);
 			}
-
 		}
 	}
-
 }
 
 //Declares the column elements
@@ -164,11 +150,6 @@
 			padding-right: 0;
 		}
 	}
-
-
-	
-
-
 }
 
 //Non-plural alias for columns mixin

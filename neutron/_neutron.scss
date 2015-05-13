@@ -1,6 +1,6 @@
-//---------------------------------
-//        NeutronCSS
-//---------------------------------
+/*---------------------------------
+           NeutronCSS
+---------------------------------*/
 
 /* Modules
 -------------------------------------*/
@@ -31,6 +31,42 @@
 	}
 	@return $total;
 	
+}
+
+//Adds block element self clearing
+@mixin clear-fix() {
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+/* Default Media Queries
+-------------------------------------*/
+// Larger than mobile
+@if variable-exists(qry-phablet) == false {
+	$qry-phablet: "(min-width: 400px)";
+}
+
+// Larger than phablet (also point when grid becomes active)
+@if variable-exists(qry-tablet) == false {
+	$qry-tablet: "(min-width: 550px)";
+}
+
+// Larger than tablet
+@if variable-exists(qry-desktop-small) == false {
+	$qry-desktop-small: "(min-width: 750px)";
+}
+
+// Larger than small desktop
+@if variable-exists(qry-desktop) == false {
+	$qry-desktop: "(min-width: 1000px)";
+}
+
+// Larger than desktop
+@if variable-exists(qry-desktop-large) == false {
+	$qry-desktop-large: "(min-width: 1200px)";
 }
 
 /* Required Styles

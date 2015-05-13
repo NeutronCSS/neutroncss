@@ -15,16 +15,17 @@ body {
 .example-8,
 .example-9,
 .example-10 {
-	@include row($padding:10px 25px); 
+	@include row-padding(10px 25px); 
 }
 
 .example-1 {
-	@include row((2,5,5), $padding:10px 25px);
+	@include row((2,5,5));
+	@include row-padding(10px 25px);
 }
 
 .example-2 {
-	@include row((2,8,2), $padding:10px 25px);
-}
+	@include row((2,8,2));
+	@include row-padding(10px 25px);}
 
 .example-3 {
 	@include row((2,6));
@@ -47,7 +48,8 @@ body {
 }
 
 .example-7 {
-	@include row(4, $flush-padding:true);
+	@include row(4);
+	@include row-padding($flush-padding:true);
 }
 
 .example-8 {
@@ -64,15 +66,17 @@ body {
 }
 
 .example-10 {
-	@include row((1,2), 10px);
-	
+	@include row((1,2));
+	@include row-padding(10px);
 	.content {
 		.article {
-			@include row(2, 10px);
+			@include row(2);
+			@include row-padding(10px);
 		}
 
 		aside {
-			@include row((5,1), 10px);
+			@include row((5,1));
+			@include row-padding(10px);
 		}
 	}
 }
@@ -93,22 +97,40 @@ body {
 	}
 }
 
+.example-11 {
+	//@include row((2,2,2,3.5));
+	@include row((1,1,1,1.75));
+	@include row-padding(10px 25px);
+}
+
 /* Example Styling
 -----------------------------*/
 
 body {
-	@include container();
 	margin-bottom: 24px;
 }
 
-body > * {
-	outline: 1px solid red; 
-}
-h1, h2 {
-	outline: none !important;
+section {
+	outline: 1px solid red;
+	margin-bottom: 50px;
 }
 
 div p {
 	word-wrap: break-word;
 }
+nav {
+	@include clear-fix();
+}
+nav ul {
+	//@include navify();
+}
+
+nav ul a {
+	padding: 16px 24px;
+}
+nav ul .subhead {
+	padding: 16px 24px;
+}
+
+
 
