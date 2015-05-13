@@ -6,7 +6,7 @@
 -------------------------------------*/
 @import "modules/normalise";
 @import "modules/grid";
-//@import "modules/flexbox";
+@import "modules/flexbox";
 @import "modules/queries";
 @import "modules/utilities";
 
@@ -23,7 +23,7 @@
 -------------------------------------*/
 
 //Adds all items in a list and returns the result
- @function sum($list) {
+@function sum($list) {
 	
 	$total: 0;
 	@each $element in $list {
@@ -45,29 +45,19 @@
 /* Default Media Queries
 -------------------------------------*/
 // Larger than mobile
-@if variable-exists(qry-phablet) == false {
-	$qry-phablet: "(min-width: 480px)";
-}
+$qry-phablet: "(min-width: 480px)" !default;
 
 // Larger than phablet (also point when grid becomes active)
-@if variable-exists(qry-tablet) == false {
-	$qry-tablet: "(min-width: 7680px)";
-}
+$qry-tablet: "(min-width: 7680px)" !default;
 
 // Larger than tablet
-@if variable-exists(qry-desktop-small) == false {
-	$qry-desktop-small: "(min-width: 1024px)";
-}
+$qry-desktop-small: "(min-width: 1024px)" !default;
 
 // Larger than small desktop
-@if variable-exists(qry-desktop) == false {
-	$qry-desktop: "(min-width: 1200px)";
-}
+$qry-desktop: "(min-width: 1200px)" !default;
 
 // Larger than desktop
-@if variable-exists(qry-desktop-large) == false {
-	$qry-desktop-large: "(min-width: 1800px)";
-}
+$qry-desktop-large: "(min-width: 1800px)" !default;
 
 /* Required Styles
 -------------------------------------*/
@@ -94,3 +84,4 @@ are based on 10px sizing. So basically 1.5rem = 15px :) */
 html {
 	font-size: 62.5%;
 }
+

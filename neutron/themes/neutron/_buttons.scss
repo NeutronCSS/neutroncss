@@ -61,15 +61,15 @@ input[type="button"].button-primary:focus {
 	border-color: #1EAEDB;
 }
 
-.button-active {
-	
-}
-.button-disabled {
-	
-}
-.button-warning {
-	
-}
+//.button-active {
+//	
+//}
+//.button-disabled {
+//	
+//}
+//.button-warning {
+//	
+//}
 
 
 @mixin button($type:"", $size:"normal", $disabled:false) {

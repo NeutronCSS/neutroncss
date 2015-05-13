@@ -151,5 +151,29 @@ nav ul .subhead {
 	.test {
 		@include button();
 	}
+}
+
+
+
+
+/* Flexbox Example Styling
+-----------------------------*/
+
+.flexbox-1 {
+	//@include flex-container((1,2));
+	@include flex-container(2);
+	//@include container((1,2));
+	//@include column-padding(15px);
+
+}
+
+
+.flexbox-2 {
+	//@include flex-container((1,2));
+	@include flex-container((2,1,1));
+	@include flex-order((2,1,3));
+	@include flex-column-padding(10px 24px);
+	//@include container((1,2));
+	//@include column-padding(15px);
 
 }
