@@ -98,8 +98,17 @@ body {
 }
 
 .example-11 {
-	//@include container((2,2,2,3.5));
 	@include container((1,1,1,1.75));
+	@include column-padding(10px 25px);
+}
+
+.example-12 {
+	@include container(2, 50%);
+	@include column-padding(10px 25px);
+}
+
+.example-13 {
+	@include container(2, 50%, right);
 	@include column-padding(10px 25px);
 }
 
@@ -120,9 +129,6 @@ div p {
 }
 nav {
 	@include clear-fix();
-}
-nav ul {
-	//@include navify();
 }
 
 nav ul a {
