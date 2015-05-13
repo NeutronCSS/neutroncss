@@ -2,16 +2,16 @@
 ---------------------------------------------*/
 
 // Larger than mobile
-$qry-phablet: "(min-width: 400px)";
+$qry-phablet: "(min-width: 480px)";
 
 // Larger than phablet (also point when grid becomes active)
-$qry-tablet: "(min-width: 550px)";
+$qry-tablet: "(min-width: 7680px)";
 
 // Larger than tablet
-$qry-desktop-small: "(min-width: 750px)";
+$qry-desktop-small: "(min-width: 1024px)";
 
 // Larger than small desktop
-$qry-desktop: "(min-width: 1000px)";
+$qry-desktop: "(min-width: 1200px)";
 
 // Larger than desktop
-$qry-desktop-large: "(min-width: 1200px)";
+$qry-desktop-large: "(min-width: 1800px)";
