@@ -46,27 +46,27 @@
 -------------------------------------*/
 // Larger than mobile
 @if variable-exists(qry-phablet) == false {
-	$qry-phablet: "(min-width: 400px)";
+	$qry-phablet: "(min-width: 480px)";
 }
 
 // Larger than phablet (also point when grid becomes active)
 @if variable-exists(qry-tablet) == false {
-	$qry-tablet: "(min-width: 550px)";
+	$qry-tablet: "(min-width: 7680px)";
 }
 
 // Larger than tablet
 @if variable-exists(qry-desktop-small) == false {
-	$qry-desktop-small: "(min-width: 750px)";
+	$qry-desktop-small: "(min-width: 1024px)";
 }
 
 // Larger than small desktop
 @if variable-exists(qry-desktop) == false {
-	$qry-desktop: "(min-width: 1000px)";
+	$qry-desktop: "(min-width: 1200px)";
 }
 
 // Larger than desktop
 @if variable-exists(qry-desktop-large) == false {
-	$qry-desktop-large: "(min-width: 1200px)";
+	$qry-desktop-large: "(min-width: 1800px)";
 }
 
 /* Required Styles
@@ -79,12 +79,18 @@
  */
 
 html {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html * {
-  -moz-box-sizing: inherit;
-  box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
 }
 
+/* NOTE
+html is set to 62.5% so that all the REM measurements throughout Skeleton
+are based on 10px sizing. So basically 1.5rem = 15px :) */
+html {
+	font-size: 62.5%;
+}
