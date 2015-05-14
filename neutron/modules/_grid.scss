@@ -8,21 +8,22 @@
 	margin-right: auto;
 	@include clear-fix();
 
+	@if length($target) == 0 {
+		$target: "*";
+	}
+	
 	//If argument is not a list, 
 	//and is not empty, set equal 
 	//width to all immediate child elements
 	@if type-of($columns) != list and $columns != "" {
-		& > * {
+		& > #{$target} {
 			width: (100% / $columns);
 			float:left;
 			padding: $column-padding;
+			@content;
 		}
 	}
-	
-	@if $target == "" {
-		$target: "*";
-	}
-	
+
 	//If argument is a list, set 
 	//width of each immediate child 
 	//as instructed by passed list
@@ -37,6 +38,7 @@
 				width: (100% / $total) * $column;
 				float:left;
 				padding: $column-padding;
+				@content;
 			}
 		}
 	}
@@ -47,14 +49,6 @@
 	}
 }
 
-@mixin columns-padding($padding:"") {
-	//if padding argument passed, set padding
-	@if $padding != "" {
-		& > * {
-			padding: $padding;	
-		}
-	}
-}
 
 @mixin flush-padding($active:true) {
 	//if padding is set to be flush remove 

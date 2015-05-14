@@ -52,17 +52,21 @@ body {
 }
 
 .example-10 {
-	@include container((1,2));
-	@include columns-padding(10px);
+	@include container((1,2)) {
+		$padding: 10px;
+	}
+
 	.content {
 		.article {
-			@include container(2);
-			@include columns-padding(10px);
+			@include container(2) {
+				$padding: 10px;
+			}
 		}
 
 		aside {
-			@include container((5,1));
-			@include columns-padding(10px);
+			@include container((5,1)) {
+				$padding: 10px;
+			}
 		}
 	}
 }
@@ -101,6 +105,13 @@ body {
 	div:nth-child(3) {
 		@include hide($qry-tablet);
 	} 
+}
+
+.example-15 {
+	@include container(4, $target:div) {
+		color: red;
+		padding:40px;
+	}	
 }
 
 /* Example Styling
