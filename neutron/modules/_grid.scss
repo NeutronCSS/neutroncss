@@ -99,10 +99,23 @@
 	@return $calculated-widths;
 }
 
-@mixin order($order:"", $columns:"") {
+@mixin order($order, $columns:"") {
 	
-	@if type-of($order) == list and type-of($columns) == list {
-		
+	@if type-of($order) == list {
+		//if no ratio is set, determine 
+		//ratio from provided order list
+		@if $columns == "" {
+			$columns:();
+			$order-count: length($order);
+
+			@for $i from 1 through $order-count {
+				$columns: append($columns, 1, comma);
+			}
+
+		}
+
+		//calculate widths of 
+		//current and new layouts
 		$column-count: length($columns);
 		$new-columns:();
 		@each $index in $order {
@@ -113,6 +126,7 @@
 		$original-widths:calculate-widths($columns);
 		$new-widths:calculate-widths($new-columns);
 	
+		//iterate through each column
 		$index: 0;
 		@each $column in $order {
 			$index: $index + 1;

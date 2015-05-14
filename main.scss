@@ -74,9 +74,12 @@ body {
 	$order: (3,1,4,2);
 //	$order: (3,2,4,1);
 	
-	@include container($column-ratio);
-	@include order($order,$column-ratio);
+//	@include container($column-ratio);
+//	@include order($order,$column-ratio);
 
+	//no ratio provided
+	@include container(4);
+	@include order($order);
 }
 
 .example-9 {
