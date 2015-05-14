@@ -11,6 +11,8 @@
 				display:none;
 			}
 		}
+	} @else {
+		display:none;
 	}
 }
 
@@ -25,22 +27,8 @@
 				display: initial;
 			}
 		}
+	} @else {
+		display: unquote($display-as);
+		display: initial;
 	}
 }
-
-// converts list containing
-// li elements containing anchor
-// tags into a row of buttons.
-@mixin navify() {
-	& li {
-		list-style-type: none;
-		display: block;
-			float: left;
-		
-		& a {
-			display: block;
-            text-decoration: none;
-		}
-	}
-}
-

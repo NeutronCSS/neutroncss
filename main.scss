@@ -134,6 +134,15 @@ body {
 	@include column-padding(10px 25px);
 }
 
+.example-14 {
+	@include container(4);
+	@include column-padding(10px 25px);
+	
+	div:nth-child(3) {
+		@include hide($qry-tablet);
+	} 
+}
+
 /* Example Styling
 -----------------------------*/
 
