@@ -18,7 +18,7 @@ body {
 	@include container((2,6));
 }
 .example-4 {
-	@include container((2,1,1));
+	@include container((2,1,1), $target:div);
 }
 
 .example-5 {
