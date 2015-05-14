@@ -99,174 +99,70 @@
 	@return $calculated-widths;
 }
 
-@mixin push($column, $push-by, $columns) {
-	
-	$calculated-widths-push:calculate-widths($columns);
-	$new-position: $column + $push-by;
-	$left: 0;
-	
-	@for $i from 1 through $new-position {
-		$left: $left + nth($calculated-widths-push, $i);
-	}
-	
-	$left: $left -  nth($calculated-widths-push, $new-position);
-	
-	
-	
-
-	/*
-	$calculated-widths-push: #{$calculated-widths-push}
-	$new-position: #{$new-position}
-	$column: #{$column}
-	$push-by: #{$push-by}
-	*/
-
-	& > *:nth-child(#{$column}) {
-		left: $left;
-		position: relative;
-	}
-	
-}
-
-@mixin pull($column, $pull-by, $columns) {
-	
-	$calculated-widths-pull:calculate-widths($columns);
-	$new-position: $column - $pull-by;
-	$right: 0;
-	
-	@for $i from 1 through $new-position {
-		$right: $right + nth($calculated-widths-pull, $i);
-	}
-	
-	//$right: $right + nth($calculated-widths-pull, $new-position);
-	
-	/*
-	$calculated-widths-pull: #{$calculated-widths-pull}
-	$new-position: #{$new-position}
-	$column: #{$column}
-	$pull-by: #{$pull-by}
-	$right: #{$right}
-	*/
-
-	
-	$right: $right - nth($calculated-widths-pull, $new-position);
-	
-
-	& > *:nth-child(#{$column}) {
-		right: $right;
-		position: relative;
-	}
-	
-}
-
-//@mixin reorder($column, $pull-by, $columns) {
-//	//
-//}
-
 @mixin order($order:"", $columns:"") {
 	
 	@if type-of($order) == list and type-of($columns) == list {
 		
+		$column-count: length($columns);
+		$new-columns:();
+		@each $index in $order {
+			$item: nth($columns, $index);
+			$new-columns:append($new-columns, $item);
+		}
+
+		$original-widths:calculate-widths($columns);
+		$new-widths:calculate-widths($new-columns);
+	
 		$index: 0;
 		@each $column in $order {
 			$index: $index + 1;
+
+			//calc sum of original previous widths
+			$orig-w-before: 0;
+			@for $i from 1 through $column {
+				$orig-w-before: $orig-w-before + nth($original-widths, $i);
+			} 
+			$orig-w-before: $orig-w-before - nth($original-widths, $column);
+	 
+			//calc sum of new previous widths
+			$new-w-before: 0;
+			@for $i from 1 through $index {
+				$new-w-before: $new-w-before + nth($new-widths, $i);
+			} 
+			$new-w-before: $new-w-before - nth($new-widths, $index);
 			
-			//push
-			@if $column < $index {
-				$push-by: $index - $column;
-				@include push($column,$push-by,$columns);
-			}
-			
-			//pull
-			@if $column > $index {
-				$pull-by: $column - $index;
-				@include pull($column,$pull-by,$columns);
-			}
-			
-			@if $column == $index {
-				//if previous columns are smaller, pull
-				//if pervious columns are bigger, push
-				$calculated-widths-original:calculate-widths($columns);
-				$total-columns: sum($columns);
-				$orig-w-before:0;
-				$orig-w-after:100;
-				$new-w-before:0;
-				$new-w-after:100;
-				
-				$new-columns:();
-				
-				@each $index in $order {
-					$item: nth($columns, $index);
-					$new-columns:append($new-columns, $item);
-				}
+			//calc sum of original following widths
+			$orig-w-after: 100;
+			@for $i from 1 through $column {
+				$orig-w-after: $orig-w-after - nth($original-widths, $i);
+			} 
 	
-				$calculated-widths-new:calculate-widths($new-columns);
-				
-				//$total-columns
-				
-				//$new-columns:zip($order, $columns);
-				
-				//sum original width before column
-				@for $i from 1 through $column {
-					$orig-w-before: $orig-w-before + nth($calculated-widths-original, $i);
-				} 
-				$orig-w-before: $orig-w-before - nth($calculated-widths-original, $column);
-
-				//sum original width after column
-				@for $i from 1 through $column {
-					$orig-w-after: $orig-w-after - nth($calculated-widths-original, $i);
-				}
-				$orig-w-after: $orig-w-after;// - nth($calculated-widths-original, $column);
-				
-				
-				
-				//sum new width before column
-				@for $i from 1 through $column {
-					$new-w-before: $new-w-before + nth($calculated-widths-new, $i);
-				}
-				$new-w-before: $new-w-before - nth($calculated-widths-new, $column);
-				
-				//sum new width after column
-				@for $i from 1 through $column {
-					$new-w-after: $new-w-after - nth($calculated-widths-new, $i);
-				}
-				$new-w-after: $new-w-after;// + nth($calculated-widths-new, $column);
-				
-//				/*
-//				$new-columns: #{$new-columns}
-//				$calculated-widths-original: #{$calculated-widths-original}
-//				$calculated-widths-new: #{$calculated-widths-new}
-//				$column: #{$column}
-//				$total-columns: #{$total-columns}
-//				$orig-w-before: #{$orig-w-before};
-//				$orig-w-after: #{$orig-w-after};
-//				
-//				$new-w-before: #{$new-w-before};
-//				$new-w-after: #{$new-w-after};
-//				
-//				
-//				*/
-
-
-				@if $new-w-before > $orig-w-before {
-					$left: $new-w-before - $orig-w-before; 
-					
-					& > *:nth-child(#{$column}) {
-						left: $left;
-						position: relative;
-					}
-				}
-				
-				@if $new-w-after > $orig-w-after {
-					$right: $new-w-after - $orig-w-after; 
-					
-					& > *:nth-child(#{$column}) {
-						right: $right;
-						position: relative;
-					}
-				}
-				
+			//calc sum of new following widths
+			$new-w-after: 100;
+			@for $i from 1 through $index {
+				$new-w-after: $new-w-after - nth($new-widths, $i);
 			}
+						
+			$left: $new-w-before - $orig-w-before;
+			$right: $new-w-after - $orig-w-after;
+
+			@if $index > $column or $column == $index {
+				//if new position is after current one, pull 
+				& > *:nth-child(#{$column}) {
+					left: $left;
+					position: relative;
+				}
+
+			}
+			
+			@if $index < $column {
+				//if new position is before current one, pull 
+				& > *:nth-child(#{$column}) {
+					right: $right;
+					position: relative;
+				}
+				
+			} 
 		}
 	}
 }
