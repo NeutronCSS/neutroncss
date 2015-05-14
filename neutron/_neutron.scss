@@ -12,6 +12,9 @@
 
 /* Themes
 -------------------------------------*/
+@import "overrides";
+
+//Importing default theme
 @import "themes/neutron/typography";
 @import "themes/neutron/buttons";
 @import "themes/neutron/forms";
@@ -35,11 +38,13 @@
 
 //Adds block element self clearing
 @mixin clear-fix() {
+
 	&:after {
 		content: "";
 		display: table;
 		clear: both;
 	}
+
 }
 
 /* Default Media Queries
