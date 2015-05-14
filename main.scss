@@ -6,36 +6,19 @@ body {
 	@include container();
 }
 
-.example-3,
-.example-4,
-.example-5,
-.example-5-alt,
-.example-6,
-.example-7,
-.example-8,
-.example-9,
-.example-10 {
-	@include columns-padding(10px 25px); 
-}
-
 .example-1 {
 	@include container((2,5,5));
-	@include columns-padding(10px 25px);
 }
 
 .example-2 {
 	@include container((2,8,2));
-	@include columns-padding(10px 25px);}
+}
 
 .example-3 {
 	@include container((2,6));
 }
 .example-4 {
-	@include container();
-	
-	& > div {
-		@include column((2,1,1));
-	}
+	@include container((2,1,1));
 }
 
 .example-5 {
@@ -49,7 +32,7 @@ body {
 
 .example-7 {
 	@include container(4);
-	@include columns-padding($flush-padding:true);
+	@include flush-padding();
 }
 
 .example-8 {
@@ -102,22 +85,18 @@ body {
 
 .example-11 {
 	@include container((1,1,1,1.75));
-	@include columns-padding(10px 25px);
 }
 
 .example-12 {
 	@include container(2, 50%);
-	@include columns-padding(10px 25px);
 }
 
 .example-13 {
 	@include container(2, 50%, right);
-	@include columns-padding(10px 25px);
 }
 
 .example-14 {
 	@include container(4);
-	@include columns-padding(10px 25px);
 	
 	div:nth-child(3) {
 		@include hide($qry-tablet);
@@ -158,7 +137,6 @@ nav ul .subhead {
 
 .themes-1 {
 	@include container(2);
-	@include columns-padding(15px);
 	
 	.test {
 		@include button();

@@ -15,6 +15,7 @@
 		& > * {
 			width: (100% / $columns);
 			float:left;
+			padding: $column-padding;
 		}
 	}
 	
@@ -32,6 +33,7 @@
 			& > *:nth-child(#{$index}) {
 				width: (100% / $total) * $column;
 				float:left;
+				padding: $column-padding;
 			}
 		}
 	}
@@ -39,6 +41,60 @@
 	//Set alignment of container
 	@if $align != "" {
 		@include container-alignment($align);
+	}
+}
+
+//Declares the column element
+@mixin column($column-ratio, $total-columns:"") { 
+	float:left;
+	width: (100% / $total-columns) * $column-ratio;
+
+	//If column argument passed, set width
+//	@if $columns != "" {
+//		
+//		@if type-of($columns) != list {
+//					
+//			width: (100% / $columns);
+//			
+//		} @else {
+//			
+//			$total: sum($columns);
+//			$index: 0;
+//	
+//			@each $column in $columns {
+//				$index: $index + 1;
+//				
+//				&:nth-child(#{$index}) {
+//					width: (100% / $total) * $column;
+//				}
+//			}
+//		}
+//	}
+
+}
+
+@mixin columns-padding($padding:"") {
+	//if padding argument passed, set padding
+	@if $padding != "" {
+		& > * {
+			padding: $padding;	
+		}
+	}
+}
+
+@mixin flush-padding($active:true) {
+	//if padding is set to be flush remove 
+	//padding on left and right padding on 
+	//the first and last columns respectively.
+	@if $active {
+		& > * {
+			&:first-child {
+				padding-left: 0;
+			}
+			&:last-child {
+				padding-right: 0;
+			}
+		}
 	}
 }
 
@@ -62,29 +118,6 @@
 	}
 }
 
-@mixin columns-padding($padding:"", $flush-padding:false) {
-	//if padding argument passed, set padding
-	@if $padding != "" {
-		& > * {
-			padding: $padding;	
-		}
-	}
-
-	//if padding is set to be flush remove 
-	//padding on left and right padding on 
-	//the first and last columns respectively.
-	@if $flush-padding == true {
-		& > * {
-			&:first-child {
-				padding-left: 0;
-			}
-			&:last-child {
-				padding-right: 0;
-			}
-		}
-	}
-}
-
 @function calculate-widths($columns) {
 	$column-total: sum($columns);
 	$calculated-widths:();
@@ -97,55 +130,6 @@
 	}
 
 	@return $calculated-widths;
-}
-
-//Declares the column elements
-@mixin columns($columns:"", $padding:"", $flush-padding:false) { 
-	float:left;
-
-	//If column argument passed, set width
-	@if $columns != "" {
-		
-		@if type-of($columns) != list {
-					
-			width: (100% / $columns);
-			
-		} @else {
-			
-			$total: sum($columns);
-			$index: 0;
-	
-			@each $column in $columns {
-				$index: $index + 1;
-				
-				&:nth-child(#{$index}) {
-					width: (100% / $total) * $column;
-				}
-			}
-		}
-	}
-	
-	//if padding argument passed set padding
-	@if $padding != "" {
-		padding: $padding;		
-	}
-
-	//if padding is set to be flush remove 
-	//padding on left and right padding on 
-	//the first and last columns respectively.
-	@if $flush-padding == true {
-		&:first-child {
-			padding-left: 0;
-		}
-		&:last-child {
-			padding-right: 0;
-		}
-	}
-}
-
-//Non-plural alias for columns mixin
-@mixin column($columns:"", $padding:"", $flush-padding:false) {
-	@include columns($columns, $padding, $flush-padding);
 }
 
 @mixin order($order, $columns:"") {
