@@ -8,7 +8,7 @@
 	margin-right: auto;
 	@include clear-fix();
 
-	@if length($target) == 0 {
+	@if $target == "" {
 		$target: "*";
 	}
 	
