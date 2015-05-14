@@ -2,12 +2,12 @@
 ---------------------------------------------*/
 
 //Declares the container element of child rows or columns
-@mixin container($columns:"", $max-width:960px, $align:"", $target:"") {
+@mixin container($columns:"", $max-width:$container-max-width, $align:"", $target:"") {
 	max-width: $max-width;
 	margin-left: auto;
 	margin-right: auto;
 	@include clear-fix();
-	
+
 	//If argument is not a list, 
 	//and is not empty, set equal 
 	//width to all immediate child elements
@@ -43,14 +43,8 @@
 	
 	//Set alignment of container
 	@if $align != "" {
-		@include container-alignment($align);
+		@include container-align($align);
 	}
-}
-
-//Declares the column element
-@mixin column($column-ratio, $total-columns) { 
-	float:left;
-	width: (100% / $total-columns) * $column-ratio;
 }
 
 @mixin columns-padding($padding:"") {
@@ -78,7 +72,7 @@
 	}
 }
 
-@mixin container-alignment($align:"") {
+@mixin container-align($align:"") {
 	//Set alignment 
 	@if $align != "" {
 		
