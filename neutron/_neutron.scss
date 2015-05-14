@@ -48,23 +48,6 @@
 
 }
 
-/* Default Media Queries
--------------------------------------*/
-// Larger than mobile
-$qry-phablet: "(min-width: 480px)" !default;
-
-// Larger than phablet (also point when grid becomes active)
-$qry-tablet: "(min-width: 7680px)" !default;
-
-// Larger than tablet
-$qry-desktop-small: "(min-width: 1024px)" !default;
-
-// Larger than small desktop
-$qry-desktop: "(min-width: 1200px)" !default;
-
-// Larger than desktop
-$qry-desktop-large: "(min-width: 1800px)" !default;
-
 /* Required Styles
 -------------------------------------*/
 
