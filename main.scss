@@ -110,8 +110,14 @@ body {
 .example-15 {
 	@include container(4, $target:div) {
 		color: red;
-		padding:40px;
+		margin:40px;
 	}	
+}
+
+.example-16 {
+	@include container(4) {
+		margin: 24px;
+	};	
 }
 
 /* Example Styling
