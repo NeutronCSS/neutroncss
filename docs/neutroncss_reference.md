@@ -48,7 +48,34 @@
 #####Mixin Specification
 
 	order(
-		$order: list, 
+		$order: 	list, 
 		$columns:	null|integer|list
+	);
+
+
+##Utilities
+
+###Hide
+#####Mixin Definition
+
+	hide( $media-query:"" );
+	
+#####Mixin Specification
+
+	hide(
+		$media-query: null|[CSS media rule]
+	);
+
+
+###Show
+#####Mixin Definition
+
+	show( $media-query:"", $display-as:"block" );
+	
+#####Mixin Specification
+
+	show(
+		$media-query: 	[CSS media rule],
+		$display-as: 	[CSS display property]
 	);
 
