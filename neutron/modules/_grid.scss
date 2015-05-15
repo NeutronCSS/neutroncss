@@ -87,14 +87,10 @@
 			} @else {
 				width: $calculated-width;
 			} 
-			
-			@if $container-align == "" or $container-width == "" {
-				float:left;
-				padding: $padding;
-			}
-
-
-			
+					
+			float:left;
+			padding: $padding;				
+							
 			@if $margin != "" {
 				margin: $margin;
 			}
@@ -122,10 +118,8 @@
 					width: $calculated-width;
 				}
 				
-				@if $container-align == "" or $container-width == "" {
-					float:left;
-					padding: $padding;
-				}
+				float:left;
+				padding: $padding;				
 
 				@if $margin != "" {
 					margin: $margin;
@@ -219,6 +213,7 @@
 @mixin container-align($align:"") {
 	//Set alignment 
 	@if $align != "" {
+		float:none;
 		
 		@if $align == left {
 			margin-left: 0;
