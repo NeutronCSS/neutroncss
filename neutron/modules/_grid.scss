@@ -2,8 +2,15 @@
 ---------------------------------------------*/
 
 //Declares the container element of child rows or columns
-@mixin container($columns:"", $max-width:$container-max-width, $align:"", $target:"") {
-	max-width: $max-width;
+@mixin columns(
+	$columns:"", 
+	$container-width:$container-max-width, 
+	$container-align:"",
+	$padding:$global-column-padding,
+	$margin:"",
+	$target:""
+) {
+	max-width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
 	@include clear-fix();
@@ -12,6 +19,7 @@
 		$target: "*";
 	}
 	
+	
 	//If argument is not a list, 
 	//and is not empty, set equal 
 	//width to all immediate child elements
@@ -19,7 +27,12 @@
 		& > #{$target} {
 			width: (100% / $columns);
 			float:left;
-			padding: $column-padding;
+			padding: $padding;
+			
+			@if $margin != "" {
+				margin: $margin;
+			}
+			
 			@content;
 		}
 	}
@@ -37,16 +50,40 @@
 			& > #{$target}:nth-of-type(#{$index}) {
 				width: (100% / $total) * $column;
 				float:left;
-				padding: $column-padding;
+				padding: $padding;
+
+				@if $margin != "" {
+					margin: $margin;
+				}
+				
 				@content;
 			}
 		}
 	}
 	
 	//Set alignment of container
-	@if $align != "" {
-		@include container-align($align);
+	@if $container-align != "" {
+		@include container-align($container-align);
 	}
+}
+
+//Alias for columns
+@mixin column(
+	$columns:"", 
+	$container-width:$container-max-width, 
+	$container-align:"",
+	$padding:$global-column-padding,
+	$margin:"",
+	$target:""
+) {
+	@include columns(
+		$columns,
+		$container-width,
+		$container-align,
+		$padding,
+		$margin,
+		$target
+	);
 }
 
 

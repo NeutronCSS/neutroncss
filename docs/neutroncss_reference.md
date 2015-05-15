@@ -5,15 +5,17 @@
 ###Container
 #####Mixin Definition
 
-	container( $columns:"", $max-width:$container-max-width, $align:"", $target:"" );
+	columns( $columns:"", $container-width:$container-max-width, $container-align:"", $padding:	$padding:$global-column-padding, $margin:"", $target:"" );
 
 #####Mixin Specification
 
-	container(
-		$columns:	null|integer|list,
-		$max-width:	[CSS width],
-		$align:		left|right|center,
-		$target:	[CSS selector]
+	columns(
+		$columns:			null|integer|list,
+		$container-width:	[CSS width], 
+		$container-align:	left|right|center,
+		$padding:			[CSS width],
+		$margin:			[CSS width],
+		$target:			[CSS selector]
 	);
 	
 ###Flush Padding

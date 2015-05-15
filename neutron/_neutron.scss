@@ -56,11 +56,16 @@
  * Set root element to use border-box 
  * sizing and set all elements on the page
  *  to inherit border-box sizing. 
+ * 
+ * html is set to 62.5% so that all the REM 
+ * measurements are based on 10px sizing. 
+ * So basically 1.5rem = 15px
  */
 
 html {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	font-size: 62.5%;
 }
 
 html * {
@@ -68,10 +73,9 @@ html * {
 	box-sizing: inherit;
 }
 
-/* NOTE
-html is set to 62.5% so that all the REM measurements throughout Skeleton
-are based on 10px sizing. So basically 1.5rem = 15px :) */
-html {
-	font-size: 62.5%;
+body {
+	max-width: $container-max-width;
+	margin-left: auto;
+	margin-right: auto;
 }
 
