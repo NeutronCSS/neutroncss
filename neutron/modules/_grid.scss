@@ -69,17 +69,6 @@
 				$total-margin-subtraction: ($extracted-margin-left + $extracted-margin-right);
 			}
 		}
-		
-
-	/*
-	$extracted-margin-left #{$extracted-margin-left}
-	$extracted-margin-right #{$extracted-margin-right}
-	$available-width #{$available-width}
-	$total-margin-subtraction #{$total-margin-subtraction}
-	*/
-	
-		
-		
 	}
 
 
@@ -98,9 +87,13 @@
 			} @else {
 				width: $calculated-width;
 			} 
+			
+			@if $container-align == "" or $container-width == "" {
+				float:left;
+				padding: $padding;
+			}
 
-			float:left;
-			padding: $padding;
+
 			
 			@if $margin != "" {
 				margin: $margin;
@@ -128,8 +121,11 @@
 				} @else {
 					width: $calculated-width;
 				}
-				float:left;
-				padding: $padding;
+				
+				@if $container-align == "" or $container-width == "" {
+					float:left;
+					padding: $padding;
+				}
 
 				@if $margin != "" {
 					margin: $margin;
