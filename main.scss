@@ -138,7 +138,13 @@ nav ul .subhead {
 }
 
 .example-17 {
-	@include columns((2,2,1),$margin:4px, $flush-margin:false) {
+	@include columns((2,2,1),$margin:12px, $flush-margin:false) {
+		background: #CCC;
+	}
+}
+
+.example-18 {
+	@include columns((2,2,1),$margin:24px 12px 8px 4px, $flush-margin:true) {
 		background: #CCC;
 	}
 }
