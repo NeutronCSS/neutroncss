@@ -46,7 +46,8 @@ nav ul .subhead {
 }
 
 .example-5 {
-	@include hide($is-desktop-sml);
+	@include hide($is-desktop-sml, $is-desktop-mid);
+	@include columns(4);
 }
 
 .example-6 {
@@ -54,8 +55,7 @@ nav ul .subhead {
 }
 
 .example-7 {
-	@include columns(4);
-	@include flush-padding();
+	@include columns(4, $flush-padding:true);
 }
 
 .example-8 {
@@ -68,11 +68,15 @@ nav ul .subhead {
 
 .example-9 {
 	@include columns(2);
+	
+	.nested {
+		@include columns(1);
+		.nest-1 {
+			@include columns(1, 50%, right);
+		}
+	}
 }
 
-.nested {
-	@include columns(2);
-}
 
 .example-10 {
 	@include columns((1,2),$padding: 10px);
