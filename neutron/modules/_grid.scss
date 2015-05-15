@@ -41,13 +41,13 @@
 	$total-margin-subtraction: 0;
 	$available-width:100%;
 	
+	$extracted-margin-left:"";
+	
 	@if $margin != "" {
 		
 	$extracted-margin-left: extract-position($margin,left);
 	$extracted-margin-right: extract-position($margin,right);
 
-	/*$extracted-margin-left #{$extracted-margin-left}*/
-	
 	@if length($margin) > 1 {
 		//margin is not a single value
 	}
@@ -63,14 +63,27 @@
 			}				
 		} @else {
 			//if non-percent unit used
-//			$total-margin-subtraction: ($extracted-margin-left + $extracted-margin-right) / 2 ;
-			$total-margin-subtraction: ($margin * 2) + $extracted-margin-left + $extracted-margin-right;
+			$total-margin-subtraction: ($extracted-margin-left + $extracted-margin-right) - (($extracted-margin-left + $extracted-margin-right) / $column-count);
 			
 			@if $flush-margin == false {
-				$total-margin-subtraction: $margin * 2;
+				$total-margin-subtraction: ($extracted-margin-left + $extracted-margin-right);
 			}
 		}
+		
+
+	/*
+	$extracted-margin-left #{$extracted-margin-left}
+	$extracted-margin-right #{$extracted-margin-right}
+	$available-width #{$available-width}
+	$total-margin-subtraction #{$total-margin-subtraction}
+	*/
+	
+		
+		
 	}
+
+
+
 
 	//If argument is not a list, 
 	//and is not empty, set equal 
@@ -80,7 +93,7 @@
 			
 			$calculated-width: ($available-width / $columns);
 			
-			@if $margin != "" and unit($margin) != "%" {
+			@if $margin != "" and unit($extracted-margin-left) != "%" {
 				width: calc(#{$calculated-width} - #{$total-margin-subtraction});
 			} @else {
 				width: $calculated-width;
@@ -110,7 +123,7 @@
 				
 				$calculated-width: ($available-width / $total-columns) * $column;
 				
-				@if $margin != "" and unit($margin) != "%" {
+				@if $margin != "" and unit($extracted-margin-left) != "%" {
 					width: calc(#{$calculated-width} - #{$total-margin-subtraction});
 				} @else {
 					width: $calculated-width;
