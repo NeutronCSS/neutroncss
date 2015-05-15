@@ -7,7 +7,9 @@
 	$container-width:$container-max-width, 
 	$container-align:"",
 	$padding:$global-column-padding,
+	$flush-padding:false,
 	$margin:"",
+	$flush-margin:true,
 	$target:""
 ) {
 	max-width: $container-width;
@@ -15,17 +17,65 @@
 	margin-right: auto;
 	@include clear-fix();
 
-	@if $target == "" {
-		$target: "*";
+	$total-columns:"";
+	@if type-of($columns) == list {
+		$total-columns: sum($columns);
+	} @else if $columns != "" {
+		$total-columns: $columns;
 	}
 	
+	$column-count: $columns;
+	@if type-of($columns) == list {
+		$column-count: length($columns);
+	}
+
+
 	
+	$target-child-selector: "nth-of-type";
+	@if $target == "" {
+		$target: "*";
+		$target-child-selector: "nth-child";
+	}
+
+	//set combined margins accounting for flush margin and deterine available width
+	$total-margin-subtraction: 0;
+	$available-width:100%;
+	
+	@if $margin != "" {
+		
+		@if unit($margin) == "%" {
+			//margin is a %
+			@if $flush-margin == true {
+//				$available-width: $available-width - ($column-count * ($margin + ($margin / 2)));
+				$available-width: $available-width - ($margin * 2);
+			}
+			@else {
+				$available-width: $available-width - ($column-count * ($margin * 2) );
+			}				
+		} @else {
+
+			$total-margin-subtraction: $margin;
+
+			@if $flush-margin == false {
+				$total-margin-subtraction: $margin * 2;
+			}
+		}
+	}
+
 	//If argument is not a list, 
 	//and is not empty, set equal 
 	//width to all immediate child elements
 	@if type-of($columns) != list and $columns != "" {
 		& > #{$target} {
-			width: (100% / $columns);
+			
+			$calculated-width: ($available-width / $columns);
+			
+			@if $margin != "" and unit($margin) != "%" {
+				width: calc(#{$calculated-width} - #{$total-margin-subtraction});
+			} @else {
+				width: $calculated-width;
+			} 
+
 			float:left;
 			padding: $padding;
 			
@@ -41,14 +91,20 @@
 	//width of each immediate child 
 	//as instructed by passed list
 	@if type-of($columns) == list {
-		$total: sum($columns);
 		$index: 0;
 
 		@each $column in $columns {	
 			$index: $index + 1;
 			
-			& > #{$target}:nth-of-type(#{$index}) {
-				width: (100% / $total) * $column;
+			& > #{$target}:#{$target-child-selector}(#{$index}) {
+				
+				$calculated-width: ($available-width / $total-columns) * $column;
+				
+				@if $margin != "" and unit($margin) != "%" {
+					width: calc(#{$calculated-width} - #{$total-margin-subtraction});
+				} @else {
+					width: $calculated-width;
+				}
 				float:left;
 				padding: $padding;
 
@@ -61,10 +117,14 @@
 		}
 	}
 	
+	@include flush-padding($flush-padding, $target);
+	@include flush-margin($flush-margin, $column-count, $target);
+	
 	//Set alignment of container
 	@if $container-align != "" {
 		@include container-align($container-align);
 	}
+
 }
 
 //Alias for columns
@@ -87,17 +147,51 @@
 }
 
 
-@mixin flush-padding($active:true) {
+@mixin flush-padding($active:true, $target:"") {
 	//if padding is set to be flush remove 
 	//padding on left and right padding on 
 	//the first and last columns respectively.
+	
+	@if $target == "" {
+		$target: "*";
+	}
+
 	@if $active {
-		& > * {
-			&:first-child {
+		& > #{$target} {
+			&:first-of-type {
 				padding-left: 0;
 			}
-			&:last-child {
+			&:last-of-type {
 				padding-right: 0;
+			}
+		}
+	}
+}
+
+
+
+@mixin flush-margin($active:true, $column-count:"", $target:"") {
+	//if margin is set to be flush remove 
+	//margin on left and right padding on 
+	//the first and last columns respectively.
+	
+	$target-first-child-selector: "nth-of-type";
+	$target-last-child-selector: "nth-of-type";
+	@if $target == "" or $target == "*" {
+		$target: "*";
+		$target-first-child-selector: "nth-child";
+		$target-last-child-selector: "nth-child";
+	}
+
+	
+	
+	@if $active {
+		& > #{$target} {
+			&:#{$target-first-child-selector}(#{$column-count}n+1) {
+				margin-left: 0;
+			}
+			&:#{$target-last-child-selector}(#{$column-count}n) {
+				margin-right: 0;
 			}
 		}
 	}

@@ -76,21 +76,15 @@ nav ul .subhead {
 }
 
 .example-10 {
-	@include columns((1,2)) {
-		$padding: 10px;
-	}
-
+	@include columns((1,2),$padding: 10px);
+	
 	.content {
 		.article {
-			@include columns(2) {
-				$padding: 10px;
-			}
+			@include columns(2, $margin:10px, $padding:10px);
 		}
 
 		aside {
-			@include columns((5,1)) {
-				$padding: 10px;
-			}
+			@include columns((5,1),$margin:10px,$padding:10px);
 		}
 	}
 }
@@ -132,20 +126,21 @@ nav ul .subhead {
 }
 
 .example-15 {
-	@include columns(4, $target:div) {
+	@include columns(3,$target:div) {
 		background: #CCC;
-		margin:40px;
 	}	
 }
 
 .example-16 {
-	@include columns(4) {
-		margin: 24px;
-	};	
+	@include columns(2,$margin:2rem) {
+		background: #CCC;
+	}	
 }
 
-.example-16 {
-	@include column(1);	
+.example-17 {
+	@include columns((2,2,1),$margin:4px, $flush-margin:false) {
+		background: #CCC;
+	}
 }
 
 

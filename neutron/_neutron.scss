@@ -49,6 +49,11 @@
 
 }
 
+@function strip-units($number) {
+	@return $number / ($number * 0 + 1);
+}
+
+
 /* Required Styles
 -------------------------------------*/
 
