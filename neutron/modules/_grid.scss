@@ -43,19 +43,29 @@
 	
 	@if $margin != "" {
 		
-		@if unit($margin) == "%" {
+	$extracted-margin-left: extract-position($margin,left);
+	$extracted-margin-right: extract-position($margin,right);
+
+	/*$extracted-margin-left #{$extracted-margin-left}*/
+	
+	@if length($margin) > 1 {
+		//margin is not a single value
+	}
+
+		$first-margin-value: extract-position($margin,left);
+		@if unit($extracted-margin-left) == "%" or unit($extracted-margin-right) == "%" {
+			
 			//margin is a %
 			@if $flush-margin == true {
-//				$available-width: $available-width - ($column-count * ($margin + ($margin / 2)));
-				$available-width: $available-width - ($margin * 2);
-			}
-			@else {
-				$available-width: $available-width - ($column-count * ($margin * 2) );
+				$available-width: $available-width - $extracted-margin-left - $extracted-margin-right;
+			} @else {
+				$available-width: $available-width - (($column-count * $extracted-margin-left) + ($column-count * $extracted-margin-right) );
 			}				
 		} @else {
-
-			$total-margin-subtraction: $margin;
-
+			//if non-percent unit used
+//			$total-margin-subtraction: ($extracted-margin-left + $extracted-margin-right) / 2 ;
+			$total-margin-subtraction: ($margin * 2) + $extracted-margin-left + $extracted-margin-right;
+			
 			@if $flush-margin == false {
 				$total-margin-subtraction: $margin * 2;
 			}

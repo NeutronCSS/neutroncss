@@ -53,6 +53,57 @@
 	@return $number / ($number * 0 + 1);
 }
 
+@function extract-position($shorthand, $position) {
+	$shorthand-length: length($shorthand);
+	
+	//if only one variable passed, return it
+	@if $shorthand-length == 1 {
+		@return $shorthand;
+	}
+	
+	@if $shorthand-length == 2 {
+		@if $position == top or $position == bottom {
+			@return nth($shorthand, 1);
+		}
+		
+		@if $position == left or $position == right {
+			@return nth($shorthand, 2);
+		}
+	}
+
+	@if $shorthand-length == 3 {
+		@if $position == top {
+			@return nth($shorthand, 1);
+		}
+
+		@if $position == left or $position == right {
+			@return nth($shorthand, 2);
+		}
+
+		@if $position == bottom {
+			@return nth($shorthand, 3);
+		}
+	}
+
+	@if $shorthand-length == 4 {
+		@if $position == top {
+			@return nth($shorthand, 1);
+		}
+
+		@if $position == right {
+			@return nth($shorthand, 2);
+		}
+
+		@if $position == bottom {
+			@return nth($shorthand, 3);
+		}
+
+		@if $position == left {
+			@return nth($shorthand, 4);
+		}
+	}
+}
+
 
 /* Required Styles
 -------------------------------------*/
