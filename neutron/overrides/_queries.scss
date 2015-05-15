@@ -19,20 +19,45 @@ your own modules or themes.
 ---------------------------------------------*/
 
 
+/* Viewport Settings
+---------------------------------------------*/
+
+		 $mobile-max: 479px;
+		$phablet-max: 767px;
+		 $tablet-max: 1023px;
+	$desktop-sml-max: 1199px;
+	$desktop-mid-max: 1799px;
+
+
+//Max device widths
+$phablet-min: 		$mobile-max + 1;
+$tablet-min: 		$phablet-max + 1;
+$desktop-sml-min: 	$tablet-max + 1;
+$desktop-mid-min: 	$desktop-sml-max + 1;
+$desktop-lrg-min: 	$desktop-mid-max + 1;
+
 /* Media Queries
 ---------------------------------------------*/
 
-// Larger than mobile
-$qry-phablet: "(min-width: 480px)";
+//Mobile
+$is-mobile: "(max-width: #{$mobile-max})";
 
-// Larger than phablet (also point when grid becomes active)
-$qry-tablet: "(min-width: 768px)";
+// Phablet
+$is-phablet: "(min-width: #{$phablet-min}) and (max-width: #{$phablet-max})";
+$from-phablet: "(min-width: #{$phablet-min})";
 
-// Larger than tablet
-$qry-desktop-small: "(min-width: 1024px)";
+// Tablet
+$is-tablet: "(min-width: #{$tablet-min}) and (max-width: #{$tablet-max})";
+$from-tablet: "(min-width: #{$tablet-min})";
 
-// Larger than small desktop
-$qry-desktop: "(min-width: 1200px)";
+// Small Desktop
+$is-desktop-sml: "(min-width: #{$desktop-sml-min}) and (max-width: #{$desktop-sml-max})";
+$from-desktop-sml: "(min-width: #{$desktop-sml-min})";
 
-// Larger than desktop
-$qry-desktop-large: "(min-width: 1800px)";
+// Medium Desktop
+$is-desktop-mid: "(min-width: #{$desktop-mid-min}) and (max-width: #{$desktop-mid-max})";
+$from-desktop-mid: "(min-width: #{$desktop-mid-min})";
+
+// Large Desktop
+$is-desktop-lrg: "(min-width: #{$desktop-lrg-min})";
+$from-desktop-lrg: "(min-width: #{$desktop-lrg-min})";

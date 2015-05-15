@@ -46,8 +46,7 @@ nav ul .subhead {
 }
 
 .example-5 {
-	@include hide($qry-desktop-small);
-	@include show($qry-desktop-large);
+	@include hide($is-desktop-sml);
 }
 
 .example-6 {
@@ -121,7 +120,7 @@ nav ul .subhead {
 	@include columns(4);
 	
 	div:nth-child(3) {
-		@include hide($qry-tablet);
+		@include hide($from-tablet);
 	} 
 }
 
