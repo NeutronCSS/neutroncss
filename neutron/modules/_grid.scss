@@ -15,7 +15,6 @@
 	max-width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
-	position: relative;
 	@include clear-fix();
 
 	$column-sum: get-column-sum($columns);	
