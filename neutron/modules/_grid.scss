@@ -10,29 +10,19 @@
 	$flush-padding:false,
 	$margin:"",
 	$flush-margin:true,
-	$target:""
+	$target:"*"
 ) {
 	max-width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
 	@include clear-fix();
 
-	$total-columns:"";
-	@if type-of($columns) == list {
-		$total-columns: sum($columns);
-	} @else if $columns != "" {
-		$total-columns: $columns;
-	}
-	
-	$column-count: $columns;
-	@if type-of($columns) == list {
-		$column-count: length($columns);
-	}
+	$column-sum: get-column-sum($columns);	
+	$column-count: get-column-count($columns);
 
-
-	
 	$target-child-selector: "nth-of-type";
-	@if $target == "" {
+	@if $target == "" or $target == "*" {
 		$target: "*";
 		$target-child-selector: "nth-child";
 	}
@@ -47,10 +37,6 @@
 		
 	$extracted-margin-left: extract-position($margin,left);
 	$extracted-margin-right: extract-position($margin,right);
-
-	@if length($margin) > 1 {
-		//margin is not a single value
-	}
 
 		$first-margin-value: extract-position($margin,left);
 		@if unit($extracted-margin-left) == "%" or unit($extracted-margin-right) == "%" {
@@ -70,9 +56,6 @@
 			}
 		}
 	}
-
-
-
 
 	//If argument is not a list, 
 	//and is not empty, set equal 
@@ -107,10 +90,10 @@
 
 		@each $column in $columns {	
 			$index: $index + 1;
-			
-			& > #{$target}:#{$target-child-selector}(#{$index}) {
+
+			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
 				
-				$calculated-width: ($available-width / $total-columns) * $column;
+				$calculated-width: ($available-width / $column-sum) * $column;
 				
 				@if $margin != "" and unit($extracted-margin-left) != "%" {
 					width: calc(#{$calculated-width} - #{$total-margin-subtraction});
@@ -130,9 +113,31 @@
 		}
 	}
 	
-	@include flush-padding($flush-padding, $target);
-	@include flush-margin($flush-margin, $column-count, $target);
+	@if $columns != "" {
+		//apply styles to first column of the row
+		@include target-col(1, $column-count, $target) {
+			clear: left;
+			
+			@if $flush-padding {
+				padding-left: 0;
+			}
+			@if $flush-margin {
+				margin-left: 0;
+			}
+		}
 	
+		//apply styles to last column of the row
+		@include target-col($column-count, $column-count, $target) {
+				
+			@if $flush-padding {
+				padding-right: 0;
+			}
+			@if $flush-margin {
+				margin-right: 0;
+			}
+		}
+	}
+
 	//Set alignment of container
 	@if $container-align != "" {
 		@include container-align($container-align);
@@ -147,7 +152,7 @@
 	$container-align:"",
 	$padding:$global-column-padding,
 	$margin:"",
-	$target:""
+	$target:"*"
 ) {
 	@include columns(
 		$columns,
@@ -159,53 +164,13 @@
 	);
 }
 
+@mixin target-col($column-target, $column-count, $target-selector:"*") {
 
-@mixin flush-padding($active:true, $target:"") {
-	//if padding is set to be flush remove 
-	//padding on left and right padding on 
-	//the first and last columns respectively.
-	
-	@if $target == "" {
-		$target: "*";
-	}
+	$target-child-selector: child-selector($target-selector);
 
-	@if $active {
-		& > #{$target} {
-			&:first-of-type {
-				padding-left: 0;
-			}
-			&:last-of-type {
-				padding-right: 0;
-			}
-		}
-	}
-}
-
-
-
-@mixin flush-margin($active:true, $column-count:"", $target:"") {
-	//if margin is set to be flush remove 
-	//margin on left and right padding on 
-	//the first and last columns respectively.
-	
-	$target-first-child-selector: "nth-of-type";
-	$target-last-child-selector: "nth-of-type";
-	@if $target == "" or $target == "*" {
-		$target: "*";
-		$target-first-child-selector: "nth-child";
-		$target-last-child-selector: "nth-child";
-	}
-
-	
-	
-	@if $active {
-		& > #{$target} {
-			&:#{$target-first-child-selector}(#{$column-count}n+1) {
-				margin-left: 0;
-			}
-			&:#{$target-last-child-selector}(#{$column-count}n) {
-				margin-right: 0;
-			}
+	& > #{$target-selector} {
+		&:#{$target-child-selector}(#{$column-count}n+#{$column-target}) {
+			@content;
 		}
 	}
 }
@@ -229,6 +194,32 @@
 		}
 
 	}
+}
+
+@function get-column-sum($columns) {
+	@if type-of($columns) == list {
+		@return sum($columns);
+	} @else {
+		@return $columns;
+	}
+}
+
+@function get-column-count($columns) {
+	@if type-of($columns) == list {
+		@return length($columns);
+	} @else {
+		@return $columns;
+	}
+}
+
+@function child-selector($target-selector) {
+	$child-selector: "nth-of-type";
+	
+	@if $target-selector == "*" {
+		$child-selector: "nth-child";
+	}
+	
+	@return $child-selector;
 }
 
 @function calculate-widths($columns) {

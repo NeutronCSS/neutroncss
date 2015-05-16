@@ -67,12 +67,19 @@ nav ul .subhead {
 }
 
 .example-9 {
-	@include columns(2);
+	@include columns((2,1));
+	
+	& div {
+		outline: solid 1px red;
+	}
 	
 	.nested {
-		@include columns(1);
+		@include columns(2);
 		.nest-1 {
-			@include columns(1, 50%, right);
+			@include columns($container-width:50%, $container-align:right);
+		}
+		.nest-2 {
+			@include columns($container-align:50%);
 		}
 	}
 }
