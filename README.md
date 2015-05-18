@@ -4,7 +4,7 @@ A simple, semantic, Sass-based CSS framework.
 ##What is it?
 Neutron is a CSS/SASS framework built from the beginning to be a clear, concise, and--primarily--flexible system for creating website layouts.
 
-When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declearing each column, or being restricted to a specific grid layout.
+When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column, or being restricted to a specific grid layout.
 
 ##How to use it.
 Making Neutron simple to use and easy to grap was very important to us, let us show you an example of using Neutron.
