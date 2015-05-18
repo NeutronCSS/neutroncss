@@ -86,7 +86,12 @@
 	@include columns($arguments...);
 }
 
-@function calculate-column-widths($column-ratio, $max-width, $margin:"", $flush-margin:true) {
+//Alias for columns
+@mixin col($arguments...) {
+	@include columns($arguments...);
+}
+
+@function calculate-column-widths($column-ratio, $margin:"", $flush-margin:true) {
 
 	$avail-width: 100%;
 	$left-margin-percent: 0%;
@@ -287,6 +292,7 @@
 		//current and new layouts
 		$column-count: length($columns);
 		$new-columns:();
+		//retreive original order of columns
 		@each $index in $order {
 			$item: nth($columns, $index);
 			$new-columns:append($new-columns, $item);
@@ -346,6 +352,178 @@
 				}
 				
 			} 
+		}
+	}
+}
+
+@mixin new-order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
+	//if no rati is provided extrapolate ratio 
+	
+	//calculate widths of columns for new and old order
+	//iterate through the order
+		//find total of widths for old previous columns
+		//find total of widths for new previous columns
+		//find total of widths for old following columns
+		//find total of widths for new following columns
+		
+		//move column left or right
+		
+		
+	@if type-of($order) == list {
+		//if no ratio is set, determine 
+		//ratio from provided order list
+		@if $columns == "" {
+			$columns:();
+			$order-count: length($order);
+
+			@for $i from 1 through $order-count {
+				$columns: append($columns, 1, comma);
+			}
+		}
+
+		//calculate widths of 
+		//current and new layouts
+		$column-count: length($columns);
+		$new-columns:();
+		//retreive original order of columns
+		@each $index in $order {
+			$item: nth($columns, $index);
+			$new-columns:append($new-columns, $item);
+		}
+
+		//$original-widths:calculate-widths($columns);
+		//$new-widths:calculate-widths($new-columns);
+
+
+		$original-widths:calculate-column-widths($columns, $margin, $flush-margin);
+		$new-widths:calculate-column-widths($new-columns, $margin, $flush-margin);
+
+		$original-subtraction:calculate-column-subtraction($columns, $margin, $flush-margin);
+		$new-subtraction:calculate-column-subtraction($new-columns, $margin, $flush-margin);
+	
+
+	
+		//iterate through each column
+		$index: 0;
+		@each $column in $order {
+			$index: $index + 1;
+
+			//calc sum of original previous widths
+			$orig-w-before: 0;
+			@for $i from 1 through $column {
+				$orig-w-before: $orig-w-before + nth($original-widths, $i);
+			} 
+			$orig-w-before: $orig-w-before - nth($original-widths, $column);
+	 
+			//calc sum of new previous widths
+			$new-w-before: 0;
+			@for $i from 1 through $index {
+				$new-w-before: $new-w-before + nth($new-widths, $i);
+			} 
+			$new-w-before: $new-w-before - nth($new-widths, $index);
+			
+			//calc sum of original following widths
+			$orig-w-after: 100;
+			@for $i from 1 through $column {
+				$orig-w-after: $orig-w-after - nth($original-widths, $i);
+			} 
+	
+			//calc sum of new following widths
+			$new-w-after: 100;
+			@for $i from 1 through $index {
+				$new-w-after: $new-w-after - nth($new-widths, $i);
+			}
+						
+			$left: $new-w-before - $orig-w-before;
+			$right: $new-w-after - $orig-w-after;
+			
+			$new-first-col: nth($order, 1);
+			$new-last-col: nth($order, $column-count);
+			
+			$margin-left: extract-position($margin,left);
+			$margin-right: extract-position($margin,right);
+			
+			//$non-flush-columns: $column-count - 2;
+			//$margin-ajustment: ($margin-left + $margin-right) / ($column-count - 2);// - 2;
+			//$margin-ajustment: ($margin-left + $margin-right);// - 2;
+			//$margin-ajustment: (($margin-left + $margin-right) / $column-count );// - 2;
+			//$left-margin-ajustment: ($margin-left) / ($column-count - 2);// - 2;
+			//$right-margin-ajustment: ($margin-right) / ($column-count - 2);// - 2;
+			
+			//total columns
+			//split flush margins by non flush margin coluns
+			
+			//$non-flush-columns: $column-count;
+			//$non-flush-columns: 1;
+
+			@if $index > $column or $column == $index {
+				//if new position is after current one, pull 
+				& > *:nth-child(#{$column}) {
+					//@if $flush-margin {
+					//@if $column != $new-first-col and $column != $new-last-col {
+						//left: calc(#{$left} - #{$original-subtraction});
+						//left: calc(#{$left} + #{$margin-ajustment});//$left + $margin-left;
+					//} @else {
+						left: $left;
+						//margin: $margin;
+						//left: calc(#{$left} - #{$margin-ajustment});;
+					//}
+					position: relative;
+				}
+
+			}
+			
+			@if $index < $column {
+				//if new position is before current one, pull 
+				& > *:nth-child(#{$column}) {
+					//@if $flush-margin {
+					//@if $column != $new-first-col and $column != $new-last-col {
+						//right: calc(#{$right} - #{$original-subtraction});
+						//right: calc(#{$right} + #{$margin-ajustment});//$right + $margin-right;
+					//} @else {
+						right: $right;
+						//margin: $margin;
+						//right: calc(#{$right} - #{$margin-ajustment});;
+					//}
+					position: relative;
+				}
+				
+			}
+
+//			$new-first-col: nth($order, 1);
+//			$new-last-col: nth($order, $column-count);
+
+
+					@if $flush-margin {
+						@if $column == $new-first-col {
+							margin-left: 0;
+						} @else if $column == $new-last-col {
+							margin-right: 0;
+						} 
+//						@else {
+//							margin-left: $margin-left;
+//							margin-right: $margin-left;
+//						}
+					}
+
+			
+//			@for $col from  1 through $column-count {
+//
+//				@include target-col($col, $column-count, $target) {
+//					//margin: $margin;
+//					
+//					@if $flush-margin {
+//						@if $col == $new-first-col {
+//							margin-left: 0;
+//						}
+//						@if $col == $new-last-col {
+//							margin-right: 0;
+//						}
+//					}
+//				}
+//			}
+//			
+			
 		}
 	}
 }

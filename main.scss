@@ -63,7 +63,46 @@ nav ul .subhead {
 	$order: (3,1,4,2);
 
 	@include columns($column-ratio);
-	@include order($order,$column-ratio);
+	@include new-order($order,$column-ratio);
+
+	
+	
+	//@include order($order,$column-ratio);
+	
+//	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:true);
+//	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+	
+//	@include columns($column-ratio);
+//	@include new-order($order,$column-ratio);
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+
+
+.new-order {
+	$column-ratio: (1,1,2,2,1,1,1);
+	$order: (3,1,4,5,2,7,6);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+
+.new-order-3 {
+	$column-ratio: (1,1,2);
+	$order: (3,1,2);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+	
+	& div {
+		outline: red 1px solid;
+	}
 }
 
 .example-9 {
