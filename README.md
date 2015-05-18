@@ -52,7 +52,7 @@ Often you'll want to change the layout structure on different devices, Neutron l
 		}
 	}
 
-###Order
+###No push. No pull. Just Order.
 Changing widths of your layout isn't the only thing you'll need to do to make the perfect responsive design. Often you'll want to change the order of your elements as well. Until flexbox support becomes widespread, this usually involved adding messy classes to your HTML to 'push' or 'pull' elements left or right.
 
 With Neutron we let you reorder your elements the way you think about it, not the way the framework implements it. Say we wanted to reverse the order of the below elements:
