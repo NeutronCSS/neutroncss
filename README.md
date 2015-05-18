@@ -68,3 +68,15 @@ To do this you only need this single command:
 	@media $is-tablet {
 		order((3,2,1));
 	}
+
+###Real margins, real simple.
+Almost every layout design calls for gutter spacing between columns, but most frameworks fake their margins or force you think about them in convoluted ways. In Neutron, if you want a margin, just say so.
+
+	section {
+		columns(
+			$columns: 3,
+			$margin: 10px 24px
+		);
+	}
+
+We don't force you think of margins as ratios or other strange abstract concepts, we made margins work the same way they do for all the other CSS you've ever written.
