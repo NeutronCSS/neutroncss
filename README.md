@@ -35,7 +35,7 @@ Neutron doesn't force you to declare your columns in a particular way. You can u
 
 We didn't just want a simple framework. We wanted a flexible and powerful one too. Because of this we wanted to give you all the tools you need to create amazing layouts and designs.
 
-###Responsivly. Easily.
+###Responsively. Easily.
 In a web where responsive sites are the norm, making your layout responsive easy is important.
 
 Often you'll want to change the layout structure on different devices, Neutron lets you do this easily:
