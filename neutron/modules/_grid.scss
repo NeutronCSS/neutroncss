@@ -21,7 +21,7 @@
 
 		$column-sum: get-column-sum($columns);	
 		$column-count: get-column-count($columns);
-		$column-ratio: calc-column-ratio($columns, $column-sum);
+		$column-ratio: calc-column-ratio($columns);
 		$column-subtraction: calculate-column-subtraction($column-ratio, $margin, $flush-margin);
 		$column-widths: calculate-column-widths($column-ratio, $container-width, $margin);	
 		$target-child-selector: child-selector($target);
@@ -219,7 +219,7 @@
 	}
 }
 
-@function calc-column-ratio($columns, $column-sum) {
+@function calc-column-ratio($columns) {
 	$column-ratio: $columns;
 	$column-sum: get-column-sum($columns);
 	
@@ -380,6 +380,9 @@
 				$columns: append($columns, 1, comma);
 			}
 		}
+		
+		//if column ratio is not a list, generate it
+		$columns: calc-column-ratio($columns);
 
 		//calculate widths of 
 		//current and new layouts
@@ -439,20 +442,26 @@
 			
 			$new-first-col: nth($order, 1);
 			$new-last-col: nth($order, $column-count);
+
+			
+			$margin-left: 0;
+			$margin-right: 0;
+			$left-margin-ajustment: 0;
+			$right-margin-ajustment: 0;			
+			$margin-ajustment: 0;
+					
+			@if $margin != "" {
+				
+				
 			
 			/*
 			$index #{$index}
 			$column #{$column}
 			$new-first-col #{$new-first-col}
 			$new-last-col #{$new-last-col}
+			$column-count: #{$column-count}
 			*/
-			
-			$margin-left: 0;
-			$margin-right: 0;
-			$left-margin-ajustment: 0;
-			$right-margin-ajustment: 0;			
-			
-			@if $margin != "" {
+				
 				
 				$margin-left: extract-position($margin,left);
 				$margin-right: extract-position($margin,right);
@@ -461,24 +470,31 @@
 //				$right-margin-ajustment: $margin-right * ($column-count / 2);
 	
 				@if $flush-margin {
-					margin: $margin;
 					
-//					$left-margin-ajustment: $left-margin-ajustment - $margin-left;
-//					$right-margin-ajustment: $right-margin-ajustment - $margin-right;
+				$left-margin-ajustment: $margin-left * ($column-count / 2);
+				$right-margin-ajustment: $margin-right * ($column-count / 2);
+				$margin-ajustment: (($margin-left + $margin-right) / 2) / (($column-count - 2));					
 
 					@if $column == $new-first-col {
 						& > *:nth-child(#{$column}) {
 							margin-left: 0;
 						}
-
-						
-						
 					} @else if $column == $new-last-col {
 						& > *:nth-child(#{$column}) {
 							margin-right: 0;
 						}
-						
+					} @else if $column == 1 {
+						& > *:nth-child(#{$column}) {
+							margin-left: $margin-left;
+						}
+					} @else if $column == $column-count {
+						& > *:nth-child(#{$column}) {
+							margin-right: $margin-right;
+						}
 					}
+		
+					
+					
 				}
 			}
 			
@@ -501,11 +517,11 @@
 					//} @else {
 					
 					
-					//@if $margin != "" {
-						//left: calc(#{$left} + #{$left-margin-ajustment});
-					//} @else {
+					@if $margin != "" and $flush-margin and $column != $new-first-col and $column != $new-last-col {
+						left: calc(#{$left} - #{$margin-ajustment});
+					} @else {
 						left: $left;
-					//}
+					}
 						//margin: $margin;
 						//left: calc(#{$left} - #{$margin-ajustment});;
 					//}
@@ -523,11 +539,11 @@
 						//right: calc(#{$right} + #{$margin-ajustment});//$right + $margin-right;
 					//} @else {
 					
-					//@if $margin != "" {
-						//right: calc(#{$right} + #{$right-margin-ajustment});
-					//} @else {
+					@if $margin != "" and $flush-margin and $column != $new-last-col and $column != $new-first-col {
+						right: calc(#{$right} - #{$margin-ajustment});
+					} @else {
 						right: $right;
-					//}
+					}
 
 						//margin: $margin;
 						//right: calc(#{$right} - #{$margin-ajustment});;

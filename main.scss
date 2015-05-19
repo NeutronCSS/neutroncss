@@ -81,7 +81,45 @@ nav ul .subhead {
 }
 
 
+.example-8-margin {
+	$column-ratio: (1,1,2,2);
+	$order: (3,1,4,2);
+
+	@include columns($column-ratio, $margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio, 24px,$flush-margin:false);
+
+	& div {
+		outline: red 1px solid;
+	}
+}
+
+
+.example-8-margin-flush {
+	$column-ratio: (1,1,2,2);
+	$order: (3,1,4,2);
+
+	@include columns($column-ratio, $margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio, 24px,$flush-margin:true);
+
+	& div {
+		outline: red 1px solid;
+	}
+}
+
+
 .new-order {
+	$column-ratio: (1,1,2,2,1,1,1);
+	$order: (3,1,4,5,2,7,6);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+
+.new-order-flush {
 	$column-ratio: (1,1,2,2,1,1,1);
 	$order: (3,1,4,5,2,7,6);
 
@@ -94,16 +132,53 @@ nav ul .subhead {
 }
 
 .new-order-3 {
-	$column-ratio: (1,1,2);
+	$column-ratio: (1,1,1);
 	$order: (3,1,2);
 
-	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:true);
+	@include columns($column-ratio,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+.new-order-3-flush {
+	$column-ratio: (1,1,1);
+	$order: (3,1,2);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:true);
 	@include new-order($order,$column-ratio,24px,$flush-margin:true);
 	
 	& div {
 		outline: red 1px solid;
 	}
 }
+
+
+
+.new-order-6 {
+	$column-ratio: (1,1,1,1,1,1);
+	$order: (3,1,2,6,5,4);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+.new-order-6-flush {
+	$column-ratio: (1,1,1,1,1,1);
+	$order: (3,1,2,6,5,4);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+
 
 .example-9 {
 	@include columns((2,1));
