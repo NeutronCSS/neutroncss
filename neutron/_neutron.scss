@@ -14,15 +14,12 @@
 @import "modules/grid";
 //@import "modules/flexbox";
 @import "modules/utilities";
-
-/* Themes
--------------------------------------*/
-@import "themes/neutron/typography";
-@import "themes/neutron/buttons";
-@import "themes/neutron/forms";
-@import "themes/neutron/lists";
-@import "themes/neutron/code";
-@import "themes/neutron/tables";
+@import "modules/typography";
+@import "modules/buttons";
+@import "modules/forms";
+@import "modules/lists";
+@import "modules/code";
+@import "modules/tables";
 
 /* Helper Functions
 -------------------------------------*/
