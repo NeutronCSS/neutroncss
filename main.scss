@@ -85,8 +85,8 @@ nav ul .subhead {
 	$column-ratio: (1,1,2,2);
 	$order: (3,1,4,2);
 
-	@include columns($column-ratio, $margin:24px,$flush-margin:false);
-	@include new-order($order,$column-ratio, 24px,$flush-margin:false);
+	@include columns($column-ratio, $margin:10px,$flush-margin:false);
+	@include new-order($order,$column-ratio, 10px,$flush-margin:false);
 
 	& div {
 		outline: red 1px solid;
@@ -97,9 +97,10 @@ nav ul .subhead {
 .example-8-margin-flush {
 	$column-ratio: (1,1,2,2);
 	$order: (3,1,4,2);
+	$margin: 40px;
 
-	@include columns($column-ratio, $margin:24px,$flush-margin:true);
-	@include new-order($order,$column-ratio, 24px,$flush-margin:true);
+	@include columns($column-ratio, $margin:$margin,$flush-margin:true);
+	@include new-order($order,$column-ratio, $margin,$flush-margin:true);
 
 	& div {
 		outline: red 1px solid;
@@ -157,7 +158,7 @@ nav ul .subhead {
 
 
 .new-order-6 {
-	$column-ratio: (1,1,1,1,1,1);
+	$column-ratio: 6;
 	$order: (3,1,2,6,5,4);
 
 	@include columns($column-ratio,$margin:24px,$flush-margin:false);
@@ -168,7 +169,7 @@ nav ul .subhead {
 	}
 }
 .new-order-6-flush {
-	$column-ratio: (1,1,1,1,1,1);
+	$column-ratio: 6;
 	$order: (3,1,2,6,5,4);
 
 	@include columns($column-ratio,$margin:24px,$flush-margin:true);
