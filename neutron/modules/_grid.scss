@@ -389,6 +389,7 @@
 		$original-subtraction:calculate-column-subtraction($columns, $margin, $flush-margin);
 		$new-subtraction:calculate-column-subtraction($new-columns, $margin, $flush-margin);
 
+//		$original-subtraction: (($original-subtraction / ((($column-count * 2) - 2))) * 4);
 	
 		//iterate through each column
 		$index: 0;
@@ -459,15 +460,8 @@
 				
 				$leftover-margin: ($margin-left + $margin-right) / ($column-count - 2);
 
-		 			@if $column == $new-first-col {
-						& > *:nth-child(#{$column}) {
-							margin-left: 0;
-						}
-					} @else if $column == $new-last-col {
-						& > *:nth-child(#{$column}) {
-							margin-right: 0;
-						}
-					} @else if $column == 1 {
+					//reapply margins to original left and right columns
+					@if $column == 1 {
 						& > *:nth-child(#{$column}) {
 							margin-left: $margin-left;
 						}
@@ -476,14 +470,24 @@
 							margin-right: $margin-right;
 						}
 					}
-		
+
+					//apply flush margins to new left and right columns
+		 			@if $column == $new-first-col {
+						& > *:nth-child(#{$column}) {
+							margin-left: 0;
+						}
+					} @else if $column == $new-last-col {
+						& > *:nth-child(#{$column}) {
+							margin-right: 0;
+						}
+					}
 					
-					
+
 				}
 			}
 			
 
-			@if $index > $column or $column == $index {
+			@if $index > $column {
 				//if new position is after current one, pull 
 				& > *:nth-child(#{$column}) {
 
@@ -493,13 +497,13 @@
 						//left: calc(#{$left} - #{$right-margin-ajustment});
 						
 						@if $column == $new-last-col {
-//							left: calc(#{$left} + #{$leftover-margin});
+//							left: calc(#{$left} - #{$margin-left / 2});
 							left: $left;
 						} @else if $column == $new-first-col {
-//							left: calc(#{$left} + #{$leftover-margin});
+//							left: calc(#{$left} + #{$margin-left / 2});
 							left: $left;
 						} @else {
-							left: calc(#{$left} - #{$margin-ajustment});
+							left: calc(#{$left} + #{$margin-left / 2});
 						}
 						
 						//left: calc(#{$left} + #{$margin-ajustment});
@@ -524,12 +528,15 @@
 						
 						@if $column == $new-last-col {
 							right: $right;
-							//right: calc(#{$right} + #{$leftover-margin});
+//							right: calc(#{$right} + #{$margin-right / 2});
+//							right: calc(#{$right} - #{$original-subtraction});
 						} @else if $column == $new-first-col {
 							right: $right;
-							//right: calc(#{$right} + #{$leftover-margin});
+//							right: calc(#{$right} + #{$margin-right / 2});
+//							right: calc(#{$right} - #{$original-subtraction});
 						} @else {
-							right: calc(#{$right} - #{$margin-ajustment});
+							right: calc(#{$right} - #{$original-subtraction});
+							right: calc(#{$right} + #{$margin-right / 2});
 						}
 						
 							//right: calc(#{$right} + #{$margin-ajustment});
@@ -547,6 +554,39 @@
 				}
 				
 			}
+			
+
+			@if $column == $index and $left != 0 {
+				//if new position is the same 
+				& > *:nth-child(#{$column}) {
+
+					//@if $margin != "" and $flush-margin and $column != $new-first-col and $column != $new-last-col {
+					@if $margin != "" and $flush-margin {
+						//left: calc(#{$left} - #{$margin-ajustment});
+						//left: calc(#{$left} - #{$right-margin-ajustment});
+						
+						@if $column == $new-last-col {
+//							left: calc(#{$left} - #{$margin-left});
+//							left: $left;
+						} @else if $column == $new-first-col {
+							left: calc(#{$left} + #{$margin-left / 2});
+//							left: $left;
+						} @else {
+							left: calc(#{$left} + #{$margin-left / 2});
+						}
+						
+						//left: calc(#{$left} + #{$margin-ajustment});
+						
+					} @else {
+						left: $left;
+					}
+
+					position: relative;
+				}
+
+			}
+			
+			
 		}
 	}
 }
