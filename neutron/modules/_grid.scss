@@ -154,7 +154,6 @@
 		$margin-left: extract-position($margin,left);
 		$margin-right: extract-position($margin,right);
 
-
 		@if unit($margin-left) != "%" {
 			//if non-percent unit used, calculate fixed size portion of remaining width
 			
@@ -163,7 +162,6 @@
 			@if $flush-margin == true {
 				$left-margin-fixed: $left-margin-fixed - $margin-left;
 			}
-			
 		}
 		
 		@if unit($margin-right) != "%" {
@@ -386,10 +384,8 @@
 		$original-widths:calculate-column-widths($columns, $margin, $flush-margin);
 		$new-widths:calculate-column-widths($new-columns, $margin, $flush-margin);
 
-		$original-subtraction:calculate-column-subtraction($columns, $margin, $flush-margin);
+		$subtraction:calculate-column-subtraction($columns, $margin, $flush-margin);
 		$new-subtraction:calculate-column-subtraction($new-columns, $margin, $flush-margin);
-
-//		$original-subtraction: (($original-subtraction / ((($column-count * 2) - 2))) * 4);
 	
 		//iterate through each column
 		$index: 0;
@@ -402,7 +398,7 @@
 				$orig-w-before: $orig-w-before + nth($original-widths, $i);
 			} 
 			$orig-w-before: $orig-w-before - nth($original-widths, $column);
-	 
+
 			//calc sum of new previous widths
 			$new-w-before: 0;
 			@for $i from 1 through $index {
@@ -431,10 +427,6 @@
 			
 			$margin-left: 0;
 			$margin-right: 0;
-			$left-margin-ajustment: 0;
-			$right-margin-ajustment: 0;			
-			$margin-ajustment: 0;
-			$leftover-margin: 0;
 					
 			@if $margin != "" {
 				
@@ -442,23 +434,6 @@
 				$margin-right: extract-position($margin,right);
 
 				@if $flush-margin {
-					
-					
-					/*
-					1 margin-left and 1 margin right are removed
-					this extra space needs to be distributed evenly among remaining columns
-										
-					*/
-					
-//				$left-margin-ajustment: $margin-left * ($column-count - 2);
-//				$right-margin-ajustment: $margin-right * ($column-count - 2);
-//				
-//				$margin-ajustment: (($margin-left + $margin-right) / 2) / (($column-count - 2));	
-//				
-				
-				$margin-ajustment: (($margin-left + $margin-right) / (($column-count * 2) - 2));	
-				
-				$leftover-margin: ($margin-left + $margin-right) / ($column-count - 2);
 
 					//reapply margins to original left and right columns
 					@if $column == 1 {
@@ -481,32 +456,41 @@
 							margin-right: 0;
 						}
 					}
-					
-
 				}
 			}
 			
 
 			@if $index > $column {
-				//if new position is after current one, pull 
+				//if new position is after current one, push 
 				& > *:nth-child(#{$column}) {
 
-					//@if $margin != "" and $flush-margin and $column != $new-first-col and $column != $new-last-col {
 					@if $margin != "" and $flush-margin {
-						//left: calc(#{$left} - #{$margin-ajustment});
-						//left: calc(#{$left} - #{$right-margin-ajustment});
+						
+//						@if $index > 1 {
+//							left: calc(#{$left} - #{$margin-left / 2});
+//							position: relative;
+//						}
+						
 						
 						@if $column == $new-last-col {
-//							left: calc(#{$left} - #{$margin-left / 2});
 							left: $left;
+							left: calc(#{$left} + #{$margin-left});
 						} @else if $column == $new-first-col {
-//							left: calc(#{$left} + #{$margin-left / 2});
 							left: $left;
+							left: calc(#{$left} + #{$margin-left});
 						} @else {
-							left: calc(#{$left} + #{$margin-left / 2});
+							left: calc(#{$left} + #{$margin-left / 1.5});
 						}
 						
-						//left: calc(#{$left} + #{$margin-ajustment});
+						@if $column != $new-first-col and $column != $new-last-col {
+							//if original first or last col
+							@if $column == 1 {
+								left: calc(#{$left} - #{$margin-left / 1.5});
+							} @else if $column == $column-count {
+								left: calc(#{$left} - #{$margin-left / 1.5});
+							}
+						}
+						
 						
 					} @else {
 						left: $left;
@@ -520,72 +504,94 @@
 			@if $index < $column {
 				//if new position is before current one, pull 
 				& > *:nth-child(#{$column}) {
-
-					//@if $margin != "" and $flush-margin and $column != $new-last-col and $column != $new-first-col {
 					
 					@if $margin != "" and $flush-margin {
-
 						
+						
+//						@if $index < 1 {
+//								right: $margin-right;
+//								position: relative;
+//						}
+
 						@if $column == $new-last-col {
-							right: $right;
-//							right: calc(#{$right} + #{$margin-right / 2});
-//							right: calc(#{$right} - #{$original-subtraction});
+							right: calc(#{$right} + #{$margin-right});
+//							right: $right;
 						} @else if $column == $new-first-col {
-							right: $right;
-//							right: calc(#{$right} + #{$margin-right / 2});
-//							right: calc(#{$right} - #{$original-subtraction});
+							right: calc(#{$right} + #{$margin-right});
+//							right: $right;
 						} @else {
-							right: calc(#{$right} - #{$original-subtraction});
-							right: calc(#{$right} + #{$margin-right / 2});
+							right: calc(#{$right} + #{$margin-right / 1.5});
 						}
 						
-							//right: calc(#{$right} + #{$margin-ajustment});
+						
+						@if $column != $new-first-col and $column != $new-last-col {
+							//if original first or last col
+							@if $column == 1  {
+								right: calc(#{$right} - #{$margin-right / 1.5});
+							} @else if $column == $column-count {
+								right: calc(#{$right} - #{$margin-right / 1.5});
+							}
+						}
+						
 
 						
-						
-						
-						//right: calc(#{$right} - #{$left-margin-ajustment});
-					
 					} @else {
 						right: $right;
 					}
-
 					position: relative;
 				}
 				
 			}
-			
 
-			@if $column == $index and $left != 0 {
+			@if $column == $index and $left != 0 and $right != 0 {
+//			@if $column == $index {
+				
 				//if new position is the same 
 				& > *:nth-child(#{$column}) {
+					
 
-					//@if $margin != "" and $flush-margin and $column != $new-first-col and $column != $new-last-col {
+
 					@if $margin != "" and $flush-margin {
-						//left: calc(#{$left} - #{$margin-ajustment});
-						//left: calc(#{$left} - #{$right-margin-ajustment});
-						
+
 						@if $column == $new-last-col {
-//							left: calc(#{$left} - #{$margin-left});
-//							left: $left;
+							left: $left;
+							left: calc(#{$left} + #{$margin-left});
 						} @else if $column == $new-first-col {
-							left: calc(#{$left} + #{$margin-left / 2});
-//							left: $left;
+							left: $left;
+							left: calc(#{$left} + #{$margin-left});
 						} @else {
 							left: calc(#{$left} + #{$margin-left / 2});
 						}
 						
-						//left: calc(#{$left} + #{$margin-ajustment});
-						
 					} @else {
 						left: $left;
 					}
-
 					position: relative;
 				}
 
 			}
 			
+//			@if $index > 1 {
+//				& > *:nth-child(#{$column}) {
+//					
+//					/* adjustment */
+//							
+//					left: calc(#{$left} - #{$margin-left / 2});
+//					position: relative;
+//				}
+//			}
+//						
+//			@if $index < 1 {
+//				& > *:nth-child(#{$column}) {
+//					
+//					/* adjustment */
+//					
+//					right: $margin-right;
+//					right: calc(#{$right} - #{$margin-right / 2});
+//					position: relative;
+//				}
+//			}
+
 			
 		}
 	}
