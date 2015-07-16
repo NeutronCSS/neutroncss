@@ -91,7 +91,93 @@
 	@include columns($arguments...);
 }
 
-@function calculate-column-widths($column-ratio, $margin:"", $flush-margin:true) {
+@function calculate-column-position($column-widths) {
+	
+	$column-positions: ();
+
+	//Determine position of each column
+	$col-index: 1;
+	@each $column in $column-widths {
+
+		//sum previous column widths
+		$prev-columns: slice($column-widths, $end: $col-index);
+		$position: sum($prev-columns);
+		$position: $position - $column;
+		$column-positions: append($column-positions, $position, comma);
+
+		$col-index: $col-index + 1;
+	}
+
+	@return $column-positions;
+
+}
+
+@function slice($list, $start: 1, $end: length($list)) {
+	$result: null;
+	          
+	@if type-of($start) != number or type-of($end) != number {
+		@warn "Either $start or $end are not a number for `slice`.";
+	}
+	         
+	@else if $start > $end {
+		@warn "The start index has to be lesser than or equals to the end index for `slice`.";
+	}
+	
+	@else if $start < 1 or $end < 1 {
+		@warn "List indexes must be non-zero integers for `slice`.";
+	}
+	
+	@else if $start > length($list) {
+		@warn "List index is #{$start} but list is only #{length($list)} item long for `slice`.";
+	}
+	         
+	@else if $end > length($list) {
+		@warn "List index is #{$end} but list is only #{length($list)} item long for `slice`.";
+	}
+	
+	@else {
+		$result: ();
+		            
+		@for $i from $start through $end {
+		  $result: append($result, nth($list, $i));
+		}
+	}
+	
+	@return $result;
+}
+
+
+
+@function reorder-list($list, $order) {
+	
+	$new-list:();
+
+	@each $index in $order {
+		$item: nth($list, $index);
+		$new-list: append($new-list, $item);
+	}
+	
+	@return $new-list;
+}
+
+@function calculate-column-widths($column-ratio, $args...) {
+	
+	$column-sum: sum($column-ratio);
+	$column-count: length($column-ratio);
+	$column-widths: ();
+
+	//Determine width of each column
+	@each $column in $column-ratio {
+		$width: (100% / $column-sum) * $column;
+		$column-widths: append($column-widths, $width, comma);
+	}
+	
+	@return $column-widths;
+
+}
+
+
+@function old-calculate-column-widths($column-ratio, $margin:"", $flush-margin:true) {
 
 	$avail-width: 100%;
 	$left-margin-percent: 0%;
@@ -357,6 +443,123 @@
 }
 
 @mixin new-order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
+		
+	@if type-of($order) == list {
+		//if no ratio is set, determine 
+		//ratio from provided order list
+		@if $columns == "" {
+			$columns:();
+			$order-count: length($order);
+
+			@for $i from 1 through $order-count {
+				$columns: append($columns, 1, comma);
+			}
+		}
+		
+		//if column ratio is not a list, generate it
+		$columns: calc-column-ratio($columns);
+
+		//calculate widths of 
+		//current and new layouts
+		$column-count: length($columns);
+		$new-columns: reorder-list($columns, $order);
+		$ori-widths: calculate-column-widths($columns);
+		$new-widths: reorder-list($ori-widths, $order);
+		$ori-positions: calculate-column-position($ori-widths);
+		
+
+		$column-subtraction: calculate-column-subtraction($columns, $margin, $flush-margin);
+		
+		//iterate over each column
+		$i: 0;
+		@each $column in $order {
+			
+			$i: $i + 1;
+			
+			$new-position: index($order, $column);	
+					
+			//get original position of column
+			$ori-pos: nth($ori-positions, $column);
+			
+			//minus original column position from offset 
+			$offset: 0 - $ori-pos;
+			
+			// get sum of widths of columns that come before current one and add to offset
+			$index: 1;
+			@while $index < $new-position {
+
+				$offset: $offset + nth($new-widths, $index);
+				$index: $index + 1;
+
+			}
+
+			& > *:nth-child(#{$column}) {
+				left: $offset;
+				position: relative;
+				
+				// adjust margins
+				@if ($flush-margin) {
+					// left: calc(#{$offset} + #{$column-subtraction});
+					
+					// @if ($column < $new-position) {
+					// 	left: calc(#{$offset} + #{$column-subtraction});
+
+					// } @else if ($column > $new-position) {
+					// 	left: calc(#{$offset} - #{$column-subtraction});
+
+					// } @else {
+					// 	left: calc(#{$offset} - #{$column-subtraction});
+
+					// }
+
+				
+				
+				// if flush margin, re-set margins
+
+					// left: calc(#{$offset} - #{$margin / 2});
+					
+					@if ($i == 1) {
+
+						margin-left: 0;
+						margin-right: extract-position($margin, 2);
+					} @else if ($i == $column-count) {
+
+						margin-right: 0;
+						margin-left: extract-position($margin, 4);
+					} @else {
+
+						margin-left: extract-position($margin, 4);
+						margin-right: extract-position($margin, 2);
+					}
+				}
+
+			}
+
+		}
+		
+		
+		// Get sum of widths of columns to the left of column.
+		// Minus current column width
+
+		/*
+		
+		$order: #{$order};
+		$columns: #{$columns};
+		$new-columns: #{$new-columns};
+
+		$margin: #{$margin};
+		$flush-margin: #{$flush-margin};
+		
+		$ori-widths: #{$ori-widths};
+		$new-widths: #{$new-widths};
+		ori-positions: #{$ori-positions};
+
+		*/
+
+	}
+}
+
+@mixin test-order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
 		
 	@if type-of($order) == list {
 		//if no ratio is set, determine 

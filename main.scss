@@ -64,6 +64,14 @@ nav ul .subhead {
 
 	@include columns($column-ratio);
 	@include new-order($order,$column-ratio);
+	//$positions: calculate-column-position($column-ratio);
+	
+	
+	
+	
+	//positions: $positions;
+	
+	
 
 	
 	
