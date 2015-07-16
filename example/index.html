@@ -13,7 +13,7 @@
 		<ul>
 			<li><a href="index.html">Overview</a></li>
 			<li><a href="buttons.html">Buttons</a></li>
-			<li><a href="flexbox.html">Flexbox</a></li>
+			<li><a href="order.html">Order</a></li>
 		</ul>
 	</nav>
 	
@@ -37,7 +37,7 @@
 		<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
 	</section>
 
-	<h2>Column mixin example</h2>
+	<h2>Make only child divs a column</h2>
 	<section class="example-4">
 		<h3>This heading is not a column.</h3>
 		<div class="one"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
@@ -68,30 +68,19 @@
 		<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
 		<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
 	</section>
-	
-	<h2>4 column, flush</h2>
-	<section class="example-7">
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-	</section>
-	
-	<h2>4 column, order rearranged</h2>
-	<section class="example-8">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-	</section>
-	
+
 	<h2>2 column, with nested 2 column</h2>
 	<section class="example-9">
 		<div class="nested">
-			<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-			<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-			<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-			<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
+			<div class="nest-1"> 
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p>
+			</div>
+			<div class="nest-2"> 
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p>
+			</div>
+			<div class="nest-3"> 
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p>
+			</div>
 		</div>
 
 		<div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>

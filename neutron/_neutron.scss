@@ -2,30 +2,27 @@
            NeutronCSS
 ---------------------------------*/
 
-/* Overrides
--------------------------------------*/
+// Overrides
+//-------------------------------------
 @import "overrides/queries";
 @import "overrides/colors";
 @import "overrides/layout";
 
-/* Modules
--------------------------------------*/
+// Modules
+//-------------------------------------
 @import "modules/normalise";
 @import "modules/grid";
 //@import "modules/flexbox";
 @import "modules/utilities";
+@import "modules/typography";
+@import "modules/buttons";
+@import "modules/forms";
+@import "modules/lists";
+@import "modules/code";
+@import "modules/tables";
 
-/* Themes
--------------------------------------*/
-@import "themes/neutron/typography";
-@import "themes/neutron/buttons";
-@import "themes/neutron/forms";
-@import "themes/neutron/lists";
-@import "themes/neutron/code";
-@import "themes/neutron/tables";
-
-/* Helper Functions
--------------------------------------*/
+// Helper Functions
+//-------------------------------------
 
 //Adds all items in a list and returns the result
 @function sum($list) {
@@ -105,8 +102,8 @@
 }
 
 
-/* Required Styles
--------------------------------------*/
+// Required Styles
+//-------------------------------------
 
 /**
  * Set root element to use border-box 

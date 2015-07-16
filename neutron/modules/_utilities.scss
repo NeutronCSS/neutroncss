@@ -1,10 +1,10 @@
-/* Utilities
----------------------------------------------*/
+// Utilities
+//---------------------------------------------
 
 //hides the element when the 
 //provided media query is supplied.
-@mixin hide($media-query:"") {
-	@if $media-query != "" {
+@mixin hide($media-query...) {
+	@if length($media-query) > 0 {
 
 		@media #{$media-query} {
 			& {
@@ -18,17 +18,18 @@
 
 //shows the element when the 
 //provided media query is supplied.
-@mixin show($media-query:"", $display-as:"block") {
-	@if $media-query != "" {
+@mixin show($media-query...) {
+	@if length($media-query) > 0 {
 
 		@media #{$media-query} {
 			& {
-				display: unquote($display-as);
+				display: block;
 				display: initial;
 			}
 		}
 	} @else {
-		display: unquote($display-as);
+		display: block;
 		display: initial;
 	}
+
 }

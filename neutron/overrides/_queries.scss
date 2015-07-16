@@ -1,26 +1,14 @@
-/* Overrides
-===============================================
+/// Overrides
+//===============================================
+//In this file you can change the default 
+//values for variables used throughout Neutron,
+//allowing you to customise the appearance and 
+//behaviour of Neutron without needing to create 
+//your own modules or themes.
+//---------------------------------------------
 
-In this file you can change the default 
-values for variables used throughout Neutron,
-allowing you to customise the appearance and 
-behaviour of Neutron without needing to create 
-your own modules or themes.
-
----------------------------------------------*/
-
-/* Overrides
-===============================================
-In this file you can change the default 
-values for variables used throughout Neutron,
-allowing you to customise the appearance and 
-behaviour of Neutron without needing to create 
-your own modules or themes.
----------------------------------------------*/
-
-
-/* Viewport Settings
----------------------------------------------*/
+// Viewport Settings
+//---------------------------------------------
 
 		 $mobile-max: 479px;
 		$phablet-max: 767px;
@@ -36,8 +24,8 @@ $desktop-sml-min: 	$tablet-max + 1;
 $desktop-mid-min: 	$desktop-sml-max + 1;
 $desktop-lrg-min: 	$desktop-mid-max + 1;
 
-/* Media Queries
----------------------------------------------*/
+// Media Queries
+//---------------------------------------------
 
 //Mobile
 $is-mobile: "(max-width: #{$mobile-max})";

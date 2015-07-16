@@ -46,7 +46,8 @@ nav ul .subhead {
 }
 
 .example-5 {
-	@include hide($is-desktop-sml);
+	@include hide($is-desktop-sml, $is-desktop-mid);
+	@include columns(4);
 }
 
 .example-6 {
@@ -54,8 +55,7 @@ nav ul .subhead {
 }
 
 .example-7 {
-	@include columns(4);
-	@include flush-padding();
+	@include columns(4, $flush-padding:true);
 }
 
 .example-8 {
@@ -63,16 +63,157 @@ nav ul .subhead {
 	$order: (3,1,4,2);
 
 	@include columns($column-ratio);
-	@include order($order,$column-ratio);
+	@include new-order($order,$column-ratio);
+	//$positions: calculate-column-position($column-ratio);
+	
+	
+	
+	
+	//positions: $positions;
+	
+	
+
 }
+
+.example-8-margin-2 {
+	$column-ratio: 2;
+	$order: (2,1);
+
+	@include columns($column-ratio, $margin:10px,$flush-margin:false);
+	@include new-order($order,$column-ratio, 10px,$flush-margin:false);
+
+}
+
+.example-8-margin-flush-2 {
+	$column-ratio: 2;
+	$order: (2,1);
+	$margin: 40px;
+
+	@include columns($column-ratio, $margin:$margin,$flush-margin:true);
+	@include new-order($order,$column-ratio, $margin,$flush-margin:true);
+
+}
+
+.example-8-margin {
+	$column-ratio: (1,1,2,2);
+	$order: (3,1,4,2);
+
+	@include columns($column-ratio, $margin:10px,$flush-margin:false);
+	@include new-order($order,$column-ratio, 10px,$flush-margin:false);
+
+}
+
+.example-8-margin-flush {
+	$column-ratio: (1,1,2,2);
+	$order: (1,3,2,4);
+	$margin: 40px;
+
+	@include columns($column-ratio, $margin:$margin,$flush-margin:true);
+	@include new-order($order,$column-ratio, $margin,$flush-margin:true);
+
+}
+
+.push-pull {
+	$column-ratio: (1,1,1,1,1);
+	$order: (2,1,3,4,5);
+	$order: (5,2,3,4,1);
+	$margin: 10px;
+	$flush-margin:true;
+
+	@include columns($column-ratio, $margin:$margin,$flush-margin:$flush-margin);
+	//@include new-order($order,$column-ratio, $margin,$flush-margin:$flush-margin);
+
+}
+
+
+.new-order {
+	$column-ratio: (1,1,2,2,1,1,1);
+	$order: (3,1,4,5,2,7,6);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+
+}
+
+.new-order-8-flush {
+	$column-ratio: (1,1,2,2,1,1,1,1);
+	$order: (3,1,8,4,5,2,7,6);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+
+}
+
+
+.new-order-8 {
+	$column-ratio: (1,1,2,2,1,1,1,1);
+	$order: (3,1,8,4,5,2,7,6);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+
+}
+
+.new-order-flush {
+	$column-ratio: (1,1,2,2,1,1,1);
+	$order: (3,1,4,5,2,7,6);
+
+	@include columns($column-ratio, $padding:0,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+
+}
+
+.new-order-3 {
+	$column-ratio: (1,1,1);
+	$order: (3,1,2);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+
+}
+.new-order-3-flush {
+	$column-ratio: (1,1,1);
+	$order: (3,1,2);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+
+}
+
+
+
+.new-order-6 {
+	$column-ratio: 6;
+	$order: (1,3,2,4,5,6);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:false);
+	@include new-order($order,$column-ratio,24px,$flush-margin:false);
+
+}
+.new-order-6-flush {
+	$column-ratio: 6;
+	$order: (1,3,2,4,5,6);
+
+	@include columns($column-ratio,$margin:24px,$flush-margin:true);
+	@include new-order($order,$column-ratio,24px,$flush-margin:true);
+
+}
+
 
 .example-9 {
-	@include columns(2);
+	@include columns((2,1));
+
+	.nested {
+		@include columns(2);
+		.nest-1 {
+			@include columns($container-width:50%, $container-align:right);
+		}
+		.nest-2 {
+			@include columns($container-align:50%);
+		}
+	}
 }
 
-.nested {
-	@include columns(2);
-}
 
 .example-10 {
 	@include columns((1,2),$padding: 10px);
@@ -163,6 +304,10 @@ body {
 section {
 	outline: 1px solid red;
 	margin-bottom: 50px;
+	
+	& div {
+		outline: red 1px solid;
+	}
 }
 
 div p {

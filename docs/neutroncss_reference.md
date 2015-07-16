@@ -10,25 +10,15 @@
 #####Mixin Specification
 
 	columns(
-		$columns:			null|integer|list,
+		$columns:			integer|list,
 		$container-width:	[CSS width], 
 		$container-align:	left|right|center,
 		$padding:			[CSS width],
+		$flush-padding:		false|true,
 		$margin:			[CSS width],
+		$flush-margin:		true|false,
 		$target:			[CSS selector]
 	);
-	
-###Flush Padding
-#####Mixin Definition
-
-	flush-padding( $active:true	 );
-	
-#####Mixin Specification
-
-	flush-padding(
-		$active: true|false
-	);
-
 	
 ###Container Align
 #####Mixin Definition

@@ -1,0 +1,201 @@
+// Buttons
+//---------------------------------------------
+
+@mixin btn-styles($state:"none", $type:"normal", $size:"normal", $disabled:false) {
+	
+	//set default button selector
+	$btn-selector: ".btn";
+
+	//remaining button selectors
+	$selector-list: (
+		'button',
+		'input[type="submit"]',
+		'input[type="reset"]',
+		'input[type="button"]'
+	);
+	
+	//add button disabled status
+	@if $disabled {
+		
+		$selector-list-attr: $selector-list;
+		$selector-list-pseudo: $selector-list;
+		
+		$index:0;
+		@each $selector in $selector-list {
+			$index: $index + 1;
+
+			$new-selector-attr: $selector + "[disabled]";
+			$new-selector-pseudo: $selector + ":disabled";
+			
+			$selector-list-attr: set-nth($selector-list-attr, $index, $new-selector-attr);
+			$selector-list-pseudo: set-nth($selector-list-pseudo, $index, $new-selector-pseudo);
+			
+		}
+		
+		$selector-list: join($selector-list-attr, $selector-list-pseudo, comma);
+		$btn-selector: $btn-selector + ".disabled";
+
+	}
+	
+	//append default button class to selector list
+	$selector-list: append($selector-list, $btn-selector, comma);
+	
+	//add button state to all selectors
+	@if $state != "none" {
+		$index:0;
+		@each $selector in $selector-list {
+			$index: $index + 1;
+			
+			$new-selector: $selector + ":#{$state}";
+			
+			$selector-list: set-nth($selector-list, $index, $new-selector);
+			
+		}
+	}
+	
+	//add button type to all selectors
+	@if $type != "normal" {
+		$index:0;
+		@each $selector in $selector-list {
+			$index: $index + 1;
+			
+			$new-selector: $selector + ".#{$type}";
+			
+			$selector-list: set-nth($selector-list, $index, $new-selector);
+			
+		}
+	}
+	
+	//add button size to all selectors
+	@if $size != "normal" {
+		$index:0;
+		@each $selector in $selector-list {
+			$index: $index + 1;
+			
+			$new-selector: $selector + ".#{$size}";
+			
+			$selector-list: set-nth($selector-list, $index, $new-selector);
+			
+		}
+	}
+
+	//print selectors and 
+	#{$selector-list} {
+		@content;		
+	}
+}
+
+//Default button styles
+@include btn-styles {
+	display: inline-block;
+	height: 38px;
+	padding: 0 30px;
+	color: #555;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 38px;
+	letter-spacing: .1rem;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: transparent;
+	border-radius: 4px;
+	border: 1px solid #bbb;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+//Button hover styles
+@include btn-styles(hover) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+
+//Button focus styles
+@include btn-styles(focus) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//Button active styles
+@include btn-styles(active) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//primary button styles
+@include btn-styles(none, $type:primary) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//secondary button styles
+@include btn-styles(none, $type:secondary) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//warning button styles
+@include btn-styles(none, $type:warning) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//primary button styles
+@include btn-styles(none, $disabled:true) {
+	pointer-events:none;
+	color: #FFF;
+	background-color: #1EAEDB;
+	border-color: #1EAEDB;
+}
+
+//large button styles
+@include btn-styles(none, $size:large) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//small button styles
+@include btn-styles(none, $size:small) {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
+//buttons mixin
+@mixin button($type:"", $size:"normal", $disabled:false) {
+	@extend .btn;
+	
+	&:hover {
+		@extend .btn:hover;
+	}
+	
+	&:focus {
+		@extend .btn:focus;
+	}
+	
+	&:active {
+		@extend .btn:active;
+	}
+	
+	@if $size != "" {
+		@extend .btn-#{$size};
+	}
+	
+	@if $type != "" {
+		@extend .btn-#{$type};
+	}
+	
+	@if $disabled {
+		@extend .btn-disabled;
+	}
+}
