@@ -105,15 +105,13 @@
 // Required Styles
 //-------------------------------------
 
-/**
- * Set root element to use border-box 
- * sizing and set all elements on the page
- *  to inherit border-box sizing. 
- * 
- * html is set to 62.5% so that all the REM 
- * measurements are based on 10px sizing. 
- * So basically 1.5rem = 15px
- */
+// Set root element to use border-box 
+// sizing and set all elements on the page
+// to inherit border-box sizing. 
+//
+// html is set to 62.5% so that all the REM 
+// measurements are based on 10px sizing. 
+// So basically 1.5rem = 15px
 
 html {
 	-moz-box-sizing: border-box;
