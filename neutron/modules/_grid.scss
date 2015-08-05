@@ -74,32 +74,31 @@
 					margin: $margin;
 				}
 				
+				//if first column
+				@if $index == 1 {
+					clear: left;
+					
+					@if $flush-padding {
+						padding-left: 0;
+					}
+					@if $flush-margin {
+						margin-left: 0;
+					}
+				}
+				
+				//if last column
+				@if $index == $column-count {
+					@if $flush-padding {
+						padding-right: 0;
+					}
+					@if $flush-margin {
+						margin-right: 0;
+					}
+				}
+				
 				@content;
 			}
 		}	
-
-		//apply styles to first column of the row
-		@include target-col(1, $column-count, $target) {
-			clear: left;
-			
-			@if $flush-padding {
-				padding-left: 0;
-			}
-			@if $flush-margin {
-				margin-left: 0;
-			}
-		}
-	
-		//apply styles to last column of the row
-		@include target-col($column-count, $column-count, $target) {
-				
-			@if $flush-padding {
-				padding-right: 0;
-			}
-			@if $flush-margin {
-				margin-right: 0;
-			}
-		}
 	}
 
 	//Set alignment of container
@@ -213,17 +212,6 @@
 	
 	@return $calc-column-widths;
 
-}
-
-@mixin target-col($column-target, $column-count, $target-selector:"*") {
-
-	$target-child-selector: child-selector($target-selector);
-
-	& > #{$target-selector} {
-		&:#{$target-child-selector}(#{$column-count}n+#{$column-target}) {
-			@content;
-		}
-	}
 }
 
 @mixin container-align($align:"") {
