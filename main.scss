@@ -297,7 +297,7 @@ nav ul .subhead {
 }
 
 .margin-2 {
-	@include columns((2,5,5), $margin:10px 2em 10px 10px,$flush-margin:false);
+	@include columns((2,5,5), $margin:10px 2em 10px 10px,$flush-margin:true);
 }
 
 .margin-3 {
