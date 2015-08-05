@@ -304,6 +304,10 @@ nav ul .subhead {
 	@include columns((2,5,5), $margin:10px 2em 10px 10px);
 }
 
+.margin-4 {
+	@include columns((2,5,5), $margin:10px 2em 10px 2pc);
+}
+
 /* Example Styling
 -----------------------------*/
 
