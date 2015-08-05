@@ -22,23 +22,51 @@
 		$column-sum: get-column-sum($columns);	
 		$column-count: get-column-count($columns);
 		$column-ratio: calc-column-ratio($columns);
-		$column-subtraction: calculate-column-subtraction($column-ratio, $margin, $flush-margin);
 		$column-widths: calculate-column-widths($column-ratio, $container-width, $margin);	
 		$target-child-selector: child-selector($target);
-
+		
+		$margin-left: 0;
+		$margin-right: 0;
+		
+		@if $margin != "" {
+			
+			//get margins for left and right of the columns
+			$margin-left: extract-position($margin,left);
+			$margin-right: extract-position($margin,right);
+		
+		}
+	
 		//assign calculated widths to elements
 		$index: 0;
 		@each $width in $column-widths {	
 			$index: $index + 1;
+			
+			$col-width: $width;
 
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
+			
+				$calc-contents: "#{$width}";
+					
+				@if $margin != "" {
+					
+					@if $margin-left != 0 {
+						$calc-contents: $calc-contents + " - #{$margin-left}";
+					}					
+					
+					@if $margin-right != 0 {
+						$calc-contents: $calc-contents + " - #{$margin-right}";
+					}
 
-				@if $margin != "" and $column-subtraction != 0 {
-					width: calc(#{$width} - #{$column-subtraction});
-				} @else {
-					width: $width;
+					@if $flush-margin {
+						$flush-left: $margin-left / $column-count;
+						$flush-right: $margin-right / $column-count;
+						$calc-contents: $calc-contents + " + #{$flush-left}";
+						$calc-contents: $calc-contents + " + #{$flush-right}";
+					}	
+
 				}
-				
+
+				width: calc(#{$calc-contents});
 				float:left;
 				padding: $padding;				
 
@@ -140,7 +168,6 @@
 
 }
 
-
 @function old-calculate-column-widths($column-ratio, $margin:"", $flush-margin:true) {
 
 	$avail-width: 100%;
@@ -187,54 +214,6 @@
 	@return $calc-column-widths;
 
 }
-
-@function calculate-column-subtraction($column-ratio, $margin:"", $flush-margin:true) {
-
-	$total-fixed-width: 0;
-	$left-margin-fixed: 0;
-	$right-margin-fixed: 0;
-	$column-width-subtraction: 0;
-	$column-sum: sum($column-ratio);
-	$column-count: length($column-ratio);
-
-	//calculate margins
-	@if $margin != "" {
-		
-		//get margins for left and right of the columns
-		$margin-left: extract-position($margin,left);
-		$margin-right: extract-position($margin,right);
-
-		@if unit($margin-left) != "%" {
-			//if non-percent unit used, calculate fixed size portion of remaining width
-			
-			$left-margin-fixed: $column-count * $margin-left;
-
-			@if $flush-margin == true {
-				$left-margin-fixed: $left-margin-fixed - $margin-left;
-			}
-		}
-		
-		@if unit($margin-right) != "%" {
-
-			//if non-percent unit used, calculate fixed size portion of remaining width
-			
-			$right-margin-fixed: $column-count * $margin-right;
-
-			@if $flush-margin == true {
-				$right-margin-fixed: $right-margin-fixed - $margin-right;
-			}
-			
-		}
-	}
-
-	//how much of total width is fixed
-	$total-fixed-width: $total-fixed-width + $left-margin-fixed + $right-margin-fixed;
-	$column-width-subtraction: $total-fixed-width / $column-count;
-
-	@return $column-width-subtraction;
-
-}
-
 
 @mixin target-col($column-target, $column-count, $target-selector:"*") {
 
@@ -352,9 +331,6 @@
 			$ori-widths: calculate-column-widths($columns);
 			$new-widths: reorder-list($ori-widths, $order);
 			$ori-positions: calculate-column-position($ori-widths);
-			
-	
-			$column-subtraction: calculate-column-subtraction($columns, $margin, $flush-margin);
 			
 			//iterate over each column
 			$i: 0;

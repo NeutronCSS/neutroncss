@@ -289,8 +289,20 @@ nav ul .subhead {
 
 
 
+/* Margin examples
+-----------------------------*/
 
+.margin-1 {
+	@include columns((2,5,5), $margin:10px 2%,$flush-margin:false);
+}
 
+.margin-2 {
+	@include columns((2,5,5), $margin:10px 2em 10px 10px,$flush-margin:false);
+}
+
+.margin-3 {
+	@include columns((2,5,5), $margin:10px 2em 10px 10px);
+}
 
 /* Example Styling
 -----------------------------*/
