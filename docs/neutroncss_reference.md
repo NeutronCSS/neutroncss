@@ -15,7 +15,7 @@
 		$container-align:	left|right|center,
 		$padding:			[CSS width],
 		$flush-padding:		false|true,
-		$margin:			[CSS width],
+		$margin:			[CSS margin],
 		$flush-margin:		true|false,
 		$target:			[CSS selector]
 	);
