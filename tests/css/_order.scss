@@ -63,3 +63,13 @@
 	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 
 }
+
+.order-7, .order-8 {
+	$column-ratio: (1,2,1,1,2);
+	$order: (5,3,4,2,1);
+	$flush-margin-set: true;
+
+	@include columns($column-ratio, $margin:40px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 40px,$flush-margin: $flush-margin-set);
+
+}

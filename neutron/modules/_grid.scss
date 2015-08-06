@@ -224,7 +224,8 @@
 		$columns: calc-column-ratio($columns);
 		$column-sum: sum($columns);
 		$column-count: length($columns);
-		
+		$target-child-selector: child-selector($target);
+				
 		$margin-left: 0;
 		$margin-right: 0;
 		
@@ -238,18 +239,8 @@
 
 		$col-index: 1;
 		@each $column in $columns {
-			
 			$col-width: (100% / $column-sum) * $column;
-			$col-width-string: "#{$col-width}";
-			
-			@if $flush-margin and $margin != "" {
-				@if $col-index == 1 {
-					$col-width-string: $col-width-string + " - #{$margin-left}";
-				}
-			}
-			
-			$col-width-string: "(#{$col-width-string})";
-			
+			$col-width-string: "(#{$col-width})";
 			$column-width-string: append($column-width-string, $col-width-string, comma);
 			$col-index: $col-index + 1;
 		}
@@ -291,16 +282,42 @@
 
 				$add-offset: nth($new-column-width-string, $index);
 				$new-offset: $new-offset + " + " + $add-offset;
+
 				$index: $index + 1;
 
 			}
 			
 			//Get left offset required for this column to reset column to left side.
 			$ori-offset: nth($columns-offset, $column);
+			
+			@if $flush-margin and $margin != "" {
+				$ori-offset: $ori-offset + " + #{$margin-left}";
+			}
 
-			& > *:nth-child(#{$column}) {
+			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$column}) {
 				left: calc(0px - #{$ori-offset} + #{$new-offset});
+				// left: calc(0px - #{$ori-offset});
 				position: relative;
+				
+				
+				@if $flush-margin and $margin != "" {
+					@if $i == 1 {
+						margin-left: 0;
+						margin-right: $margin-right;
+					} 
+					@if $i == $column-count {
+						margin-left: $margin-left;
+						margin-right: 0;
+					}
+					
+					@if $column == 1 {
+						margin-left: $margin-left;
+					} 
+					@if $column == $column-count {
+						margin-right: $margin-right;
+					}
+					
+				}
 			}
 		}
 	}
