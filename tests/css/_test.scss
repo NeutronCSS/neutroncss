@@ -1,0 +1,29 @@
+/* Example Styling
+-----------------------------*/
+
+body {
+	margin-bottom: 24px;
+}
+
+section {
+	outline: 1px solid red;
+	margin-bottom: 50px;
+	
+	& div {
+		outline: red 1px solid;
+	}
+}
+
+div p {
+	word-wrap: break-word;
+}
+nav {
+	@include clear-fix();
+}
+
+nav ul a {
+	padding: 16px 24px;
+}
+nav ul .subhead {
+	padding: 16px 24px;
+}
