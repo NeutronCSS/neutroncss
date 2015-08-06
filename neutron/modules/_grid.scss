@@ -112,31 +112,8 @@
 @mixin column($arguments...) {
 	@include columns($arguments...);
 }
-
-//Alias for columns
 @mixin col($arguments...) {
 	@include columns($arguments...);
-}
-
-@function calculate-column-position($column-widths) {
-	
-	$column-positions: ();
-
-	//Determine position of each column
-	$col-index: 1;
-	@each $column in $column-widths {
-
-		//sum previous column widths
-		$prev-columns: slice($column-widths, $end: $col-index);
-		$position: sum($prev-columns);
-		$position: $position - $column;
-		$column-positions: append($column-positions, $position, comma);
-
-		$col-index: $col-index + 1;
-	}
-
-	@return $column-positions;
-
 }
 
 @function reorder-list($list, $order) {
@@ -228,84 +205,7 @@
 	@return $child-selector;
 }
 
-@function calculate-widths($columns) {
-	$column-total: sum($columns);
-	$calculated-widths:();
-
-	$index: 0;
-	@each $column in $columns {	
-		$index: $index + 1;
-		$width: (100% / $column-total) * $column;
-		$calculated-widths: append($calculated-widths, $width, comma);
-	}
-
-	@return $calculated-widths;
-}
-
 @mixin order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
-	
-	@if($flush-margin) {
-		@warn "Flush margins is not supported by Order() yet.";
-	} @else {
-	
-		@if type-of($order) == list {
-			
-			//if no ratio is set, determine 
-			//ratio from provided order list
-			@if $columns == "" {
-				$columns:();
-				$order-count: length($order);
-	
-				@for $i from 1 through $order-count {
-					$columns: append($columns, 1, comma);
-				}
-			}
-			
-			//if column ratio is not a list, generate it
-			$columns: calc-column-ratio($columns);
-	
-			//calculate widths of 
-			//current and new layouts
-			$column-count: length($columns);
-			$new-columns: reorder-list($columns, $order);
-			$ori-widths: calculate-column-widths($columns);
-			$new-widths: reorder-list($ori-widths, $order);
-			$ori-positions: calculate-column-position($ori-widths);
-			
-			//iterate over each column
-			$i: 0;
-			@each $column in $order {
-				
-				$i: $i + 1;
-				
-				$new-position: index($order, $column);	
-						
-				//get original position of column
-				$ori-pos: nth($ori-positions, $column);
-				
-				//minus original column position from offset 
-				$offset: 0 - $ori-pos;
-				
-				// get sum of widths of columns that come before current one and add to offset
-				$index: 1;
-				@while $index < $new-position {
-	
-					$offset: $offset + nth($new-widths, $index);
-					$index: $index + 1;
-	
-				}
-	
-				& > *:nth-child(#{$column}) {
-					left: $offset;
-					position: relative;
-	
-				}
-			}
-		}
-	}
-}
-
-@mixin test-order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
 	
 	@if type-of($order) == list {
 		
@@ -322,32 +222,20 @@
 		
 		//if column ratio is not a list, generate it
 		$columns: calc-column-ratio($columns);
-
-		//calculate widths of 
-		//current and new layouts
+		$column-sum: sum($columns);
 		$column-count: length($columns);
-		$new-columns: reorder-list($columns, $order);
-		$ori-widths: calculate-column-widths($columns);
-		$new-widths: reorder-list($ori-widths, $order);
-		$ori-positions: calculate-column-position($ori-widths);
-		
 		
 		$margin-left: 0;
 		$margin-right: 0;
 		
-		@if $margin != "" {
-			
-			//get margins for left and right of the columns
+		@if $margin != "" {	
 			$margin-left: extract-position($margin,left);
 			$margin-right: extract-position($margin,right);
-		
 		}
 		
+		//calculate current distance from left side of container
 		$column-width-string:();
-		
-		$column-sum: sum($columns);
-		$column-count: length($columns);
-	
+
 		$col-index: 1;
 		@each $column in $columns {
 			
@@ -355,25 +243,9 @@
 			$col-width-string: "#{$col-width}";
 			
 			@if $flush-margin and $margin != "" {
-				
-				// @if $col-index > 1 {
-					/* calced offset: #{($margin-left / ($column-count - 1)) * $col-index} */
-					// $col-width-string: $col-width-string + " - #{($margin-left / ($column-count )) * $col-index}";
-					@if $col-index == 1 {
-						$col-width-string: $col-width-string + " - #{$margin-left}";
-					}
-
-				// }
-				
-				// @if $col-index == 1 {
-				// 	//first col
-					
-				// 	/* calced offset: #{($margin-left / ($column-count - 1)) * $col-index} */
-				// 	$col-width-string: $col-width-string + " - #{($margin-left / ($column-count - 1)) * $col-index}";
-				// } @else if $col-index == $column-count {
-				// 	/* calced offset: #{($margin-right / ($column-count - 1)) * $col-index} */
-				// 	$col-width-string: $col-width-string + " - #{($margin-right / ($column-count - 1)) * $col-index}";
-				// }
+				@if $col-index == 1 {
+					$col-width-string: $col-width-string + " - #{$margin-left}";
+				}
 			}
 			
 			$col-width-string: "(#{$col-width-string})";
@@ -383,13 +255,8 @@
 		}
 		
 		$new-column-width-string: reorder-list($column-width-string, $order);
-		
-		
-//minus current position to zero
-//add current position based on new order
 
-
-
+		// Calculate values to reset all columns to left side
 		$i: 0;
 		$columns-offset: ();
 		@each $column in $columns {
@@ -402,41 +269,24 @@
 				$add-offset: nth($column-width-string, $current-index);
 				$current-offset: $current-offset + " + " + $add-offset;
 				$current-index: $current-index + 1;
-
 			}
 			
 			$current-offset: "(" + $current-offset + ")";
-			
 			$columns-offset: append($columns-offset, $current-offset, comma)
 			
 		}
-			/* 
 
-			$columns-offset: #{$columns-offset}
-			*/
-		
 		//iterate over each column
 		$i: 0;
 		@each $column in $order {
 			
 			$i: $i + 1;
-			
-			$new-position: index($order, $column);	
-					
-			//get original position of column
-			$ori-pos: nth($column-width-string, $column);
-			$ori-offset: nth($columns-offset, $column);
-			
-			
 
-			
-			//minus original column position from offset 
-			//$offset: 0 - (#{$ori-pos});
-			$offset: $ori-pos;
-			
 			// get sum of widths of columns that come before current one and add to offset
-			$index: 1;
+			$new-position: index($order, $column);	
 			$new-offset: "0px";
+			
+			$index: 1;
 			@while $index < $new-position {
 
 				$add-offset: nth($new-column-width-string, $index);
@@ -444,34 +294,15 @@
 				$index: $index + 1;
 
 			}
-
+			
+			//Get left offset required for this column to reset column to left side.
+			$ori-offset: nth($columns-offset, $column);
 
 			& > *:nth-child(#{$column}) {
-				// left: calc(0px - #{$ori-offset} + #{$offset});
 				left: calc(0px - #{$ori-offset} + #{$new-offset});
-				// left: calc(0px - #{$ori-offset});
 				position: relative;
-
 			}
-			
-/*
-$new-offset: #{$new-offset}
-*/
 		}
-		
-		
-		
-		
-		/*
-		
-		$column-width-string: #{$column-width-string}
-		$columns: #{$columns}
-		$new-columns: #{$new-columns}
-		$order: #{$order}
-
-		*/
-		
-		
 	}
 
 }

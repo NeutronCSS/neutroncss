@@ -40,12 +40,12 @@
 
 	@include columns($column-ratio, $flush-margin:false);
 	@include order($order,$column-ratio, $flush-margin:false);
-	//$positions: calculate-column-position($column-ratio);
+
 	
 	
 	
 	
-	//positions: $positions;
+
 	
 	
 

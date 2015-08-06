@@ -12,7 +12,7 @@
 	$flush-margin-set: false;
 
 	@include columns($column-ratio, $margin:10px,$flush-margin: $flush-margin-set);
-	@include test-order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 
 }
 
@@ -22,7 +22,7 @@
 	$flush-margin-set: true;
 	
 	@include columns($column-ratio, $margin:10px,$flush-margin: $flush-margin-set);
-	@include test-order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 }
 
 .order-3 {
@@ -31,7 +31,7 @@
 	$flush-margin-set: false;
 
 	@include columns($column-ratio, $margin:10px,$flush-margin: $flush-margin-set);
-	@include test-order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 
 }
 
@@ -41,7 +41,7 @@
 	$flush-margin-set: true;
 
 	@include columns($column-ratio, $margin:10px,$flush-margin: $flush-margin-set);
-	@include test-order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 
 }
 .order-5 {
@@ -50,7 +50,7 @@
 	$flush-margin-set: false;
 
 	@include columns($column-ratio, $margin:10px,$flush-margin: $flush-margin-set);
-	@include test-order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 
 }
 
@@ -60,6 +60,6 @@
 	$flush-margin-set: true;
 
 	@include columns($column-ratio, $margin:10px,$flush-margin: $flush-margin-set);
-	@include test-order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
+	@include order($order,$column-ratio, 10px,$flush-margin: $flush-margin-set);
 
 }
