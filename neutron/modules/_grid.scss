@@ -22,7 +22,7 @@
 		$column-sum: get-column-sum($columns);	
 		$column-count: get-column-count($columns);
 		$column-ratio: calc-column-ratio($columns);
-		$column-widths: calculate-column-widths($column-ratio, $container-width, $margin);	
+		$column-widths: calculate-column-widths($column-ratio);	
 		$target-child-selector: child-selector($target);
 		
 		$margin-left: 0;
@@ -57,7 +57,7 @@
 						$calc-contents: $calc-contents + " - #{$margin-right}";
 					}
 
-					@if $flush-margin and false {
+					@if $flush-margin and $margin != "" {
 						$flush-left: $margin-left / $column-count;
 						$flush-right: $margin-right / $column-count;
 						$calc-contents: $calc-contents + " + #{$flush-left}";
@@ -128,7 +128,7 @@
 	@return $new-list;
 }
 
-@function calculate-column-widths($column-ratio, $args...) {
+@function calculate-column-widths($column-ratio) {
 	
 	$column-sum: sum($column-ratio);
 	$column-count: length($column-ratio);
@@ -142,6 +142,51 @@
 	
 	@return $column-widths;
 
+}
+
+//use column widths to create strings for use in calc()
+@function column-width-strings($column-widths, $margin: "") {
+
+		$total-calc-width: ();
+		
+		//assign calculated widths to elements
+		$index: 0;
+		@each $width in $column-widths {	
+			$index: $index + 1;
+			
+			$col-width: $width;
+			$calc-contents: "#{$width}";
+				
+			@if $margin != "" {
+				
+				//get margins for left and right of the columns
+				$margin-left: extract-position($margin,left);
+				$margin-right: extract-position($margin,right);
+				
+				@if $margin-left != 0 {
+					$calc-contents: $calc-contents + " - #{$margin-left}";
+				}					
+				
+				@if $margin-right != 0 {
+					$calc-contents: $calc-contents + " - #{$margin-right}";
+				}
+
+				//spread leftover width of missing left and right margins across all columns
+				@if $flush-margin {
+					$flush-left: $margin-left / $column-count;
+					$flush-right: $margin-right / $column-count;
+					$calc-contents: $calc-contents + " + #{$flush-left}";
+					$calc-contents: $calc-contents + " + #{$flush-right}";
+				}
+
+			}
+			
+					$total-calc-width: append($total-calc-width, $calc-contents, comma)
+
+		}
+		
+		@return $total-calc-width;
+		
 }
 
 @mixin container-align($align:"") {
@@ -225,6 +270,7 @@
 		$column-sum: sum($columns);
 		$column-count: length($columns);
 		$target-child-selector: child-selector($target);
+		$column-widths: calculate-column-widths($columns);
 				
 		$margin-left: 0;
 		$margin-right: 0;
@@ -234,38 +280,80 @@
 			$margin-right: extract-position($margin,right);
 		}
 		
-		//calculate current distance from left side of container
+		//calculate width of each column
 		$column-width-string:();
 
-		$col-index: 1;
-		@each $column in $columns {
-			$col-width: (100% / $column-sum) * $column;
-			$col-width-string: "(#{$col-width})";
-			$column-width-string: append($column-width-string, $col-width-string, comma);
-			$col-index: $col-index + 1;
-		}
-		
-		$new-column-width-string: reorder-list($column-width-string, $order);
-
-		// Calculate values to reset all columns to left side
 		$i: 0;
 		$columns-offset: ();
 		@each $column in $columns {
 			$i: $i + 1;
 			
-			// get sum of widths of columns that come before current original position
+			// calculate column widths 
+			$col-width: (100% / $column-sum) * $column;
+			
+			@if $flush-margin and $margin != "" {
+				$flush-left: $margin-left / $column-count;
+				$flush-right: $margin-right / $column-count;
+				$flush: $flush-left + $flush-right;
+				$col-width: $col-width + " + #{$flush}";
+			}
+			
+			$col-width-string: "(#{$col-width})";
+	
+			// @if $flush-margin and $margin != "" {
+			// 	$flush-left: $margin-left / $column-count;
+			// 	$flush-right: $margin-right / $column-count;
+			// 	$col-width-string: $col-width-string + " + #{$flush-left}";
+			// 	$col-width-string: $col-width-string + " + #{$flush-right}";
+			// }
+			
+			$column-width-string: append($column-width-string, $col-width-string, comma);
+			
+			
+			// get sum of left offset of columns that come before current original position
 			$current-index: 1;
 			$current-offset: "0px";
 			@while $current-index < $i {
 				$add-offset: nth($column-width-string, $current-index);
 				$current-offset: $current-offset + " + " + $add-offset;
 				$current-index: $current-index + 1;
+				
+					// @if $flush-margin and $margin != "" and $current-index != 1 and $current-index != $column-count {
+					// 	$flush-left: $margin-left / $column-count;
+					// 	$flush-right: $margin-right / $column-count;
+					// 	$current-offset: $current-offset + " - #{$flush-left}";
+					// 	$current-offset: $current-offset + " - #{$flush-right}";
+					// }
+									
+					// @if $flush-margin and $margin != "" {
+					// 	$flush-left: $margin-left / $column-count;
+					// 	$flush-right: $margin-right / $column-count;
+					// 	$current-offset: $current-offset + " - #{$flush-left}";
+					// 	$current-offset: $current-offset + " - #{$flush-right}";
+					// }
+				
+			}
+			
+			
+					// @if $flush-margin and $margin != "" {
+					// 	$flush-left: $margin-left / $column-count;
+					// 	$flush-right: $margin-right / $column-count;
+					// 	$current-offset: $current-offset + " - #{$flush-left}";
+					// 	$current-offset: $current-offset + " - #{$flush-right}";
+					// }
+			
+			
+			//shift all columns except first if flush margin is set
+			@if $flush-margin and $margin != "" and $i != 1 {
+				$current-offset: $current-offset + " - #{$margin-left}"; 
 			}
 			
 			$current-offset: "(" + $current-offset + ")";
 			$columns-offset: append($columns-offset, $current-offset, comma)
 			
 		}
+		
+		$new-column-width-string: reorder-list($column-width-string, $order);
 
 		//iterate over each column
 		$i: 0;
@@ -287,12 +375,13 @@
 
 			}
 			
+			//shift all columns except first if flush margin is set
+			@if $flush-margin and $margin != "" and $i != 1 {
+				// $new-offset: $new-offset + " - #{$margin-left}"; 
+			}
+			
 			//Get left offset required for this column to reset column to left side.
 			$ori-offset: nth($columns-offset, $column);
-			
-			@if $flush-margin and $margin != "" {
-				$ori-offset: $ori-offset + " + #{$margin-left}";
-			}
 
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$column}) {
 				left: calc(0px - #{$ori-offset} + #{$new-offset});
@@ -300,24 +389,24 @@
 				position: relative;
 				
 				
-				@if $flush-margin and $margin != "" {
-					@if $i == 1 {
-						margin-left: 0;
-						margin-right: $margin-right;
-					} 
-					@if $i == $column-count {
-						margin-left: $margin-left;
-						margin-right: 0;
-					}
+				// @if $flush-margin and $margin != "" {
+				// 	@if $i == 1 {
+				// 		margin-left: 0;
+				// 		margin-right: $margin-right;
+				// 	} 
+				// 	@if $i == $column-count {
+				// 		margin-left: $margin-left;
+				// 		margin-right: 0;
+				// 	}
 					
-					@if $column == 1 {
-						margin-left: $margin-left;
-					} 
-					@if $column == $column-count {
-						margin-right: $margin-right;
-					}
+				// 	@if $column == 1 {
+				// 		margin-left: $margin-left;
+				// 	} 
+				// 	@if $column == $column-count {
+				// 		margin-right: $margin-right;
+				// 	}
 					
-				}
+				// }
 			}
 		}
 	}
