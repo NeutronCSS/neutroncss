@@ -22,7 +22,7 @@
 		$column-sum: get-column-sum($columns);	
 		$column-count: get-column-count($columns);
 		$column-ratio: calc-column-ratio($columns);
-		$column-widths: calculate-column-widths($column-ratio, $container-width, $margin);	
+		$column-widths: calculate-column-widths($column-ratio);	
 		$target-child-selector: child-selector($target);
 		
 		$margin-left: 0;
@@ -57,7 +57,7 @@
 						$calc-contents: $calc-contents + " - #{$margin-right}";
 					}
 
-					@if $flush-margin {
+					@if $flush-margin and $margin != "" {
 						$flush-left: $margin-left / $column-count;
 						$flush-right: $margin-right / $column-count;
 						$calc-contents: $calc-contents + " + #{$flush-left}";
@@ -112,31 +112,8 @@
 @mixin column($arguments...) {
 	@include columns($arguments...);
 }
-
-//Alias for columns
 @mixin col($arguments...) {
 	@include columns($arguments...);
-}
-
-@function calculate-column-position($column-widths) {
-	
-	$column-positions: ();
-
-	//Determine position of each column
-	$col-index: 1;
-	@each $column in $column-widths {
-
-		//sum previous column widths
-		$prev-columns: slice($column-widths, $end: $col-index);
-		$position: sum($prev-columns);
-		$position: $position - $column;
-		$column-positions: append($column-positions, $position, comma);
-
-		$col-index: $col-index + 1;
-	}
-
-	@return $column-positions;
-
 }
 
 @function reorder-list($list, $order) {
@@ -145,13 +122,13 @@
 
 	@each $index in $order {
 		$item: nth($list, $index);
-		$new-list: append($new-list, $item);
+		$new-list: append($new-list, $item, comma);
 	}
 	
 	@return $new-list;
 }
 
-@function calculate-column-widths($column-ratio, $args...) {
+@function calculate-column-widths($column-ratio) {
 	
 	$column-sum: sum($column-ratio);
 	$column-count: length($column-ratio);
@@ -167,51 +144,49 @@
 
 }
 
-@function old-calculate-column-widths($column-ratio, $margin:"", $flush-margin:true) {
+//use column widths to create strings for use in calc()
+@function column-width-strings($column-widths, $margin: "") {
 
-	$avail-width: 100%;
-	$left-margin-percent: 0%;
-	$right-margin-percent: 0%; 
-	$calc-column-widths: ();
-	$column-sum: sum($column-ratio);
-	$column-count: length($column-ratio);
-
-	//calculate margins
-	@if $margin != "" {
+		$total-calc-width: ();
 		
-		//get margins for left and right of the columns
-		$margin-left: extract-position($margin,left);
-		$margin-right: extract-position($margin,right);
-
-		//subtract total available width by margin percentage
-		@if unit($margin-left) == "%" {
-			$left-margin-percent: $column-count * $margin-left;
+		//assign calculated widths to elements
+		$index: 0;
+		@each $width in $column-widths {	
+			$index: $index + 1;
 			
-			@if $flush-margin == true {
-				$left-margin-percent: $left-margin-percent - $margin-left;
-			}				
+			$col-width: $width;
+			$calc-contents: "#{$width}";
+				
+			@if $margin != "" {
+				
+				//get margins for left and right of the columns
+				$margin-left: extract-position($margin,left);
+				$margin-right: extract-position($margin,right);
+				
+				@if $margin-left != 0 {
+					$calc-contents: $calc-contents + " - #{$margin-left}";
+				}					
+				
+				@if $margin-right != 0 {
+					$calc-contents: $calc-contents + " - #{$margin-right}";
+				}
+
+				//spread leftover width of missing left and right margins across all columns
+				@if $flush-margin {
+					$flush-left: $margin-left / $column-count;
+					$flush-right: $margin-right / $column-count;
+					$calc-contents: $calc-contents + " + #{$flush-left}";
+					$calc-contents: $calc-contents + " + #{$flush-right}";
+				}
+
+			}
+			
+					$total-calc-width: append($total-calc-width, $calc-contents, comma)
+
 		}
 		
-		@if unit($margin-right) == "%" {
-			$right-margin-percent: $column-count * $margin-right;
-			
-			@if $flush-margin == true {
-				$right-margin-percent: $right-margin-percent - $margin-right;
-			}					
-		}
-	}
-
-	//adjusted total avilable width
-	$avail-width: $avail-width - ($left-margin-percent + $right-margin-percent);
-
-	//iterate through columns and generate list of widths
-	@each $column in $column-ratio {
-		$calculated-width: ($avail-width / $column-sum) * $column;
-		$calc-column-widths: append($calc-column-widths, $calculated-width, comma);
-	}
-	
-	@return $calc-column-widths;
-
+		@return $total-calc-width;
+		
 }
 
 @mixin container-align($align:"") {
@@ -275,81 +250,102 @@
 	@return $child-selector;
 }
 
-@function calculate-widths($columns) {
-	$column-total: sum($columns);
-	$calculated-widths:();
-
-	$index: 0;
-	@each $column in $columns {	
-		$index: $index + 1;
-		$width: (100% / $column-total) * $column;
-		$calculated-widths: append($calculated-widths, $width, comma);
-	}
-
-	@return $calculated-widths;
-}
-
 @mixin order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
 	
-	@if($flush-margin) {
+	@if type-of($order) == list {
 		
-		@warn "Flush margins is not supported by Order() yet.";
+		//if no ratio is set, determine 
+		//ratio from provided order list
+		@if $columns == "" {
+			$columns:();
+			$order-count: length($order);
+
+			@for $i from 1 through $order-count {
+				$columns: append($columns, 1, comma);
+			}
+		}
 		
-	} @else {
-	
-		@if type-of($order) == list {
-			//if no ratio is set, determine 
-			//ratio from provided order list
-			@if $columns == "" {
-				$columns:();
-				$order-count: length($order);
-	
-				@for $i from 1 through $order-count {
-					$columns: append($columns, 1, comma);
+		//if column ratio is not a list, generate it
+		$columns: calc-column-ratio($columns);
+		$column-sum: sum($columns);
+		$column-count: length($columns);
+		$target-child-selector: child-selector($target);
+				
+		$margin-left: 0;
+		$margin-right: 0;
+		
+		@if $margin != "" {	
+			$margin-left: extract-position($margin,left);
+			$margin-right: extract-position($margin,right);
+		}
+		
+		//calculate width of each column
+		$column-width-string:();
+
+		$i: 0;
+		$columns-offset: ();
+		@each $column in $columns {
+			$i: $i + 1;
+			
+			// calculate column widths 
+			$col-width: (100% / $column-sum) * $column;
+			
+			@if $margin != "" {
+				@if $flush-margin {
+					$flush-left: $margin-left / $column-count;
+					$flush-right: $margin-right / $column-count;
+					$flush: $flush-left + $flush-right;
+					$col-width: $col-width + " + #{$flush}";
 				}
 			}
+
+			$column-width-string: append($column-width-string, "(#{$col-width})", comma);
+					
+			// get sum of left offset of columns that come before current original position
+			$current-index: 0;
+			$current-offset: "0px";
 			
-			//if column ratio is not a list, generate it
-			$columns: calc-column-ratio($columns);
-	
-			//calculate widths of 
-			//current and new layouts
-			$column-count: length($columns);
-			$new-columns: reorder-list($columns, $order);
-			$ori-widths: calculate-column-widths($columns);
-			$new-widths: reorder-list($ori-widths, $order);
-			$ori-positions: calculate-column-position($ori-widths);
+			@while $current-index < $i {
+				$current-index: $current-index + 1;
+				
+				$add-offset: nth($column-width-string, $current-index);
+				$current-offset: $current-offset + " + " + $add-offset;
+			}
 			
-			//iterate over each column
-			$i: 0;
-			@each $column in $order {
+			$current-offset: "(" + $current-offset + ")";
+			$columns-offset: append($columns-offset, $current-offset, comma)
+			
+		}
+		
+		$new-column-width-string: reorder-list($column-width-string, $order);
+		$offset-totals: ();
+
+		//iterate over each column
+		$i: 0;
+		@each $column in $order {
+			$i: $i + 1;
+
+			// get sum of widths of columns that come before current one and add to offset
+			$new-position: index($order, $column);	
+			$new-offset: "0px";
+			
+			$index: 0;
+			@while $index < $new-position {
+				$index: $index + 1;
 				
-				$i: $i + 1;
-				
-				$new-position: index($order, $column);	
-						
-				//get original position of column
-				$ori-pos: nth($ori-positions, $column);
-				
-				//minus original column position from offset 
-				$offset: 0 - $ori-pos;
-				
-				// get sum of widths of columns that come before current one and add to offset
-				$index: 1;
-				@while $index < $new-position {
-	
-					$offset: $offset + nth($new-widths, $index);
-					$index: $index + 1;
-	
-				}
-	
-				& > *:nth-child(#{$column}) {
-					left: $offset;
-					position: relative;
-	
-				}
+				$new-offset: $new-offset + " + " + nth($new-column-width-string, $index);
+			}
+
+			//Get left offset required for this column to reset column to left side.
+			$ori-offset: nth($columns-offset, $column);
+
+			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$column}) {
+				left: calc(0px - (#{$ori-offset}) + (#{$new-offset}));
+				position: relative;
 			}
 		}
 	}
 }
+
+
 

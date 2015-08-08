@@ -2,116 +2,147 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Neutron CSS Examples</title>
-	<link rel="stylesheet" href="main.css">
+	<title>Neutron Tests: Order</title>
+	<link rel="stylesheet" href="css/main.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<h1>Order Examples</h1>
+	<h1>Order Tests</h1>
 	
-	<nav>
-		<ul>
-			<li><a href="index.html">Overview</a></li>
-			<li><a href="buttons.html">Buttons</a></li>
-			<li><a href="order.html">Order</a></li>
-		</ul>
-	</nav>
+	<h2>Order 1</h2>
+	<p>$order: 4,2,1,3 - $flush-margin: false</p>
+	<section class="order-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
 		
-	<h2>4 column, flush</h2>
-	<section class="example-7">
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</div>
+	<h2>Order 2</h2>
+	<p>$order: 4,3,2,1 - $flush-margin: true</p>	
+	<section class="order-2">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+				
+	<h2>Order 2.1</h2>
+	<p>$order: 6,5,4,3,2,1 - $flush-margin: true</p>	
+	<section class="order-2-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+	</section>
+		
+	<h2>Order 3</h2>
+	<p>$order: 3,2,1 - $flush-margin: false</p>
+	<section class="order-3">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+	</section>
+		
+	<h2>Order 3.1</h2>
+	<p>$order: 3,1,2 - $flush-margin: true</p>	
+	<section class="order-3-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+	</section>		
+	
+	<h2>Order 4.1</h2>
+	<p>$order: 3,1,4,2 - $flush-margin: true</p>	
+	<section class="order-4-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+					
+	<h2>Order 4.2</h2>
+	<p>$order: 1,3,4,2 - $flush-margin: true</p>	
+	<section class="order-4-2">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+					
+	<h2>Order 4.3</h2>
+	<p>$order: 4,3,1,2 - $flush-margin: true</p>	
+	<section class="order-4-3">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+					
+	<h2>Order 4.4</h2>
+	<p>$order: 2,4,1,3 - $flush-margin: true</p>	
+	<section class="order-4-4">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+				
+	<h2>Order 5</h2>
+	<p>$order: 5,3,4,2,1 - $flush-margin: false</p>	
+	<section class="order-5">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+	</section>
+		
+	<h2>Order 6</h2>
+	<p>$order: 2,3,4,5,1 - $flush-margin: true</p>	
+	<section class="order-6">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
 	</section>
 	
-	<h2>4 column, order rearranged</h2>
-	<section class="example-8">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-
-	</section>
-
-
-	<h2>4 column, order rearranged, margin</h2>
-	<section class="example-8-margin">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-
-	</section>
-
-
-	<h2>4 column, order rearranged, flush margin</h2>
-	<section class="example-8-margin-flush">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-
-	</section>
-
-	<h2>7 column, order rearranged</h2>
-	<section class="new-order">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 7 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
+	<h2>Order 6.1</h2>
+	<p>$order: 2,3,1,4,5 - $flush-margin: true</p>	
+	<section class="order-6-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
 	</section>
 	
-	<h2>7 column, order rearranged, flush margin</h2>
-	<section class="new-order-flush">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 7 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
+	<h2>Order 7</h2>
+	<p>$order: 5,3,2,4,1 - $flush-margin: true</p>	
+	<section class="order-7">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
 	</section>
-	
-
-	<h2>3 column, order rearranged, margin</h2>
-	<section class="new-order-3">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-	</section>
-	
-
-	<h2>3 column, order rearranged, flush-margin</h2>
-	<section class="new-order-3-flush">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-	</section>
-
-
-	<h2>6 column, order rearranged, margin</h2>
-	<section class="new-order-6">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-		<div><p>Column 6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta. Magnam nam quos, quod, provident voluptatibus in maxime necessitatibus porro, exercitationem cupiditate unde reiciendis quisquam quia!</p></div>
-	</section>
-	
-
-	<h2>6 column, order rearranged, flush-margin</h2>
-	<section class="new-order-6-flush">
-		<div><p>Column 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 5 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
-		<div><p>Column 6 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa saepe aliquid excepturi adipisci soluta.</p></div>
+		
+	<h2>Order 8</h2>
+	<p>$order: 5,3,2,4,1 - $flush-margin: true</p>	
+	<section class="order-8">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
 	</section>
 		
 </body>
