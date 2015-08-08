@@ -270,7 +270,6 @@
 		$column-sum: sum($columns);
 		$column-count: length($columns);
 		$target-child-selector: child-selector($target);
-		$column-widths: calculate-column-widths($columns);
 				
 		$margin-left: 0;
 		$margin-right: 0;
@@ -291,61 +290,26 @@
 			// calculate column widths 
 			$col-width: (100% / $column-sum) * $column;
 			
-			@if $flush-margin and $margin != "" {
-				$flush-left: $margin-left / $column-count;
-				$flush-right: $margin-right / $column-count;
-				$flush: $flush-left + $flush-right;
-				$col-width: $col-width + " + #{$flush}";
+			@if $margin != "" {
+				@if $flush-margin {
+					$flush-left: $margin-left / $column-count;
+					$flush-right: $margin-right / $column-count;
+					$flush: $flush-left + $flush-right;
+					$col-width: $col-width + " + #{$flush}";
+				}
 			}
-			
-			$col-width-string: "(#{$col-width})";
-	
-			// @if $flush-margin and $margin != "" {
-			// 	$flush-left: $margin-left / $column-count;
-			// 	$flush-right: $margin-right / $column-count;
-			// 	$col-width-string: $col-width-string + " + #{$flush-left}";
-			// 	$col-width-string: $col-width-string + " + #{$flush-right}";
-			// }
-			
-			$column-width-string: append($column-width-string, $col-width-string, comma);
-			
-			
+
+			$column-width-string: append($column-width-string, "(#{$col-width})", comma);
+					
 			// get sum of left offset of columns that come before current original position
-			$current-index: 1;
+			$current-index: 0;
 			$current-offset: "0px";
+			
 			@while $current-index < $i {
-				$add-offset: nth($column-width-string, $current-index);
-				$current-offset: $current-offset + " + " + $add-offset;
 				$current-index: $current-index + 1;
 				
-					// @if $flush-margin and $margin != "" and $current-index != 1 and $current-index != $column-count {
-					// 	$flush-left: $margin-left / $column-count;
-					// 	$flush-right: $margin-right / $column-count;
-					// 	$current-offset: $current-offset + " - #{$flush-left}";
-					// 	$current-offset: $current-offset + " - #{$flush-right}";
-					// }
-									
-					// @if $flush-margin and $margin != "" {
-					// 	$flush-left: $margin-left / $column-count;
-					// 	$flush-right: $margin-right / $column-count;
-					// 	$current-offset: $current-offset + " - #{$flush-left}";
-					// 	$current-offset: $current-offset + " - #{$flush-right}";
-					// }
-				
-			}
-			
-			
-					// @if $flush-margin and $margin != "" {
-					// 	$flush-left: $margin-left / $column-count;
-					// 	$flush-right: $margin-right / $column-count;
-					// 	$current-offset: $current-offset + " - #{$flush-left}";
-					// 	$current-offset: $current-offset + " - #{$flush-right}";
-					// }
-			
-			
-			//shift all columns except first if flush margin is set
-			@if $flush-margin and $margin != "" and $i != 1 {
-				$current-offset: $current-offset + " - #{$margin-left}"; 
+				$add-offset: nth($column-width-string, $current-index);
+				$current-offset: $current-offset + " + " + $add-offset;
 			}
 			
 			$current-offset: "(" + $current-offset + ")";
@@ -354,63 +318,33 @@
 		}
 		
 		$new-column-width-string: reorder-list($column-width-string, $order);
+		$offset-totals: ();
 
 		//iterate over each column
 		$i: 0;
 		@each $column in $order {
-			
 			$i: $i + 1;
 
 			// get sum of widths of columns that come before current one and add to offset
 			$new-position: index($order, $column);	
 			$new-offset: "0px";
 			
-			$index: 1;
+			$index: 0;
 			@while $index < $new-position {
-
-				$add-offset: nth($new-column-width-string, $index);
-				$new-offset: $new-offset + " + " + $add-offset;
-
 				$index: $index + 1;
+				
+				$new-offset: $new-offset + " + " + nth($new-column-width-string, $index);
+			}
 
-			}
-			
-			//shift all columns except first if flush margin is set
-			@if $flush-margin and $margin != "" and $i != 1 {
-				// $new-offset: $new-offset + " - #{$margin-left}"; 
-			}
-			
 			//Get left offset required for this column to reset column to left side.
 			$ori-offset: nth($columns-offset, $column);
 
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$column}) {
-				left: calc(0px - #{$ori-offset} + #{$new-offset});
-				// left: calc(0px - #{$ori-offset});
+				left: calc(0px - (#{$ori-offset}) + (#{$new-offset}));
 				position: relative;
-				
-				
-				// @if $flush-margin and $margin != "" {
-				// 	@if $i == 1 {
-				// 		margin-left: 0;
-				// 		margin-right: $margin-right;
-				// 	} 
-				// 	@if $i == $column-count {
-				// 		margin-left: $margin-left;
-				// 		margin-right: 0;
-				// 	}
-					
-				// 	@if $column == 1 {
-				// 		margin-left: $margin-left;
-				// 	} 
-				// 	@if $column == $column-count {
-				// 		margin-right: $margin-right;
-				// 	}
-					
-				// }
 			}
 		}
 	}
-
 }
 
 
