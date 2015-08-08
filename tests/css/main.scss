@@ -41,14 +41,6 @@
 	@include columns($column-ratio, $flush-margin:false);
 	@include order($order,$column-ratio, $flush-margin:false);
 
-	
-	
-	
-	
-
-	
-	
-
 }
 
 .example-8-margin-2 {
@@ -153,8 +145,6 @@
 	@include order($order,$column-ratio,24px,$flush-margin:false);
 
 }
-
-
 
 .new-order-6 {
 	$column-ratio: 6;

@@ -9,15 +9,8 @@
 <body>
 	<h1>Order Tests</h1>
 	
-	<nav>
-		<ul>
-			<li><a href="index.html">Overview</a></li>
-			<li><a href="buttons.html">Buttons</a></li>
-			<li><a href="order.html">Order</a></li>
-		</ul>
-	</nav>
-	
-	<h2>Order 1: no flush margin</h2>
+	<h2>Order 1</h2>
+	<p>$order: 4,2,1,3 - $flush-margin: false</p>
 	<section class="order-1">
 		<div>1</div>
 		<div>2</div>
@@ -26,6 +19,7 @@
 	</section>
 		
 	<h2>Order 2: flush margin</h2>
+	<p>$order: 4,3,2,1 - $flush-margin: true</p>	
 	<section class="order-2">
 		<div>1</div>
 		<div>2</div>
@@ -34,6 +28,7 @@
 	</section>
 				
 	<h2>Order 2.1: flush margin</h2>
+	<p>$order: 6,5,4,3,2,1 - $flush-margin: true</p>	
 	<section class="order-2-1">
 		<div>1</div>
 		<div>2</div>
@@ -44,20 +39,59 @@
 	</section>
 		
 	<h2>Order 3: no flush margin</h2>
+	<p>$order: 3,2,1 - $flush-margin: false</p>
 	<section class="order-3">
 		<div>1</div>
 		<div>2</div>
 		<div>3</div>
 	</section>
 		
-	<h2>Order 4: flush margin</h2>
-	<section class="order-4">
+	<h2>Order 3.1: flush margin</h2>
+	<p>$order: 3,1,2 - $flush-margin: true</p>	
+	<section class="order-3-1">
 		<div>1</div>
 		<div>2</div>
 		<div>3</div>
+	</section>		
+	
+	<h2>Order 4.1</h2>
+	<p>$order: 3,1,4,2 - $flush-margin: true</p>	
+	<section class="order-4-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+					
+	<h2>Order 4.2</h2>
+	<p>$order: 1,3,4,2 - $flush-margin: true</p>	
+	<section class="order-4-2">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+					
+	<h2>Order 4.3</h2>
+	<p>$order: 4,3,1,2 - $flush-margin: true</p>	
+	<section class="order-4-3">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+	</section>
+					
+	<h2>Order 4.4</h2>
+	<p>$order: 2,4,1,3 - $flush-margin: true</p>	
+	<section class="order-4-4">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
 	</section>
 				
 	<h2>Order 5: no flush margin</h2>
+	<p>$order: 5,3,4,2,1 - $flush-margin: false</p>	
 	<section class="order-5">
 		<div>1</div>
 		<div>2</div>
@@ -67,6 +101,7 @@
 	</section>
 		
 	<h2>Order 6: flush margin</h2>
+	<p>$order: 2,3,4,5,1 - $flush-margin: true</p>	
 	<section class="order-6">
 		<div>1</div>
 		<div>2</div>
@@ -75,7 +110,18 @@
 		<div>5</div>
 	</section>
 	
+	<h2>Order 6.1: flush margin</h2>
+	<p>$order: 2,3,1,4,5 - $flush-margin: true</p>	
+	<section class="order-6-1">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+	</section>
+	
 	<h2>Order 7: flush margin</h2>
+	<p>$order: 5,3,2,4,1 - $flush-margin: true</p>	
 	<section class="order-7">
 		<div>1</div>
 		<div>2</div>
@@ -85,6 +131,7 @@
 	</section>
 		
 	<h2>Order 8: flush margin</h2>
+	<p>$order: 5,3,2,4,1 - $flush-margin: true</p>	
 	<section class="order-8">
 		<div>1</div>
 		<div>2</div>

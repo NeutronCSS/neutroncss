@@ -5,11 +5,22 @@ body {
 	margin-bottom: 24px;
 }
 
+h2 {
+	font-size: 24px;
+	margin-bottom: 10px;
+	float: left;
+	clear: left;
+}
+p {
+	float: right;
+	clear: right;
+}
 section {
 	outline: 1px solid red;
-	margin-bottom: 50px;
+	margin-bottom: 20px;
+	clear: left;
 	
-	& div {
+	& div, & p {
 		outline: red 1px solid;
 	}
 }
