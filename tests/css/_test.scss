@@ -19,6 +19,9 @@ section {
 	outline: 1px solid red;
 	margin-bottom: 20px;
 	clear: left;
+    line-height: 20px;
+	font-size: 40px;
+	text-align: center;
 	
 	& div, & p {
 		outline: red 1px solid;
