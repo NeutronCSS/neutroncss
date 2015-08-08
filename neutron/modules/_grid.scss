@@ -18,11 +18,11 @@
 	@include clear-fix();
 
 	@if $columns != "" {
-
-		$column-sum: get-column-sum($columns);	
-		$column-count: get-column-count($columns);
-		$column-ratio: calc-column-ratio($columns);
-		$column-widths: calculate-column-widths($column-ratio);	
+		
+		$columns: calc-column-ratio($columns);
+		$column-sum: sum($columns);	
+		$column-count: length($columns);
+		$column-widths: calculate-column-widths($columns);	
 		$target-child-selector: child-selector($target);
 		
 		$margin-left: 0;
@@ -141,52 +141,6 @@
 	}
 	
 	@return $column-widths;
-
-}
-
-//use column widths to create strings for use in calc()
-@function column-width-strings($column-widths, $margin: "") {
-
-		$total-calc-width: ();
-		
-		//assign calculated widths to elements
-		$index: 0;
-		@each $width in $column-widths {	
-			$index: $index + 1;
-			
-			$col-width: $width;
-			$calc-contents: "#{$width}";
-				
-			@if $margin != "" {
-				
-				//get margins for left and right of the columns
-				$margin-left: extract-position($margin,left);
-				$margin-right: extract-position($margin,right);
-				
-				@if $margin-left != 0 {
-					$calc-contents: $calc-contents + " - #{$margin-left}";
-				}					
-				
-				@if $margin-right != 0 {
-					$calc-contents: $calc-contents + " - #{$margin-right}";
-				}
-
-				//spread leftover width of missing left and right margins across all columns
-				@if $flush-margin {
-					$flush-left: $margin-left / $column-count;
-					$flush-right: $margin-right / $column-count;
-					$calc-contents: $calc-contents + " + #{$flush-left}";
-					$calc-contents: $calc-contents + " + #{$flush-right}";
-				}
-
-			}
-			
-					$total-calc-width: append($total-calc-width, $calc-contents, comma)
-
-		}
-		
-		@return $total-calc-width;
-		
 }
 
 @mixin container-align($align:"") {
@@ -211,33 +165,16 @@
 
 @function calc-column-ratio($columns) {
 	$column-ratio: $columns;
-	$column-sum: get-column-sum($columns);
 	
 	@if type-of($columns) != list {
 		$column-ratio: ();
 		
-		@for $i from 1 through $column-sum {
-			$column-ratio: append($column-ratio, $columns, comma);
+		@for $i from 1 through $columns {
+			$column-ratio: append($column-ratio, 1, comma);
 		}
 	}
 	
 	@return $column-ratio;
-}
-
-@function get-column-sum($columns) {
-	@if type-of($columns) == list {
-		@return sum($columns);
-	} @else {
-		@return $columns;
-	}
-}
-
-@function get-column-count($columns) {
-	@if type-of($columns) == list {
-		@return length($columns);
-	} @else {
-		@return $columns;
-	}
 }
 
 @function child-selector($target-selector) {
@@ -254,17 +191,11 @@
 	
 	@if type-of($order) == list {
 		
-		//if no ratio is set, determine 
-		//ratio from provided order list
+		//if no ratio is set, use $order to determine number of equal width columns
 		@if $columns == "" {
-			$columns:();
-			$order-count: length($order);
-
-			@for $i from 1 through $order-count {
-				$columns: append($columns, 1, comma);
-			}
+			$columns: length($order);
 		}
-		
+
 		//if column ratio is not a list, generate it
 		$columns: calc-column-ratio($columns);
 		$column-sum: sum($columns);
