@@ -74,8 +74,8 @@ $neutron_color: (
 //---------------------------------------------
 
 $neutron_text: (
-	font-family: '"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',
-	font-family-secondary: '"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',
+	font-family: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
+	font-family-secondary: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
 	font-size: 1.5em,
 	line-height: 1.6,
 	font-weight: 400
