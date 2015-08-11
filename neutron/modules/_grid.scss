@@ -10,9 +10,9 @@
 	$flush-padding:false,
 	$margin:"",
 	$flush-margin: setting("layout","flush-margin"),
-	$target:"*"
+	$target:"*",
+	$order:""
 ) {
-	//$container-width: ;
 	max-width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
@@ -105,6 +105,11 @@
 	//Set alignment of container
 	@if $container-align != "" {
 		@include container-align($container-align);
+	}
+	
+	// Change order of columns
+	@if type-of($order) == list and type-of($columns) == list {
+		@include order($order, $columns, $margin, $flush-margin, $target);
 	}
 
 }
