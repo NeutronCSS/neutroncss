@@ -2,6 +2,6 @@
 //---------------------------------------------
 
 a {
-  color: #1EAEDB; }
+  color: setting("color", "link"); }
 a:hover {
-  color: #0FA0CE; }
+  color: setting("color", "hover-link"); }

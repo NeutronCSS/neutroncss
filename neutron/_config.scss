@@ -10,35 +10,62 @@
 // Layout Variables
 //---------------------------------------------
 
-$global-column-padding: 10px 24px;
-$container-max-width: 	960px;
-
+$neutron_layout: (
+	column-padding: 10px 24px,
+	container-max-width: 960px,
+	flush-margin: true
+);
 
 // Media Query Variables
 //---------------------------------------------
 
-$mobile-max: 		479px;
-$phablet-max: 		767px;
-$tablet-max: 		1023px;
-$desktop-sml-max: 	1199px;
-$desktop-mid-max: 	1799px;
-
+$neutron_query: (
+	mobile-max: 	479px,
+	phablet-max: 	767px,
+	tablet-max: 	1023px,
+	desktop-sml-max:	1199px,
+	desktop-mid-max:	1799px
+);
 
 // Color Variables
 //---------------------------------------------
 
-$copy: 				#222;
-$primary: 			#000;
-$secondary: 		#555;
-$tertiary: 			#D1D1D1;
-$link: 				#1EAEDB;
-$hover-link: 		#0FA0CE;
-$visited-link: 		#0FA0CE;
-$active-link: 		#0FA0CE;
-$success: 			#000;
-$warning: 			#000;
-$notice: 			#000;
-$shadow: 			#000;
-$focus:				#33C3F0;
-$border-primary:	#888;
-$border-secondary:	#D1D1D1;
+$neutron_color: (
+	// Primary Colours
+	primary: 	#000,
+	secondary:	#555,
+	tertiary:	#D1D1D1,
+	
+	// Text and Copy
+	copy: 			#222,
+	copy-secondary: #222,
+		
+	// Links
+	link: 			#1EAEDB,
+	hover-link: 	#0FA0CE,
+	visited-link:	#0FA0CE,
+	active-link: 	#0FA0CE,
+	
+	// Button styles
+	button: 		#555,
+	button-hover: 	#333,
+	button-focus: 	#333,
+	
+	// Errors and Notices
+	success:	#000,
+	warning:	#000,
+	notice:		#000,
+	
+	// Border
+	border-primary:		#888,
+	border-secondary:	#D1D1D1,
+	
+	// Background
+	background: 			#FFF,
+	background-secondary: 	#F1F1F1,
+	background-tertiary: 	#E1E1E1,
+	
+	// Misc
+	shadow: #000,
+	focus:	#33C3F0,
+);
