@@ -19,6 +19,23 @@
 @import "modules/code";
 @import "modules/tables";
 
+// Settings Management
+//-------------------------------------
+
+$_neutron: (
+	layout: $neutron_layout,
+	query: $neutron_query,
+	color: $neutron_color,
+	colour: $neutron_color
+);
+
+@function setting($map_name: "", $setting: "") {
+	@if $map_name != "" and $setting != "" {
+		$map: map-get($_neutron,$map_name);
+		@return map-get($map, $setting);
+	}
+}
+
 // Helper Functions
 //-------------------------------------
 
@@ -157,7 +174,7 @@ html * {
 }
 
 body {
-	max-width: $container-max-width;
+	max-width: setting("layout", "container-max-width");
 	margin-left: auto;
 	margin-right: auto;
 }

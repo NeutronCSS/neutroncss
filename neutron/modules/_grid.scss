@@ -4,14 +4,15 @@
 //Declares the container element of child rows or columns
 @mixin columns(
 	$columns:"", 
-	$container-width:$container-max-width, 
+	$container-width: setting("layout","container-max-width"),
 	$container-align:"",
-	$padding:$global-column-padding,
+	$padding: setting("layout","column-padding"),
 	$flush-padding:false,
 	$margin:"",
-	$flush-margin:true,
+	$flush-margin: setting("layout","flush-margin"),
 	$target:"*"
 ) {
+	//$container-width: ;
 	max-width: $container-width;
 	margin-left: auto;
 	margin-right: auto;
@@ -187,7 +188,7 @@
 	@return $child-selector;
 }
 
-@mixin order($order, $columns:"", $margin:"", $flush-margin:true, $target:"*") {
+@mixin order($order, $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
 	
 	@if type-of($order) == list {
 		

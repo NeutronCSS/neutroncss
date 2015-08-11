@@ -6,8 +6,8 @@ code {
 	margin: 0 .2rem;
 	font-size: 90%;
 	white-space: nowrap;
-	background: #F1F1F1;
-	border: 1px solid #E1E1E1;
+	background: setting("color", "background-secondary");
+	border: 1px solid setting("color", "background-tertiary");
 	border-radius: 4px; 
 }
 

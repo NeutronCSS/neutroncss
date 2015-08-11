@@ -10,11 +10,11 @@
 // Viewport Settings
 //---------------------------------------------
 
-		 $mobile-max: 479px !default;
-		$phablet-max: 767px !default;
-		 $tablet-max: 1023px !default;
-	$desktop-sml-max: 1199px !default;
-	$desktop-mid-max: 1799px !default;
+		 $mobile-max: setting("query", "mobile-max");
+		$phablet-max: setting("query", "phablet-max");
+		 $tablet-max: setting("query", "tablet-max");
+	$desktop-sml-max: setting("query", "desktop-sml-max");
+	$desktop-mid-max: setting("query", "desktop-mid-max");
 
 
 //Max device widths
