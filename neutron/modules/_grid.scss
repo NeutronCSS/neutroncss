@@ -41,8 +41,6 @@
 		$index: 0;
 		@each $width in $column-widths {	
 			$index: $index + 1;
-			
-			$col-width: $width;
 
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
 			
@@ -85,6 +83,8 @@
 					@if $flush-margin {
 						margin-left: 0;
 					}
+				} @else {
+					clear: none;
 				}
 				
 				//if last column
