@@ -69,3 +69,14 @@ $neutron_color: (
 	shadow: #000,
 	focus:	#33C3F0,
 );
+
+// Text Variables
+//---------------------------------------------
+
+$neutron_text: (
+	font-family: '"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',
+	font-family-secondary: '"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif',
+	font-size: 1.5em,
+	line-height: 1.6,
+	font-weight: 400
+)

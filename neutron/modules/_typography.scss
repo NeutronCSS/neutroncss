@@ -2,10 +2,10 @@
 //---------------------------------------------
 
 body {
-  font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
-  line-height: 1.6;
-  font-weight: 400;
-  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: setting("text", "font-size"); /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: setting("text", "line-height");
+  font-weight: setting("text", "font-weight");
+  font-family: setting("text", "font-family");
   color: setting("color", "copy");
 }
 

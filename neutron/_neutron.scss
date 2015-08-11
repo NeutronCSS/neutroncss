@@ -26,7 +26,8 @@ $_neutron: (
 	layout: $neutron_layout,
 	query: $neutron_query,
 	color: $neutron_color,
-	colour: $neutron_color
+	colour: $neutron_color,
+	text: $neutron_text
 );
 
 @function setting($map_name: "", $setting: "") {
