@@ -6,7 +6,7 @@
 	display: inline-block;
 	padding: 5px 20px;
 	line-height: 2;
-	color: setting("color","copy-secondary");
+	color: setting("color","copy-2");
 	background: setting("color","button");
 	text-align: center;
 	text-decoration: none;
@@ -14,6 +14,9 @@
 	border-radius: 4px;
 	cursor: pointer;
 	box-sizing: border-box;
+	
+	@content;
+	
 }
 
 @mixin link-list($float: "") {

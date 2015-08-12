@@ -38,7 +38,7 @@ $neutron_color: (
 	
 	// Text and Copy
 	copy: 			#222,
-	copy-secondary: #F3F3F3,
+	copy-2: #F3F3F3,
 		
 	// Links
 	link: 			#1EAEDB,
@@ -57,13 +57,14 @@ $neutron_color: (
 	notice:		#000,
 	
 	// Border
-	border-primary:		#888,
-	border-secondary:	#D1D1D1,
+	border:		#888,
+	border-2:	#D1D1D1,
+	border-3: 	#E1E1E1,
 	
 	// Background
 	background: 			#FFF,
-	background-secondary: 	#F1F1F1,
-	background-tertiary: 	#E1E1E1,
+	background-2: 	#F1F1F1,
+	background-3: 	#E1E1E1,
 	
 	// Misc
 	shadow: #000,
@@ -75,7 +76,7 @@ $neutron_color: (
 
 $neutron_text: (
 	font-family: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
-	font-family-secondary: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
+	font-family-2: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
 	font-size: 1em,
 	line-height: 1.6,
 	font-weight: 400
