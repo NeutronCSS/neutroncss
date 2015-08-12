@@ -49,9 +49,14 @@ legend {
   display: block;
   margin-bottom: .5rem;
   font-weight: 600; }
+  legend {
+	margin-left: 16px;
+  margin-right: 16px;
+  padding: 0 6px; }
+
 fieldset {
   padding: 0;
-  border-width: 0; }
+  border: 1px solid setting(color,"border"); }
 input[type="checkbox"],
 input[type="radio"] {
   display: inline; }

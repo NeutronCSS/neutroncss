@@ -11,9 +11,15 @@
 	text-align: center;
 	text-decoration: none;
 	white-space: nowrap;
-	border-radius: 4px;
 	cursor: pointer;
 	box-sizing: border-box;
+	border: none;
+	
+	&:hover {
+		color: setting("color","copy-2");
+		background: setting("color","button-hover");
+		text-decoration: none;
+	}
 	
 	@content;
 	
@@ -28,4 +34,13 @@
 	li {
 		display: inline-block;
 	}
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.btn,
+.button {
+	@include button;
 }
