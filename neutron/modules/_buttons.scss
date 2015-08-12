@@ -21,6 +21,11 @@
 		text-decoration: none;
 	}
 	
+	&:active {
+		background: setting(color,"button-active");
+		color: setting("color","copy-2");
+	}
+	
 	@content;
 	
 }
