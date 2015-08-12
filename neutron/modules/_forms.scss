@@ -13,7 +13,7 @@ select {
   height: 38px;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   background-color: setting("color", "background");
-  border: 1px solid setting("color", "border-secondary");
+  border: 1px solid setting("color", "border-2");
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box; }
@@ -49,9 +49,14 @@ legend {
   display: block;
   margin-bottom: .5rem;
   font-weight: 600; }
+  legend {
+	margin-left: 16px;
+  margin-right: 16px;
+  padding: 0 6px; }
+
 fieldset {
   padding: 0;
-  border-width: 0; }
+  border: 1px solid setting(color,"border"); }
 input[type="checkbox"],
 input[type="radio"] {
   display: inline; }

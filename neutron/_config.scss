@@ -11,7 +11,7 @@
 //---------------------------------------------
 
 $neutron_layout: (
-	column-padding: 10px 24px,
+	column-padding: 4px 8px,
 	container-max-width: 960px,
 	flush-margin: true
 );
@@ -38,16 +38,16 @@ $neutron_color: (
 	
 	// Text and Copy
 	copy: 			#222,
-	copy-secondary: #222,
+	copy-2: #F3F3F3,
 		
 	// Links
-	link: 			#1EAEDB,
+	link: 			#0037B1,
 	hover-link: 	#0FA0CE,
 	visited-link:	#0FA0CE,
 	active-link: 	#0FA0CE,
 	
 	// Button styles
-	button: 		#555,
+	button: 		#004C94,
 	button-hover: 	#333,
 	button-focus: 	#333,
 	
@@ -57,15 +57,27 @@ $neutron_color: (
 	notice:		#000,
 	
 	// Border
-	border-primary:		#888,
-	border-secondary:	#D1D1D1,
+	border:		#888,
+	border-2:	#D1D1D1,
+	border-3: 	#E1E1E1,
 	
 	// Background
 	background: 			#FFF,
-	background-secondary: 	#F1F1F1,
-	background-tertiary: 	#E1E1E1,
+	background-2: 	#F1F1F1,
+	background-3: 	#E1E1E1,
 	
 	// Misc
 	shadow: #000,
 	focus:	#33C3F0,
 );
+
+// Text Variables
+//---------------------------------------------
+
+$neutron_text: (
+	font-family: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
+	font-family-2: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
+	font-size: 1em,
+	line-height: 1.6,
+	font-weight: 400
+)

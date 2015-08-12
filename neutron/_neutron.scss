@@ -6,6 +6,24 @@
 //-------------------------------------
 @import "config";
 
+// Settings Management
+//-------------------------------------
+
+$_neutron: (
+	layout: $neutron_layout,
+	query: $neutron_query,
+	color: $neutron_color,
+	colour: $neutron_color,
+	text: $neutron_text
+);
+
+@function setting($map_name: "", $setting: "") {
+	@if $map_name != "" and $setting != "" {
+		$map: map-get($_neutron,$map_name);
+		@return map-get($map, $setting);
+	}
+}
+
 // Modules
 //-------------------------------------
 @import "modules/normalise";
@@ -16,25 +34,9 @@
 @import "modules/buttons";
 @import "modules/forms";
 @import "modules/lists";
+@import "modules/links";
 @import "modules/code";
 @import "modules/tables";
-
-// Settings Management
-//-------------------------------------
-
-$_neutron: (
-	layout: $neutron_layout,
-	query: $neutron_query,
-	color: $neutron_color,
-	colour: $neutron_color
-);
-
-@function setting($map_name: "", $setting: "") {
-	@if $map_name != "" and $setting != "" {
-		$map: map-get($_neutron,$map_name);
-		@return map-get($map, $setting);
-	}
-}
 
 // Helper Functions
 //-------------------------------------
@@ -165,7 +167,6 @@ $_neutron: (
 html {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	font-size: 62.5%;
 }
 
 html * {
