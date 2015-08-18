@@ -5,13 +5,12 @@
 @mixin columns(
 	$columns:"", 
 	$container-width: setting("layout","container-max-width"),
-	$container-align:"",
-	$padding: setting("layout","column-padding"),
-	$flush-padding:false,
-	$margin:"",
+	$container-align: "",
+	$margin: "",
 	$flush-margin: setting("layout","flush-margin"),
-	$target:"*",
-	$order:""
+	$flush-padding: setting("layout","flush-padding"),
+	$target: "*",
+	$order: ""
 ) {
 	max-width: $container-width;
 	margin-left: auto;
@@ -67,7 +66,8 @@
 
 				width: calc(#{$calc-contents});
 				float:left;
-				padding: $padding;				
+				
+				@content;
 
 				@if $margin != "" {
 					margin: $margin;
@@ -96,8 +96,6 @@
 						margin-right: 0;
 					}
 				}
-				
-				@content;
 			}
 		}	
 	}

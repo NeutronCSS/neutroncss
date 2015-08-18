@@ -8,31 +8,26 @@ input[type="text"],
 input[type="tel"],
 input[type="url"],
 input[type="password"],
-textarea,
+textarea {
+	height: 38px;
+	padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+	background-color: setting("color", "background");
+	border: 1px solid setting("color", "border2");
+	box-shadow: none;
+	box-sizing: border-box;
+}
+
 select {
-  height: 38px;
-  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
-  background-color: setting("color", "background");
-  border: 1px solid setting("color", "border-2");
-  border-radius: 4px;
-  box-shadow: none;
-  box-sizing: border-box; }
-/* Removes awkward default styles on some inputs for iOS */
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="text"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
+	box-shadow: none;
+	box-sizing: border-box;
+}
+
 textarea {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none; }
-textarea {
-  min-height: 65px;
-  padding-top: 6px;
-  padding-bottom: 6px; }
+	min-height: 65px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="search"]:focus,
@@ -40,27 +35,27 @@ input[type="text"]:focus,
 input[type="tel"]:focus,
 input[type="url"]:focus,
 input[type="password"]:focus,
-textarea:focus,
-select:focus {
-  border: 1px solid setting("color", "focus");
-  outline: 0; }
+textarea:focus {
+	border: 1px solid setting("color", "focus");
+}
+ 
 label,
 legend {
-  display: block;
-  margin-bottom: .5rem;
-  font-weight: 600; }
-  legend {
+	display: block;
+}
+
+legend {
 	margin-left: 16px;
-  margin-right: 16px;
-  padding: 0 6px; }
+	margin-right: 16px;
+	padding: 0 6px;
+}
 
 fieldset {
-  padding: 0;
-  border: 1px solid setting(color,"border"); }
+	padding: 0 8px;
+	border: 1px solid setting(color,"border");
+}
+
 input[type="checkbox"],
 input[type="radio"] {
-  display: inline; }
-label > .label-body {
-  display: inline-block;
-  margin-left: .5rem;
-  font-weight: normal; }
+	display: inline;
+}

@@ -2,9 +2,9 @@
            NeutronCSS
 ---------------------------------*/
 
-// Configuration
+// Theme
 //-------------------------------------
-@import "config";
+@import "theme";
 
 // Settings Management
 //-------------------------------------
@@ -14,7 +14,8 @@ $_neutron: (
 	query: $neutron_query,
 	color: $neutron_color,
 	colour: $neutron_color,
-	text: $neutron_text
+	text: $neutron_text,
+	table: $neutron_table
 );
 
 @function setting($map_name: "", $setting: "") {
@@ -167,6 +168,7 @@ $_neutron: (
 html {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	font-size: setting("text","root-font-size");
 }
 
 html * {
@@ -178,5 +180,6 @@ body {
 	max-width: setting("layout", "container-max-width");
 	margin-left: auto;
 	margin-right: auto;
+	font-size: 1em; /* currently ems cause chrome bug misinterpreting rems on body element */
 }
 
