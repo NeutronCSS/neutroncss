@@ -20,13 +20,13 @@ Say we want to create an equal-width three column layout. Here is our HTML.
 And here is the Neutron code you would need to create the layout:
 
 	section {
-		columns(3);
+		@include columns(3);
 	}
 
 What if you don't want equal-widths, you want the middle column to be larger? That's easy too.
 
 	section {
-		columns((1,3,1));
+		@include columns((1,3,1));
 	}
 	
 Neutron doesn't force you to declare your columns in a particular way. You can use bootstrap-style column declarations like `2,8,2` or ratios like `1,4,1`, or even simple to understand percentages like `20,60,20`.
@@ -41,14 +41,14 @@ In a web where responsive sites are the norm, making your layout responsive easy
 Often you'll want to change the layout structure on different devices, Neutron lets you do this easily:
 
 	section {
-		columns(1);
+		@include columns(1);
 		
 		@media $from-tablet {
-			columns(2);
+			@include columns(2);
 		}
 		
 		@media $from-desktop {
-			columns((1,4,1));
+			@include columns((1,4,1));
 		}
 	}
 
@@ -66,14 +66,14 @@ With Neutron we let you reorder your elements the way you think about it, not th
 To do this you only need this single command:
 
 	@media $is-tablet {
-		order((3,2,1));
+		@include order((3,2,1));
 	}
 
 ###Real margins, real simple.
 Almost every layout design calls for gutter spacing between columns, but most frameworks fake their margins or force you think about them in convoluted ways. In Neutron, if you want a margin, just say so.
 
 	section {
-		columns(
+		@include columns(
 			$columns: 3,
 			$margin: 10px 24px
 		);
