@@ -1,0 +1,253 @@
+
+// Root Styles
+//-------------------------------------
+
+// Set root element to use border-box 
+// sizing and set all elements on the page
+// to inherit border-box sizing. 
+//
+// html is set to 62.5% so that all the REM 
+// measurements are based on 10px sizing. 
+// So basically 1.5rem = 15px
+
+html {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: setting("text","html-font-size");
+}
+
+html * {
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+body {
+	max-width: setting("layout", "container-max-width");
+	margin-left: auto;
+	margin-right: auto;
+	font-size: setting("text","body-font-size");
+}
+
+// Typography
+//---------------------------------------------
+
+body {
+	line-height: setting("text", "line-height");
+	font-weight: setting("text", "font-weight");
+	font-family: setting("text", "font-family");
+	color: setting("color", "copy");
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: setting("text","heading-margin");
+	font-weight: setting("text", "heading-font-weight"); 
+}
+
+h1 {
+	font-size: 3.0rem;
+	line-height: 1.2;  
+	letter-spacing: -.1rem;
+}
+
+h2 {
+	font-size: 2.5rem;
+	line-height: 1.25;
+	letter-spacing: -.1rem;
+}
+
+h3 {
+	font-size: 2rem;
+	line-height: 1.3; 
+	letter-spacing: -.1rem;
+}
+
+h4 {
+	font-size: 1.75rem;
+	line-height: 1.35;
+	letter-spacing: -.08rem;
+}
+
+h5 {
+	font-size: 1.5rem;
+	line-height: 1.5; 
+	letter-spacing: -.05rem;
+}
+
+h6 {
+	font-size: 1.25rem;
+	line-height: 1.6; 
+	letter-spacing: 0;
+}
+
+p { margin-top: 0; }
+
+// Links
+//---------------------------------------------
+
+a {
+	color: setting("color", "link");
+	text-decoration: none;
+}
+a:hover {
+	color: setting("color", "hover-link");
+	text-decoration: underline;
+}
+
+// Forms
+//---------------------------------------------
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+	height: 38px;
+	padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+	background-color: setting("color", "background");
+	border: 1px solid setting("color", "border2");
+	box-shadow: none;
+	box-sizing: border-box;
+}
+
+select {
+	box-shadow: none;
+	box-sizing: border-box;
+}
+
+textarea {
+	min-height: 65px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+}
+
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+	border: 1px solid setting("color", "focus");
+}
+ 
+label,
+legend {
+	display: block;
+}
+
+legend {
+	margin-left: 16px;
+	margin-right: 16px;
+	padding: 0 6px;
+}
+
+fieldset {
+	padding: 0 8px;
+	border: 1px solid setting(color,"border");
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	display: inline;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	display: inline-block;
+	padding: 5px 20px;
+	margin: 0;
+	line-height: 2;
+	color: setting("color","copy2");
+	background: setting("color","button");
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	box-sizing: border-box;
+	border: 1px solid lighten(setting("color","button"), 5%);
+	
+	&:hover {
+		color: setting("color","copy2");
+		background: setting("color","button-hover");
+		text-decoration: none;
+	}
+	
+	&:active {
+		background: setting(color,"button-active");
+		color: setting("color","copy2");
+	}
+}
+
+// Code
+//---------------------------------------------
+
+code {
+ 	padding: .2rem .5rem;
+	margin: 0 .2rem;
+	font-size: 90%;
+	white-space: nowrap;
+	background: setting("color", "background2");
+	border: 1px solid setting("color", "border3");
+	border-radius: 4px; 
+}
+
+pre > code {
+	display: block;
+	padding: 1rem 1.5rem;
+	white-space: pre;
+}
+
+// Lists
+//---------------------------------------------
+
+ul {
+	list-style: circle inside;
+}
+
+ol {
+	list-style: decimal inside;
+}
+
+ol, ul {
+	padding-left: 0;
+	margin-top: 0;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+	margin: 1.5rem 0 1.5rem 3rem;
+	font-size: 90%;
+}
+
+li {
+	margin-bottom: 1rem;
+}
+
+// Tables
+//---------------------------------------------
+
+th,
+td {
+	padding: setting("table", "cell-padding");
+	text-align: left;
+	border-bottom: 1px solid setting("color", "border2")
+}
+
+th:first-child,
+td:first-child {
+	padding-left: 0;
+}
+
+th:last-child,
+td:last-child {
+	padding-right: 0;
+}
+
