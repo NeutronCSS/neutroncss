@@ -31,13 +31,7 @@ $_neutron: (
 @import "modules/grid";
 @import "modules/queries";
 @import "modules/utilities";
-@import "modules/typography";
-@import "modules/buttons";
-@import "modules/forms";
-@import "modules/lists";
-@import "modules/links";
-@import "modules/code";
-@import "modules/tables";
+@import "modules/styles";
 
 // Helper Functions
 //-------------------------------------
@@ -152,34 +146,3 @@ $_neutron: (
 	
 	@return $result;
 }
-
-
-// Required Styles
-//-------------------------------------
-
-// Set root element to use border-box 
-// sizing and set all elements on the page
-// to inherit border-box sizing. 
-//
-// html is set to 62.5% so that all the REM 
-// measurements are based on 10px sizing. 
-// So basically 1.5rem = 15px
-
-html {
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	font-size: setting("text","root-font-size");
-}
-
-html * {
-	-moz-box-sizing: inherit;
-	box-sizing: inherit;
-}
-
-body {
-	max-width: setting("layout", "container-max-width");
-	margin-left: auto;
-	margin-right: auto;
-	font-size: 1em; /* currently ems cause chrome bug misinterpreting rems on body element */
-}
-

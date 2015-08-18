@@ -79,7 +79,9 @@ $neutron_color: (
 $neutron_text: (
 	font-family: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
 	font-family2: unquote('"HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif'),
-	root-font-size: 62.5%,
+	html-font-size: 62.5%,
+	body-font-size: 1em, // currently ems cause chrome bug misinterpreting rems on body element
+	font-size: 1rem,
 	line-height: 1.6,
 	font-weight: 400,
 	heading-font-weight: 400,
