@@ -1,10 +1,10 @@
-# Neutroncss
-A simple, semantic, Sass-based CSS framework.
+# Neutron
+A SASS framework that empowers you to create flexible, clear, and semantic website layouts.
 
-##What is it?
-Neutron is a CSS/SASS framework built from the beginning to be a clear, concise, and--primarily--flexible system for creating website layouts.
+##Why use Neutron?
+Neutron is built from the beginning to be clear, concise, and--primarily--a flexible system for creating website layouts.
 
-When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column, or being restricted to a specific grid layout.
+When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column in the HTML, or being restricted to a specific grid layout.
 
 ##How to use it.
 Making Neutron simple to use and easy to grap was very important to us, let us show you an example of using Neutron.
@@ -23,7 +23,7 @@ And here is the Neutron code you would need to create the layout:
 		@include columns(3);
 	}
 
-What if you don't want equal-widths, you want the middle column to be larger? That's easy too.
+What if you don't want equal-widths? Instead, you want the middle column to be larger? That's easy too.
 
 	section {
 		@include columns((1,3,1));
