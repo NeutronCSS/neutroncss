@@ -191,7 +191,7 @@
 	@return $child-selector;
 }
 
-@mixin order($order, $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
+@mixin order($order: "", $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
 	
 	@if type-of($order) == list {
 		
