@@ -45,29 +45,6 @@ $desktop-lrg-min: 	$desktop-mid-max + 1;
 // Media Queries
 //---------------------------------------------
 
-//Mobile
-$is-mobile: "(max-width: #{$mobile-max})";
-
-// Phablet
-$is-phablet: "(min-width: #{$phablet-min}) and (max-width: #{$phablet-max})";
-$from-phablet: "(min-width: #{$phablet-min})";
-
-// Tablet
-$is-tablet: "(min-width: #{$tablet-min}) and (max-width: #{$tablet-max})";
-$from-tablet: "(min-width: #{$tablet-min})";
-
-// Small Desktop
-$is-desktop-sml: "(min-width: #{$desktop-sml-min}) and (max-width: #{$desktop-sml-max})";
-$from-desktop-sml: "(min-width: #{$desktop-sml-min})";
-
-// Medium Desktop
-$is-desktop-mid: "(min-width: #{$desktop-mid-min}) and (max-width: #{$desktop-mid-max})";
-$from-desktop-mid: "(min-width: #{$desktop-mid-min})";
-
-// Large Desktop
-$is-desktop-lrg: "(min-width: #{$desktop-lrg-min})";
-$from-desktop-lrg: "(min-width: #{$desktop-lrg-min})";
-
 // Map of set breakpoints
 $breakpoints: (
 	is-mobile: 			createBreakpoint(0, $mobile-max),
