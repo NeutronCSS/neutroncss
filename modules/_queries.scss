@@ -1,11 +1,6 @@
-/// Overrides
+/// Media Queries
 //===============================================
-//In this file you can change the default 
-//values for variables used throughout Neutron,
-//allowing you to customise the appearance and 
-//behaviour of Neutron without needing to create 
-//your own modules or themes.
-//---------------------------------------------
+
 
 // Viewport Settings
 //---------------------------------------------
@@ -23,6 +18,29 @@ $tablet-min: 		$phablet-max + 1;
 $desktop-sml-min: 	$tablet-max + 1;
 $desktop-mid-min: 	$desktop-sml-max + 1;
 $desktop-lrg-min: 	$desktop-mid-max + 1;
+
+@function createBreakpoint($fromThisSize: "", $uptoThisSize: ""){
+	$query: "";
+	
+	@if $fromThisSize != "" or $uptoThisSize != "" {
+		
+		@if $fromThisSize != "" and $fromThisSize != 0  {
+			$query: $query + "(min-width:#{$fromThisSize})";
+		}
+		
+		@if  ($fromThisSize != "" and $fromThisSize != 0) and $uptoThisSize != "" {
+			$query: $query + " and ";
+		}
+		
+		@if $uptoThisSize != "" {
+			$query: $query + "(max-width:#{$uptoThisSize})";
+		}
+
+		@return unquote($query);
+		
+	}
+
+}
 
 // Media Queries
 //---------------------------------------------
@@ -49,3 +67,36 @@ $from-desktop-mid: "(min-width: #{$desktop-mid-min})";
 // Large Desktop
 $is-desktop-lrg: "(min-width: #{$desktop-lrg-min})";
 $from-desktop-lrg: "(min-width: #{$desktop-lrg-min})";
+
+// Map of set breakpoints
+$breakpoints: (
+	is-mobile: 			createBreakpoint(0, $mobile-max),
+	is-phablet: 		createBreakpoint($phablet-min, $phablet-max),
+	from-phablet: 		createBreakpoint($phablet-min),
+	is-tablet: 			createBreakpoint($tablet-min, $tablet-max),
+	from-tablet: 		createBreakpoint($tablet-min),
+	is-desktop-sml: 	createBreakpoint($desktop-sml-min, $desktop-sml-max),
+	from-desktop-sml: 	createBreakpoint($desktop-sml-min),
+	is-desktop-mid: 	createBreakpoint($desktop-mid-min, $desktop-mid-max),
+	from-desktop-mid: 	createBreakpoint($desktop-mid-min),
+	is-desktop-lrg: 	createBreakpoint($desktop-lrg-min),
+	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
+);
+
+@mixin breakpoint($breakpoint: "", $additionalQueries: "") {
+	@if $breakpoint != "" {
+		
+		@if map-has-key($breakpoints, $breakpoint) {
+			$media: inspect(map-get($breakpoints, $breakpoint));
+			
+			@if $additionalQueries != "" {
+				$media: $media + " and (" + $additionalQueries + ")";
+			}
+			
+			@media #{$media} {
+				@content;
+			}
+		}
+	}
+}
+
