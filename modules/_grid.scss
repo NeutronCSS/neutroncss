@@ -19,11 +19,11 @@
 
 	@if $columns != "" {
 		
-		$columns: calc-column-ratio($columns);
-		$column-sum: sum($columns);	
+		$columns: neutron_calc-column-ratio($columns);
+		$column-sum: neutron_sum($columns);	
 		$column-count: length($columns);
-		$column-widths: calculate-column-widths($columns);	
-		$target-child-selector: child-selector($target);
+		$column-widths: neutron_calculate-column-widths($columns);	
+		$target-child-selector: neutron_child-selector($target);
 		
 		$margin-left: 0;
 		$margin-right: 0;
@@ -31,8 +31,8 @@
 		@if $margin != "" {
 			
 			//get margins for left and right of the columns
-			$margin-left: extract-position($margin,left);
-			$margin-right: extract-position($margin,right);
+			$margin-left: neutron_extract-position($margin,left);
+			$margin-right: neutron_extract-position($margin,right);
 		
 		}
 	
@@ -112,83 +112,13 @@
 
 }
 
-//Alias for columns
+//Alias for columns()
 @mixin column($arguments...) {
 	@include columns($arguments...);
 }
+
 @mixin col($arguments...) {
 	@include columns($arguments...);
-}
-
-@function reorder-list($list, $order) {
-	
-	$new-list:();
-
-	@each $index in $order {
-		$item: nth($list, $index);
-		$new-list: append($new-list, $item, comma);
-	}
-	
-	@return $new-list;
-}
-
-@function calculate-column-widths($column-ratio) {
-	
-	$column-sum: sum($column-ratio);
-	$column-count: length($column-ratio);
-	$column-widths: ();
-
-	//Determine width of each column
-	@each $column in $column-ratio {
-		$width: (100% / $column-sum) * $column;
-		$column-widths: append($column-widths, $width, comma);
-	}
-	
-	@return $column-widths;
-}
-
-@mixin container-align($align:"") {
-	//Set alignment 
-	@if $align != "" {
-		float:none;
-		
-		@if $align == left {
-			margin-left: 0;
-		}
-		
-		@if $align == right {
-			margin-right: 0;
-		}
-		
-		@if $align == center {
-			margin-right: auto;
-			margin-left: auto;
-		}
-	}
-}
-
-@function calc-column-ratio($columns) {
-	$column-ratio: $columns;
-	
-	@if type-of($columns) != list {
-		$column-ratio: ();
-		
-		@for $i from 1 through $columns {
-			$column-ratio: append($column-ratio, 1, comma);
-		}
-	}
-	
-	@return $column-ratio;
-}
-
-@function child-selector($target-selector) {
-	$child-selector: "nth-of-type";
-	
-	@if $target-selector == "*" {
-		$child-selector: "nth-child";
-	}
-	
-	@return $child-selector;
 }
 
 @mixin order($order: "", $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
@@ -201,17 +131,17 @@
 		}
 
 		//if column ratio is not a list, generate it
-		$columns: calc-column-ratio($columns);
-		$column-sum: sum($columns);
+		$columns: neutron_calc-column-ratio($columns);
+		$column-sum: neutron_sum($columns);
 		$column-count: length($columns);
-		$target-child-selector: child-selector($target);
+		$target-child-selector: neutron_child-selector($target);
 				
 		$margin-left: 0;
 		$margin-right: 0;
 		
 		@if $margin != "" {	
-			$margin-left: extract-position($margin,left);
-			$margin-right: extract-position($margin,right);
+			$margin-left: neutron_extract-position($margin,left);
+			$margin-right: neutron_extract-position($margin,right);
 		}
 		
 		//calculate width of each column
@@ -252,7 +182,7 @@
 			
 		}
 		
-		$new-column-width-string: reorder-list($column-width-string, $order);
+		$new-column-width-string: neutron_reorder-list($column-width-string, $order);
 		$offset-totals: ();
 
 		//iterate over each column
@@ -282,5 +212,74 @@
 	}
 }
 
+@mixin container-align($align:"") {
+	//Set alignment 
+	@if $align != "" {
+		float:none;
+		
+		@if $align == left {
+			margin-left: 0;
+		}
+		
+		@if $align == right {
+			margin-right: 0;
+		}
+		
+		@if $align == center {
+			margin-right: auto;
+			margin-left: auto;
+		}
+	}
+}
 
+// UTILITY FUNCTIONS
+@function neutron_reorder-list($list, $order) {
+	
+	$new-list:();
 
+	@each $index in $order {
+		$item: nth($list, $index);
+		$new-list: append($new-list, $item, comma);
+	}
+	
+	@return $new-list;
+}
+
+@function neutron_calculate-column-widths($column-ratio) {
+	
+	$column-sum: neutron_sum($column-ratio);
+	$column-count: length($column-ratio);
+	$column-widths: ();
+
+	//Determine width of each column
+	@each $column in $column-ratio {
+		$width: (100% / $column-sum) * $column;
+		$column-widths: append($column-widths, $width, comma);
+	}
+	
+	@return $column-widths;
+}
+
+@function neutron_calc-column-ratio($columns) {
+	$column-ratio: $columns;
+	
+	@if type-of($columns) != list {
+		$column-ratio: ();
+		
+		@for $i from 1 through $columns {
+			$column-ratio: append($column-ratio, 1, comma);
+		}
+	}
+	
+	@return $column-ratio;
+}
+
+@function neutron_child-selector($target-selector) {
+	$child-selector: "nth-of-type";
+	
+	@if $target-selector == "*" {
+		$child-selector: "nth-child";
+	}
+	
+	@return $child-selector;
+}
