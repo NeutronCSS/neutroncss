@@ -5,14 +5,12 @@
 // Viewport Settings
 //---------------------------------------------
 
-		 $mobile-max: setting("query", "mobile-max");
-		$phablet-max: setting("query", "phablet-max");
-		 $tablet-max: setting("query", "tablet-max");
-	$desktop-sml-max: setting("query", "desktop-sml-max");
-	$desktop-mid-max: setting("query", "desktop-mid-max");
+$mobile-max: 		setting("query", "mobile-max");
+$phablet-max: 		setting("query", "phablet-max");
+$tablet-max: 		setting("query", "tablet-max");
+$desktop-sml-max: 	setting("query", "desktop-sml-max");
+$desktop-mid-max: 	setting("query", "desktop-mid-max");
 
-
-//Max device widths
 $phablet-min: 		$mobile-max + 1;
 $tablet-min: 		$phablet-max + 1;
 $desktop-sml-min: 	$tablet-max + 1;
@@ -37,9 +35,7 @@ $desktop-lrg-min: 	$desktop-mid-max + 1;
 		}
 
 		@return unquote($query);
-		
 	}
-
 }
 
 // Media Queries
