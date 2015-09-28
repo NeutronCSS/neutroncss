@@ -12,7 +12,7 @@
 	$target: "*",
 	$order: ""
 ) {
-	max-width: $container-width;
+	@include conatiner-width($container-width);
 	margin-left: auto;
 	margin-right: auto;
 	@include clear-fix();
@@ -230,6 +230,10 @@
 			margin-left: auto;
 		}
 	}
+}
+
+@mixin conatiner-width($container-width: setting("layout","container-max-width")) {
+	max-width: $container-width;
 }
 
 // UTILITY FUNCTIONS
