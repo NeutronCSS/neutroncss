@@ -3,10 +3,10 @@
 
 //hides the element when the 
 //provided media query is supplied.
-@mixin hide($media-query...) {
-	@if length($media-query) > 0 {
-
-		@media #{$media-query} {
+@mixin hide($breakpoint: "") {
+	@if length($breakpoint) > 0 {
+		
+		@include breakpoint($breakpoint) {
 			& {
 				display:none;
 			}
@@ -18,10 +18,10 @@
 
 //shows the element when the 
 //provided media query is supplied.
-@mixin show($media-query...) {
-	@if length($media-query) > 0 {
+@mixin show($breakpoint) {
+	@if length($breakpoint) > 0 {
 
-		@media #{$media-query} {
+		@include breakpoint($breakpoint) {
 			& {
 				display: block;
 				display: initial;
