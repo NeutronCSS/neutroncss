@@ -12,7 +12,7 @@
 	$target: "*",
 	$order: ""
 ) {
-	@include conatiner-width($container-width);
+	@include container-width($container-width);
 	margin-left: auto;
 	margin-right: auto;
 	@include clear-fix();
