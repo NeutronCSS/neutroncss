@@ -232,7 +232,7 @@
 	}
 }
 
-@mixin conatiner-width($container-width: setting("layout","container-max-width")) {
+@mixin container-width($container-width: setting("layout","container-max-width")) {
 	max-width: $container-width;
 }
 
