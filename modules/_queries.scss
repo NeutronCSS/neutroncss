@@ -58,14 +58,14 @@ $breakpoints: (
 	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
 );
 
-@mixin breakpoint($breakpoint: "", $additionalQueries: "") {
+@mixin breakpoint($breakpoint: "", $additional-queries: "") {
 	@if $breakpoint != "" {
 		
 		@if map-has-key($breakpoints, $breakpoint) {
 			$media: inspect(map-get($breakpoints, $breakpoint));
 			
-			@if $additionalQueries != "" {
-				$media: $media + " and (" + $additionalQueries + ")";
+			@if $additional-queries != "" {
+				$media: $media + " and (" + $additional-queries + ")";
 			}
 			
 			@media #{$media} {
