@@ -43,18 +43,18 @@ $desktop-lrg-min: 	$desktop-mid-max + 1;
 
 // Map of set breakpoints
 $breakpoints: (
-	is-mobile: 			createBreakpoint(0, $mobile-max),
-	is-phablet: 		createBreakpoint($phablet-min, $phablet-max),
+	mobile: 			createBreakpoint(0, $mobile-max),
+	phablet: 			createBreakpoint($phablet-min, $phablet-max),
 	from-phablet: 		createBreakpoint($phablet-min),
-	is-tablet: 			createBreakpoint($tablet-min, $tablet-max),
+	tablet: 			createBreakpoint($tablet-min, $tablet-max),
 	from-tablet: 		createBreakpoint($tablet-min),
-	is-desktop-sml: 	createBreakpoint($desktop-sml-min, $desktop-sml-max),
-	is-desktop: 		createBreakpoint($desktop-sml-min),
+	desktop-sml: 		createBreakpoint($desktop-sml-min, $desktop-sml-max),
+	desktop: 			createBreakpoint($desktop-sml-min),
 	from-desktop: 		createBreakpoint($desktop-sml-min),
 	from-desktop-sml: 	createBreakpoint($desktop-sml-min),
-	is-desktop-mid: 	createBreakpoint($desktop-mid-min, $desktop-mid-max),
+	desktop-mid: 		createBreakpoint($desktop-mid-min, $desktop-mid-max),
 	from-desktop-mid: 	createBreakpoint($desktop-mid-min),
-	is-desktop-lrg: 	createBreakpoint($desktop-lrg-min),
+	desktop-lrg: 		createBreakpoint($desktop-lrg-min),
 	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
 );
 
