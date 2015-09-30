@@ -42,7 +42,7 @@ $desktop-lrg-min: 	$desktop-mid-max + 1;
 //---------------------------------------------
 
 // Map of set breakpoints
-$breakpoints: (
+$neutron_breakpoints: (
 	mobile: 			createBreakpoint(0, $mobile-max),
 	phablet: 			createBreakpoint($phablet-min, $phablet-max),
 	from-phablet: 		createBreakpoint($phablet-min),
@@ -61,8 +61,8 @@ $breakpoints: (
 @mixin breakpoint($breakpoint: "", $additional-queries: "") {
 	@if $breakpoint != "" {
 		
-		@if map-has-key($breakpoints, $breakpoint) {
-			$media: inspect(map-get($breakpoints, $breakpoint));
+		@if map-has-key($neutron_breakpoints, $breakpoint) {
+			$media: inspect(map-get($neutron_breakpoints, $breakpoint));
 			
 			@if $additional-queries != "" {
 				$media: $media + " and (" + $additional-queries + ")";
