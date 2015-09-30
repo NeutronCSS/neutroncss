@@ -59,25 +59,32 @@ $neutron_breakpoints: (
 );
 
 @mixin breakpoint($breakpoint: "", $resolution: "", $additional-queries: "") {
-	@if $breakpoint != "" {
+	@if $breakpoint != "" or $resolution != "" or $additional-queries != "" {
 		
-		@if map-has-key($neutron_breakpoints, $breakpoint) {
-			$media: inspect(map-get($neutron_breakpoints, $breakpoint));
-			
-			@if $resolution != "" {
-				$res-dpi: $resolution * 96;
-				$res-media: "(-webkit-min-device-pixel-ratio: #{$resolution}), (min-resolution: #{$res-dpi}dpi)";
-				
-				$media: $media + " and (" + $res-media + ")";
+		$media: "";
+		
+		// Add breakpoint to media string
+		@if $breakpoint != "" {
+			@if map-has-key($neutron_breakpoints, $breakpoint) {
+				$media: inspect(map-get($neutron_breakpoints, $breakpoint));
 			}
+		}
+
+		// Add dpi to media string			
+		@if $resolution != "" {
+			$res-dpi: $resolution * 96;
+			$res-media: "(-webkit-min-device-pixel-ratio: #{$resolution}), (min-resolution: #{$res-dpi}dpi)";
 			
-			@if $additional-queries != "" {
-				$media: $media + " and (" + $additional-queries + ")";
-			}
-			
-			@media #{$media} {
-				@content;
-			}
+			$media: $media + " and (" + $res-media + ")";
+		}
+		
+		// Add additional supplied queries to media string
+		@if $additional-queries != "" {
+			$media: $media + " and (" + $additional-queries + ")";
+		}
+		
+		@media #{$media} {
+			@content;
 		}
 	}
 }
