@@ -58,11 +58,18 @@ $neutron_breakpoints: (
 	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
 );
 
-@mixin breakpoint($breakpoint: "", $additional-queries: "") {
+@mixin breakpoint($breakpoint: "", $resolution: "", $additional-queries: "") {
 	@if $breakpoint != "" {
 		
 		@if map-has-key($neutron_breakpoints, $breakpoint) {
 			$media: inspect(map-get($neutron_breakpoints, $breakpoint));
+			
+			@if $resolution != "" {
+				$res-dpi: $resolution * 96;
+				$res-media: "(-webkit-min-device-pixel-ratio: #{$resolution}), (min-resolution: #{$res-dpi}dpi)";
+				
+				$media: $media + " and (" + $res-media + ")";
+			}
 			
 			@if $additional-queries != "" {
 				$media: $media + " and (" + $additional-queries + ")";
