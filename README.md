@@ -1,5 +1,5 @@
 # Neutron
-Neutron is a SASS framework that empowers you to create flexible, clear, and semantic website layouts.
+Neutron is a Sass framework that empowers you to create flexible, clear, and semantic website layouts.
 
 ##Why use Neutron?
 Neutron is built from the beginning to be clear, concise, and--primarily--a flexible system for creating website layouts.
@@ -7,7 +7,7 @@ Neutron is built from the beginning to be clear, concise, and--primarily--a flex
 When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column in the HTML, or being restricted to a specific grid layout.
 
 ##Adding Neutron to your project.
-Adding Neutron to your project is as simple as downloading the neutron assets and then including the `_neutron.scss` at the top of your SASS stylesheet.
+Adding Neutron to your project is as simple as downloading the neutron assets and then including the `_neutron.scss` at the top of your Sass stylesheet.
 
 	@include "neutron/neutron";
 
@@ -26,4 +26,3 @@ We do plan on adding a number of features to Neutron in the near-term however, t
 You can get in touch with us on Twitter (<a href="https://twitter.com/NeutronCSS">@NeutronCSS</a>). If you find a bug or have a feature request, you can create an issue here on GitHub.
 
 If you're having trouble using Neutron you can send us a message on Twitter or submit a question to <a href="http://stackoverflow.com/questions/tagged/neutron">Stackoverflow</a>.
-

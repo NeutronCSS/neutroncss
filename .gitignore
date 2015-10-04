@@ -9,7 +9,7 @@ desktop.ini
 #Node
 node_modules
 
-#SASS
+#Sass
 .sass-cache
 koala-config.json
 *.css.map
