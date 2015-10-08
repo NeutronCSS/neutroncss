@@ -114,11 +114,33 @@
 
 //Alias for columns()
 @mixin column($arguments...) {
-	@include columns($arguments...);
+	@include columns($arguments...) {
+		@content;
+	};
 }
 
 @mixin col($arguments...) {
-	@include columns($arguments...);
+	@include columns($arguments...) {
+		@content;
+	};
+}
+
+@mixin float-columns($arguments...) {
+	@include columns($arguments...) {
+		@content;
+	};
+}
+
+@mixin float-column($arguments...) {
+	@include columns($arguments...) {
+		@content;
+	};
+}
+
+@mixin float-col($arguments...) {
+	@include columns($arguments...) {
+		@content;
+	};
 }
 
 @mixin order($order: "", $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
