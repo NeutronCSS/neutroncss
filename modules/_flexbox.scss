@@ -1,4 +1,4 @@
-// Floatbox Grid
+// Flexbox Grid
 //---------------------------------------------
 
 //Declares the container element of child rows or columns
@@ -12,7 +12,7 @@
 	$target: "*",
 	$order: ""
 ) {
-	@include flex-container-width($container-width);
+	@include container-width($container-width);
 	margin-left: auto;
 	margin-right: auto;
 	@include clear-fix();
@@ -22,10 +22,10 @@
 		$columns: neutron_calc-column-ratio($columns);
 		$column-sum: neutron_sum($columns);	
 		$column-count: length($columns);
-		$column-widths: neutron_calculate-column-widths($columns);	
 		$target-child-selector: neutron_child-selector($target);
 		
 		display: flex;
+		flex-wrap: wrap;
 		clear: left;
 		
 		$margin-left: 0;
@@ -36,13 +36,8 @@
 			//get margins for left and right of the columns
 			$margin-left: neutron_extract-position($margin,left);
 			$margin-right: neutron_extract-position($margin,right);
-		
+
 		}
-		
-		// Try to compensate for other elements in container
-		// & > * {
-		// 	flex: 0;
-		// }
 	
 		//assign calculated widths to elements
 		$index: 0;
@@ -50,33 +45,28 @@
 			$index: $index + 1;
 
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
-				flex: $ratio;
-			
-			
-				// $calc-contents: "#{$width}";
-					
-				// @if $margin != "" {
-					
-				// 	@if $margin-left != 0 {
-				// 		$calc-contents: $calc-contents + " - #{$margin-left}";
-				// 	}					
-					
-				// 	@if $margin-right != 0 {
-				// 		$calc-contents: $calc-contents + " - #{$margin-right}";
-				// 	}
-
-				// 	@if $flush-margin and $margin != "" {
-				// 		$flush-left: $margin-left / $column-count;
-				// 		$flush-right: $margin-right / $column-count;
-				// 		$calc-contents: $calc-contents + " + #{$flush-left}";
-				// 		$calc-contents: $calc-contents + " + #{$flush-right}";
-				// 	}	
-
-				// }
-
-				// width: calc(#{$calc-contents});
-				// float:left;
+				$base-width: (100% / $column-sum) * $ratio;
 				
+				// Offset 
+				$flex-width-calc: "#{$base-width} - 0px";
+				
+				@if $margin != "" {
+					
+					@if $index == 1 {
+						$flex-width-calc: $flex-width-calc + " - #{$margin-right}";
+					}
+					
+					@if $index == $column-count {
+						$flex-width-calc: $flex-width-calc + " - #{$margin-left}";
+					}
+					
+					@if $index != 1 and $index != $column-count {
+						$flex-width-calc: $flex-width-calc + " - #{$margin-left} - #{$margin-right}";
+					}
+				}
+				
+				flex: calc(#{$flex-width-calc}) $ratio;
+
 				@content;
 
 				@if $margin != "" {
@@ -93,7 +83,9 @@
 					@if $flush-margin {
 						margin-left: 0;
 					}
-				} @else {
+				} 
+				
+				@else {
 					clear: none;
 				}
 				
@@ -112,7 +104,7 @@
 
 	//Set alignment of container
 	@if $container-align != "" {
-		@include flex-container-align($container-align);
+		@include container-align($container-align);
 	}
 	
 	// Change order of columns
@@ -146,106 +138,17 @@
 
 		//if column ratio is not a list, generate it
 		$columns: neutron_calc-column-ratio($columns);
-		$column-sum: neutron_sum($columns);
 		$column-count: length($columns);
 		$target-child-selector: neutron_child-selector($target);
-				
-		$margin-left: 0;
-		$margin-right: 0;
-		
-		@if $margin != "" {	
-			$margin-left: neutron_extract-position($margin,left);
-			$margin-right: neutron_extract-position($margin,right);
-		}
-		
-		//calculate width of each column
-		$column-width-string:();
-
-		$i: 0;
-		$columns-offset: ();
-		@each $column in $columns {
-			$i: $i + 1;
-			
-			// calculate column widths 
-			$col-width: (100% / $column-sum) * $column;
-			
-			@if $margin != "" {
-				@if $flush-margin {
-					$flush-left: $margin-left / $column-count;
-					$flush-right: $margin-right / $column-count;
-					$flush: $flush-left + $flush-right;
-					$col-width: $col-width + " + #{$flush}";
-				}
-			}
-
-			$column-width-string: append($column-width-string, "(#{$col-width})", comma);
-					
-			// get sum of left offset of columns that come before current original position
-			$current-index: 0;
-			$current-offset: "0px";
-			
-			@while $current-index < $i {
-				$current-index: $current-index + 1;
-				
-				$add-offset: nth($column-width-string, $current-index);
-				$current-offset: $current-offset + " + " + $add-offset;
-			}
-			
-			$current-offset: "(" + $current-offset + ")";
-			$columns-offset: append($columns-offset, $current-offset, comma)
-			
-		}
-		
-		$new-column-width-string: neutron_reorder-list($column-width-string, $order);
-		$offset-totals: ();
 
 		//iterate over each column
 		$i: 0;
 		@each $column in $order {
 			$i: $i + 1;
 
-			// get sum of widths of columns that come before current one and add to offset
-			$new-position: index($order, $column);	
-			$new-offset: "0px";
-			
-			$index: 0;
-			@while $index < $new-position {
-				$index: $index + 1;
-				
-				$new-offset: $new-offset + " + " + nth($new-column-width-string, $index);
-			}
-
-			//Get left offset required for this column to reset column to left side.
-			$ori-offset: nth($columns-offset, $column);
-
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$column}) {
-				left: calc(0px - (#{$ori-offset}) + (#{$new-offset}));
-				position: relative;
+				order: $i;
 			}
 		}
 	}
-}
-
-@mixin flex-container-align($align:"") {
-	//Set alignment 
-	@if $align != "" {
-		float:none;
-		
-		@if $align == left {
-			margin-left: 0;
-		}
-		
-		@if $align == right {
-			margin-right: 0;
-		}
-		
-		@if $align == center {
-			margin-right: auto;
-			margin-left: auto;
-		}
-	}
-}
-
-@mixin flex-container-width($container-width: setting("layout","container-max-width")) {
-	max-width: $container-width;
 }

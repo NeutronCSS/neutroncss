@@ -1,0 +1,143 @@
+
+// Layout
+// =============================
+@mixin container-align($align:"") {
+	//Set alignment 
+	@if $align != "" {
+		float:none;
+		
+		@if $align == left {
+			margin-left: 0;
+		}
+		
+		@if $align == right {
+			margin-right: 0;
+		}
+		
+		@if $align == center {
+			margin-right: auto;
+			margin-left: auto;
+		}
+	}
+}
+
+@mixin container-width($container-width: setting("layout","container-max-width")) {
+	max-width: $container-width;
+}
+
+
+@function neutron_calc-column-ratio($columns) {
+	$column-ratio: $columns;
+	
+	@if type-of($columns) != list {
+		$column-ratio: ();
+		
+		@for $i from 1 through $columns {
+			$column-ratio: append($column-ratio, 1, comma);
+		}
+	}
+	
+	@return $column-ratio;
+}
+
+@function neutron_child-selector($target-selector) {
+	$child-selector: "nth-of-type";
+	
+	@if $target-selector == "*" {
+		$child-selector: "nth-child";
+	}
+	
+	@return $child-selector;
+}
+
+@function neutron_calculate-column-widths($column-ratio) {
+	
+	$column-sum: neutron_sum($column-ratio);
+	$column-count: length($column-ratio);
+	$column-widths: ();
+
+	//Determine width of each column
+	@each $column in $column-ratio {
+		$width: (100% / $column-sum) * $column;
+		$column-widths: append($column-widths, $width, comma);
+	}
+	
+	@return $column-widths;
+}
+
+@function neutron_reorder-list($list, $order) {
+	
+	$new-list:();
+
+	@each $index in $order {
+		$item: nth($list, $index);
+		$new-list: append($new-list, $item, comma);
+	}
+	
+	@return $new-list;
+}
+
+// Helpers
+// =============================
+
+//Adds all items in a list and returns the result
+@function neutron_sum($list) {
+	
+	$total: 0;
+	@each $element in $list {
+		$total: $total + $element;
+	}
+	@return $total;
+	
+}
+
+@function neutron_extract-position($shorthand, $position) {
+	$shorthand-length: length($shorthand);
+	
+	//if only one variable passed, return it
+	@if $shorthand-length == 1 {
+		@return $shorthand;
+	}
+	
+	@if $shorthand-length == 2 {
+		@if $position == top or $position == bottom {
+			@return nth($shorthand, 1);
+		}
+		
+		@if $position == left or $position == right {
+			@return nth($shorthand, 2);
+		}
+	}
+
+	@if $shorthand-length == 3 {
+		@if $position == top {
+			@return nth($shorthand, 1);
+		}
+
+		@if $position == left or $position == right {
+			@return nth($shorthand, 2);
+		}
+
+		@if $position == bottom {
+			@return nth($shorthand, 3);
+		}
+	}
+
+	@if $shorthand-length == 4 {
+		@if $position == top {
+			@return nth($shorthand, 1);
+		}
+
+		@if $position == right {
+			@return nth($shorthand, 2);
+		}
+
+		@if $position == bottom {
+			@return nth($shorthand, 3);
+		}
+
+		@if $position == left {
+			@return nth($shorthand, 4);
+		}
+	}
+}

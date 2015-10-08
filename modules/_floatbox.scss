@@ -233,27 +233,3 @@
 		}
 	}
 }
-
-@mixin container-align($align:"") {
-	//Set alignment 
-	@if $align != "" {
-		float:none;
-		
-		@if $align == left {
-			margin-left: 0;
-		}
-		
-		@if $align == right {
-			margin-right: 0;
-		}
-		
-		@if $align == center {
-			margin-right: auto;
-			margin-left: auto;
-		}
-	}
-}
-
-@mixin container-width($container-width: setting("layout","container-max-width")) {
-	max-width: $container-width;
-}
