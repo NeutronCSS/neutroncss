@@ -2,7 +2,7 @@
 //---------------------------------------------
 
 //Declares the container element of child rows or columns
-@mixin columns(
+@mixin flex-columns(
 	$columns:"", 
 	$container-width: setting("layout","container-max-width"),
 	$container-align: "",
@@ -12,7 +12,7 @@
 	$target: "*",
 	$order: ""
 ) {
-	@include container-width($container-width);
+	@include flex-container-width($container-width);
 	margin-left: auto;
 	margin-right: auto;
 	@include clear-fix();
@@ -25,6 +25,9 @@
 		$column-widths: neutron_calculate-column-widths($columns);	
 		$target-child-selector: neutron_child-selector($target);
 		
+		display: flex;
+		clear: left;
+		
 		$margin-left: 0;
 		$margin-right: 0;
 		
@@ -35,37 +38,44 @@
 			$margin-right: neutron_extract-position($margin,right);
 		
 		}
+		
+		// Try to compensate for other elements in container
+		// & > * {
+		// 	flex: 0;
+		// }
 	
 		//assign calculated widths to elements
 		$index: 0;
-		@each $width in $column-widths {	
+		@each $ratio in $columns {	
 			$index: $index + 1;
 
 			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
+				flex: $ratio;
 			
-				$calc-contents: "#{$width}";
+			
+				// $calc-contents: "#{$width}";
 					
-				@if $margin != "" {
+				// @if $margin != "" {
 					
-					@if $margin-left != 0 {
-						$calc-contents: $calc-contents + " - #{$margin-left}";
-					}					
+				// 	@if $margin-left != 0 {
+				// 		$calc-contents: $calc-contents + " - #{$margin-left}";
+				// 	}					
 					
-					@if $margin-right != 0 {
-						$calc-contents: $calc-contents + " - #{$margin-right}";
-					}
+				// 	@if $margin-right != 0 {
+				// 		$calc-contents: $calc-contents + " - #{$margin-right}";
+				// 	}
 
-					@if $flush-margin and $margin != "" {
-						$flush-left: $margin-left / $column-count;
-						$flush-right: $margin-right / $column-count;
-						$calc-contents: $calc-contents + " + #{$flush-left}";
-						$calc-contents: $calc-contents + " + #{$flush-right}";
-					}	
+				// 	@if $flush-margin and $margin != "" {
+				// 		$flush-left: $margin-left / $column-count;
+				// 		$flush-right: $margin-right / $column-count;
+				// 		$calc-contents: $calc-contents + " + #{$flush-left}";
+				// 		$calc-contents: $calc-contents + " + #{$flush-right}";
+				// 	}	
 
-				}
+				// }
 
-				width: calc(#{$calc-contents});
-				float:left;
+				// width: calc(#{$calc-contents});
+				// float:left;
 				
 				@content;
 
@@ -102,48 +112,30 @@
 
 	//Set alignment of container
 	@if $container-align != "" {
-		@include container-align($container-align);
+		@include flex-container-align($container-align);
 	}
 	
 	// Change order of columns
 	@if type-of($order) == list and type-of($columns) == list {
-		@include order($order, $columns, $margin, $flush-margin, $target);
+		@include flex-order($order, $columns, $margin, $flush-margin, $target);
 	}
 
 }
 
-//Alias for columns()
-@mixin column($arguments...) {
-	@include columns($arguments...) {
+//Alias for flex-columns()
+@mixin flex-column($arguments...) {
+	@include flex-columns($arguments...) {
 		@content;
 	};
 }
 
-@mixin col($arguments...) {
-	@include columns($arguments...) {
+@mixin flex-col($arguments...) {
+	@include flex-columns($arguments...) {
 		@content;
 	};
 }
 
-@mixin float-columns($arguments...) {
-	@include columns($arguments...) {
-		@content;
-	};
-}
-
-@mixin float-column($arguments...) {
-	@include columns($arguments...) {
-		@content;
-	};
-}
-
-@mixin float-col($arguments...) {
-	@include columns($arguments...) {
-		@content;
-	};
-}
-
-@mixin order($order: "", $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
+@mixin flex-order($order: "", $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
 	
 	@if type-of($order) == list {
 		
@@ -234,7 +226,7 @@
 	}
 }
 
-@mixin container-align($align:"") {
+@mixin flex-container-align($align:"") {
 	//Set alignment 
 	@if $align != "" {
 		float:none;
@@ -254,6 +246,6 @@
 	}
 }
 
-@mixin container-width($container-width: setting("layout","container-max-width")) {
+@mixin flex-container-width($container-width: setting("layout","container-max-width")) {
 	max-width: $container-width;
 }
