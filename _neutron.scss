@@ -2,31 +2,21 @@
            NeutronCSS
 ---------------------------------*/
 
-// Settings Management
+// Overridable Settings
 // ============================================
 
-$_neutron: (
-	layout: (
-		column-padding: 4px 8px,
-		container-max-width: 960px,
-		flush-margin: true,
-		flush-padding: false
-	),
-	query: (
-		mobile-max: 	479px,
-		phablet-max: 	767px,
-		tablet-max: 	1023px,
-		desktop-sml-max:	1199px,
-		desktop-mid-max:	1799px
-	)
-);
+// General Settings
+$neutron-column-padding: 4px 8px !default;
+$neutron-container-max-width: 960px !default;
+$neutron-flush-margin: true !default;
+$neutron-flush-padding: false !default;
 
-@function setting($map_name: "", $setting: "") {
-	@if $map_name != "" and $setting != "" {
-		$map: map-get($_neutron,$map_name);
-		@return map-get($map, $setting);
-	}
-}
+// Breakpoint Settings
+$neutron-mobile-max: 479px !default;
+$neutron-phablet-max: 767px !default;
+$neutron-tablet-max: 1023px !default;
+$neutron-desktop-sml-max: 1199px !default;
+$neutron-desktop-mid-max: 1799px !default;
 
 // Modules
 // ============================================
@@ -53,7 +43,7 @@ html * {
 }
 
 body {
-	max-width: setting("layout", "container-max-width");
+	max-width: $neutron-container-max-width;
 	margin-left: auto;
 	margin-right: auto;
 }

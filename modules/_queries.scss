@@ -5,17 +5,11 @@
 // Viewport Settings
 //---------------------------------------------
 
-$mobile-max: 		setting("query", "mobile-max");
-$phablet-max: 		setting("query", "phablet-max");
-$tablet-max: 		setting("query", "tablet-max");
-$desktop-sml-max: 	setting("query", "desktop-sml-max");
-$desktop-mid-max: 	setting("query", "desktop-mid-max");
-
-$phablet-min: 		$mobile-max + 1;
-$tablet-min: 		$phablet-max + 1;
-$desktop-sml-min: 	$tablet-max + 1;
-$desktop-mid-min: 	$desktop-sml-max + 1;
-$desktop-lrg-min: 	$desktop-mid-max + 1;
+$neutron-phablet-min: 		$neutron-mobile-max + 1;
+$neutron-tablet-min: 		$neutron-phablet-max + 1;
+$neutron-desktop-sml-min: 	$neutron-tablet-max + 1;
+$neutron-desktop-mid-min: 	$neutron-desktop-sml-max + 1;
+$neutron-desktop-lrg-min: 	$neutron-desktop-mid-max + 1;
 
 @function createBreakpoint($fromThisSize: "", $uptoThisSize: ""){
 	$query: "";
@@ -43,20 +37,46 @@ $desktop-lrg-min: 	$desktop-mid-max + 1;
 
 // Map of set breakpoints
 $neutron_breakpoints: (
-	mobile: 			createBreakpoint(0, $mobile-max),
-	phablet: 			createBreakpoint($phablet-min, $phablet-max),
-	from-phablet: 		createBreakpoint($phablet-min),
-	tablet: 			createBreakpoint($tablet-min, $tablet-max),
-	from-tablet: 		createBreakpoint($tablet-min),
-	desktop-sml: 		createBreakpoint($desktop-sml-min, $desktop-sml-max),
-	desktop: 			createBreakpoint($desktop-sml-min),
-	from-desktop: 		createBreakpoint($desktop-sml-min),
-	from-desktop-sml: 	createBreakpoint($desktop-sml-min),
-	desktop-mid: 		createBreakpoint($desktop-mid-min, $desktop-mid-max),
-	from-desktop-mid: 	createBreakpoint($desktop-mid-min),
-	desktop-lrg: 		createBreakpoint($desktop-lrg-min),
-	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
-);
+	mobile: 			createBreakpoint(0, $neutron-mobile-max),
+	phablet: 			createBreakpoint($neutron-phablet-min, $neutron-phablet-max),
+	from-phablet: 		createBreakpoint($neutron-phablet-min),
+	tablet: 			createBreakpoint($neutron-tablet-min, $neutron-tablet-max),
+	from-tablet: 		createBreakpoint($neutron-tablet-min),
+	desktop-sml: 		createBreakpoint($neutron-desktop-sml-min, $neutron-desktop-sml-max),
+	desktop: 			createBreakpoint($neutron-desktop-sml-min),
+	from-desktop: 		createBreakpoint($neutron-desktop-sml-min),
+	from-desktop-sml: 	createBreakpoint($neutron-desktop-sml-min),
+	desktop-mid: 		createBreakpoint($neutron-desktop-mid-min, $neutron-desktop-mid-max),
+	from-desktop-mid: 	createBreakpoint($neutron-desktop-mid-min),
+	desktop-lrg: 		createBreakpoint($neutron-desktop-lrg-min),
+	from-desktop-lrg: 	createBreakpoint($neutron-desktop-lrg-min)
+) !default;
+
+@function addBreakpoint($label:"", $from-size:"", $upto-size:"") {
+	
+	$new_neutron_breakpoints: $neutron_breakpoints;
+	$newBreakpoint: "";
+	
+	@if $label != "" {
+		@if $from-size != "" and $upto-size != "" {
+			$newBreakpoint: createBreakpoint($from-size, $upto-size);
+		} @else if $from-size != "" {
+			$newBreakpoint: createBreakpoint($from-size);
+		} @else if $upto-size != "" {
+			$newBreakpoint: createBreakpoint($upto-size);
+		}
+		
+		@if $newBreakpoint != "" {
+					
+			$appending: ($label: $newBreakpoint);
+			
+			$new_neutron_breakpoints: map-merge($new_neutron_breakpoints, $appending);
+		}
+	}
+	
+	@return $new_neutron_breakpoints;
+	
+}
 
 @mixin breakpoint($breakpoint: "", $resolution: "", $additional-queries: "") {
 	@if $breakpoint != "" or $resolution != "" or $additional-queries != "" {
