@@ -58,8 +58,8 @@ $neutron_breakpoints: (
 	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
 );
 
-@mixin breakpoint($breakpoint: "", $resolution: "", $additional-queries: "") {
-	@if $breakpoint != "" or $resolution != "" or $additional-queries != "" {
+@mixin breakpoint($breakpoint: "", $resolution: "", $media-type: "", $media-feature: "") {
+	@if $breakpoint != "" or $resolution != "" or $media-feature != "" or $media-type {
 
 		$media: "";
 
@@ -81,13 +81,22 @@ $neutron_breakpoints: (
 			$media: $media + " all and (min-resolution: #{$res-dpi}dpi) ";
 		}
 
-		// Add additional supplied queries to media string
-		@if $additional-queries != "" {
+		// Add additional supplied query types to media string
+		@if $media-type != "" {
 			@if $media != "" {
-				$media: $media + " and";
+				$media: $media + " and ";
 			}
 
-			$media: $media + " all and (" + $additional-queries + ")";
+			$media: $media + $media-type;
+		}
+		
+		// Add additional supplied query features to media string
+		@if $media-feature != "" {
+			@if $media != "" {
+				$media: $media + " and ";
+			}
+
+			$media: $media + "all and (" + $media-feature + ")";
 		}
 
 		@media #{$media} {
