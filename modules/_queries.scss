@@ -13,17 +13,17 @@ $neutron-desktop-lrg-min: 	$neutron-desktop-mid-max + 1;
 
 @function createBreakpoint($fromThisSize: "", $uptoThisSize: ""){
 	$query: "";
-	
+
 	@if $fromThisSize != "" or $uptoThisSize != "" {
-		
+
 		@if $fromThisSize != "" and $fromThisSize != 0  {
 			$query: $query + "(min-width:#{$fromThisSize})";
 		}
-		
+
 		@if  ($fromThisSize != "" and $fromThisSize != 0) and $uptoThisSize != "" {
 			$query: $query + " and ";
 		}
-		
+
 		@if $uptoThisSize != "" {
 			$query: $query + "(max-width:#{$uptoThisSize})";
 		}
@@ -78,11 +78,11 @@ $neutron_breakpoints: (
 	
 }
 
-@mixin breakpoint($breakpoint: "", $resolution: "", $additional-queries: "") {
-	@if $breakpoint != "" or $resolution != "" or $additional-queries != "" {
-		
+@mixin breakpoint($breakpoint: "", $resolution: "", $media-type: "", $media-feature: "") {
+	@if $breakpoint != "" or $resolution != "" or $media-feature != "" or $media-type {
+
 		$media: "";
-		
+
 		// Add breakpoint to media string
 		@if $breakpoint != "" {
 			@if map-has-key($neutron_breakpoints, $breakpoint) {
@@ -90,22 +90,37 @@ $neutron_breakpoints: (
 			}
 		}
 
-		// Add dpi to media string			
+		// Add dpi to media string
 		@if $resolution != "" {
 			$res-dpi: $resolution * 96;
-			$res-media: "(-webkit-min-device-pixel-ratio: #{$resolution}), (min-resolution: #{$res-dpi}dpi)";
-			
-			$media: $media + " and (" + $res-media + ")";
+
+			@if $media != "" {
+				$media: $media + " and";
+			}
+
+			$media: $media + " all and (min-resolution: #{$res-dpi}dpi) ";
+		}
+
+		// Add additional supplied query types to media string
+		@if $media-type != "" {
+			@if $media != "" {
+				$media: $media + " and ";
+			}
+
+			$media: $media + $media-type;
 		}
 		
-		// Add additional supplied queries to media string
-		@if $additional-queries != "" {
-			$media: $media + " and (" + $additional-queries + ")";
+		// Add additional supplied query features to media string
+		@if $media-feature != "" {
+			@if $media != "" {
+				$media: $media + " and ";
+			}
+
+			$media: $media + "all and (" + $media-feature + ")";
 		}
-		
+
 		@media #{$media} {
 			@content;
 		}
 	}
 }
-
