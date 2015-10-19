@@ -1,7 +1,7 @@
 
 // Layout
 // =============================
-@mixin container-align($align:"") {
+@mixin align-container($align:"") {
 	//Set alignment 
 	@if $align != "" {
 		float:none;
@@ -75,6 +75,37 @@
 	}
 	
 	@return $new-list;
+}
+
+@mixin neutron_margin-application($index:"", $column-count:"", $flush-margin: $neutron-flush-margin, $flush-padding: $neutron-flush-padding) {
+
+	@if $index != "" and $column-count != "" {
+			
+		@if $index == 1 {
+			clear: left;
+			
+			@if $flush-padding {
+				padding-left: 0;
+			}
+			@if $flush-margin {
+				margin-left: 0;
+			}
+		} 
+		
+		@else {
+			clear: none;
+		}
+		
+		//if last column
+		@if $index == $column-count {
+			@if $flush-padding {
+				padding-right: 0;
+			}
+			@if $flush-margin {
+				margin-right: 0;
+			}
+		}
+	}
 }
 
 // Helpers

@@ -5,12 +5,13 @@
 @mixin columns(
 	$columns:"", 
 	$container-width: $neutron-container-max-width,
-	$container-align: "",
+	$align-container: "",
 	$margin: "",
 	$flush-margin: $neutron-flush-margin,
 	$flush-padding: $neutron-flush-padding,
 	$target: "*",
-	$order: ""
+	$order: "",
+	$rows: all
 ) {
 	@include container-width($container-width);
 	margin-left: auto;
@@ -36,12 +37,17 @@
 		
 		}
 	
+		$rows-selector: #{$column-count};
+		@if $rows != all {
+			$rows-selector: "-" + $rows-selector;
+		}
+	
 		//assign calculated widths to elements
 		$index: 0;
 		@each $width in $column-widths {	
 			$index: $index + 1;
-
-			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
+			
+			& > #{$target}:#{$target-child-selector}(#{$rows-selector}n+#{$index}) {
 			
 				$calc-contents: "#{$width}";
 					
@@ -72,37 +78,16 @@
 				@if $margin != "" {
 					margin: $margin;
 				}
-				
-				//if first column
-				@if $index == 1 {
-					clear: left;
-					
-					@if $flush-padding {
-						padding-left: 0;
-					}
-					@if $flush-margin {
-						margin-left: 0;
-					}
-				} @else {
-					clear: none;
-				}
-				
-				//if last column
-				@if $index == $column-count {
-					@if $flush-padding {
-						padding-right: 0;
-					}
-					@if $flush-margin {
-						margin-right: 0;
-					}
-				}
+
+				@include neutron_margin-application($index, $column-count, $flush-margin, $flush-padding);
+
 			}
 		}	
 	}
 
 	//Set alignment of container
-	@if $container-align != "" {
-		@include container-align($container-align);
+	@if $align-container != "" {
+		@include align-container($align-container);
 	}
 	
 	// Change order of columns

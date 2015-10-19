@@ -52,18 +52,43 @@ $neutron_breakpoints: (
 	from-desktop-lrg: 	createBreakpoint($neutron-desktop-lrg-min)
 ) !default;
 
-@function addBreakpoint($label:"", $from-size:"", $upto-size:"") {
+@function addBreakpoint($args...) {
 	
+	$label:"";
+	$from-size:0;
+	$upto-size:0;
+	$media:"";
+	$newBreakpoint: "";	
 	$new_neutron_breakpoints: $neutron_breakpoints;
-	$newBreakpoint: "";
+
 	
-	@if $label != "" {
-		@if $from-size != "" and $upto-size != "" {
+	@if length($args) > 1 {
+		
+		$label: nth($args, 1);
+		
+		// If label, from, and upto are provided
+		@if length($args) == 3 {
+			$from-size: nth($args, 2);
+			$upto-size: nth($args, 3);
+		}	
+			
+		// If label, and query string are provided
+		@if length($args) == 2 {
+			$media: nth($args, 2);
+		}
+
+		// create viewport-based breakpoint
+		@if $from-size != 0 and $upto-size != 0 {
 			$newBreakpoint: createBreakpoint($from-size, $upto-size);
-		} @else if $from-size != "" {
+		} @else if $from-size != 0 {
 			$newBreakpoint: createBreakpoint($from-size);
-		} @else if $upto-size != "" {
+		} @else if $upto-size != 0 {
 			$newBreakpoint: createBreakpoint($upto-size);
+		}
+		
+		// Create custom breakpoint
+		@if $media != "" {
+			$newBreakpoint: $media;
 		}
 		
 		@if $newBreakpoint != "" {
