@@ -6,6 +6,14 @@ Neutron is built from the beginning to be clear, concise, and--primarily--a flex
 
 When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column in the HTML, or being restricted to a specific grid layout.
 
+##Installing Neutron
+
+###Bower
+	bower install neutroncss
+	
+###Git
+	git clone https://github.com/NeutronCSS/neutroncss.git neutron
+
 ##Adding Neutron to your project.
 Adding Neutron to your project is as simple as downloading the neutron assets and then including the `_neutron.scss` at the top of your Sass stylesheet.
 
