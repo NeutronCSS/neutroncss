@@ -1,0 +1,25 @@
+{
+  "name": "neutroncss",
+  "homepage": "http://neutroncss.com",
+  "version": "0.9.2",
+  "authors": [
+    "Christopher Muller"
+  ],
+  "description": "A Sass framework that empowers you to create flexible, clear, and semantic website layouts.",
+  "main": "_neutron.scss",
+  "keywords": [
+    "Sass",
+    "CSS",
+    "Neutron",
+    "Framework",
+    "Semantic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

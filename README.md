@@ -1,82 +1,36 @@
-# Neutroncss
-A simple, semantic, Sass-based CSS framework.
+# Neutron
+Neutron is a Sass framework that empowers you to create flexible, clear, and semantic website layouts.
 
-##What is it?
-Neutron is a CSS/SASS framework built from the beginning to be a clear, concise, and--primarily--flexible system for creating website layouts.
+##Why use Neutron?
+Neutron is built from the beginning to be clear, concise, and--primarily--a flexible system for creating website layouts.
 
-When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column, or being restricted to a specific grid layout.
+When building it we did away with redundant concepts and ideas that many frameworks still use, such as littering your HTML with classes, or manually declaring each column in the HTML, or being restricted to a specific grid layout.
 
-##How to use it.
-Making Neutron simple to use and easy to grap was very important to us, let us show you an example of using Neutron.
+##Installing Neutron
 
-Say we want to create an equal-width three column layout. Here is our HTML.
-
-	<section>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-	</section>
-
-And here is the Neutron code you would need to create the layout:
-
-	section {
-		@include columns(3);
-	}
-
-What if you don't want equal-widths, you want the middle column to be larger? That's easy too.
-
-	section {
-		@include columns((1,3,1));
-	}
+###Bower
+	bower install neutroncss
 	
-Neutron doesn't force you to declare your columns in a particular way. You can use bootstrap-style column declarations like `2,8,2` or ratios like `1,4,1`, or even simple to understand percentages like `20,60,20`.
+###Git
+	git clone https://github.com/NeutronCSS/neutroncss.git neutron
 
-##Powerful and flexible.
+##Adding Neutron to your project.
+Adding Neutron to your project is as simple as downloading the neutron assets and then including the `_neutron.scss` at the top of your Sass stylesheet.
 
-We didn't just want a simple framework. We wanted a flexible and powerful one too. Because of this we wanted to give you all the tools you need to create amazing layouts and designs.
+	@include "neutron/neutron";
 
-###Responsively. Easily.
-In a web where responsive sites are the norm, making your layout responsive easy is important.
+##Learn more about Neutron
+You can learn more about Neutron by visiting the website <a href="http://neutroncss.com/">neutroncss.com</a>. If you're looking for information on how to use Neutron you can check our documentation at <a href="http://neutroncss.com/docs/">neutroncss.com/docs</a>
 
-Often you'll want to change the layout structure on different devices, Neutron lets you do this easily:
+##Roadmap
+Once we reach version `1.0` we won't be making any breaking changes to Neutron until version `2.0` comes along.
 
-	section {
-		@include columns(1);
-		
-		@media $from-tablet {
-			@include columns(2);
-		}
-		
-		@media $from-desktop {
-			@include columns((1,4,1));
-		}
-	}
+We do plan on adding a number of features to Neutron in the near-term however, these include:
 
-###No push. No pull. Just Order.
-Changing widths of your layout isn't the only thing you'll need to do to make the perfect responsive design. Often you'll want to change the order of your elements as well. Until flexbox support becomes widespread, this usually involved adding messy classes to your HTML to 'push' or 'pull' elements left or right.
+* Fixed width columns: the ability to set some or all of your columns to have a fixed width instead of a percentage-based width.
+* Flexbox support: We hope to inplement flexbox support allowing you to create layouts using the same or similar syntax as the rest of Neutron.
 
-With Neutron we let you reorder your elements the way you think about it, not the way the framework implements it. Say we wanted to reverse the order of the below elements for tablets only:
+##Contact Us
+You can get in touch with us on Twitter (<a href="https://twitter.com/NeutronCSS">@NeutronCSS</a>). If you find a bug or have a feature request, you can create an issue here on GitHub.
 
-	<section>
-		<div>Column 1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-		<div>Column 2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-		<div>Column 3. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
-	</section>
-	
-To do this you only need this single command:
-
-	@media $is-tablet {
-		@include order((3,2,1));
-	}
-
-###Real margins, real simple.
-Almost every layout design calls for gutter spacing between columns, but most frameworks fake their margins or force you think about them in convoluted ways. In Neutron, if you want a margin, just say so.
-
-	section {
-		@include columns(
-			$columns: 3,
-			$margin: 10px 24px
-		);
-	}
-
-We don't force you think of margins as ratios or other strange abstract concepts, we made margins work the same way they do for all the other CSS you've ever written.
+If you're having trouble using Neutron you can send us a message on Twitter or submit a question to <a href="http://stackoverflow.com/questions/tagged/neutron">Stackoverflow</a>.

@@ -1,0 +1,125 @@
+/*---------------------------------
+           NeutronCSS
+---------------------------------*/
+
+// Settings Management
+// ============================================
+
+$_neutron: (
+	layout: (
+		column-padding: 4px 8px,
+		container-max-width: 960px,
+		flush-margin: true,
+		flush-padding: false
+	),
+	query: (
+		mobile-max: 	479px,
+		phablet-max: 	767px,
+		tablet-max: 	1023px,
+		desktop-sml-max:	1199px,
+		desktop-mid-max:	1799px
+	)
+);
+
+@function setting($map_name: "", $setting: "") {
+	@if $map_name != "" and $setting != "" {
+		$map: map-get($_neutron,$map_name);
+		@return map-get($map, $setting);
+	}
+}
+
+// Modules
+// ============================================
+@import "modules/floatbox";
+@import "modules/queries";
+@import "modules/utilities";
+
+// Default Styles
+// ============================================
+// Set root element to use border-box 
+// sizing and set all elements on the page
+// to inherit border-box sizing. 
+
+html {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html * {
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+body {
+	max-width: setting("layout", "container-max-width");
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Helper Functions
+// ============================================
+
+//Adds all items in a list and returns the result
+@function neutron_sum($list) {
+	
+	$total: 0;
+	@each $element in $list {
+		$total: $total + $element;
+	}
+	@return $total;
+	
+}
+
+@function neutron_extract-position($shorthand, $position) {
+	$shorthand-length: length($shorthand);
+	
+	//if only one variable passed, return it
+	@if $shorthand-length == 1 {
+		@return $shorthand;
+	}
+	
+	@if $shorthand-length == 2 {
+		@if $position == top or $position == bottom {
+			@return nth($shorthand, 1);
+		}
+		
+		@if $position == left or $position == right {
+			@return nth($shorthand, 2);
+		}
+	}
+
+	@if $shorthand-length == 3 {
+		@if $position == top {
+			@return nth($shorthand, 1);
+		}
+
+		@if $position == left or $position == right {
+			@return nth($shorthand, 2);
+		}
+
+		@if $position == bottom {
+			@return nth($shorthand, 3);
+		}
+	}
+
+	@if $shorthand-length == 4 {
+		@if $position == top {
+			@return nth($shorthand, 1);
+		}
+
+		@if $position == right {
+			@return nth($shorthand, 2);
+		}
+
+		@if $position == bottom {
+			@return nth($shorthand, 3);
+		}
+
+		@if $position == left {
+			@return nth($shorthand, 4);
+		}
+	}
+}
+
+
+/*--------- End of NeutronCSS ---------*/

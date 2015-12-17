@@ -1,0 +1,106 @@
+/// Media Queries
+//===============================================
+
+
+// Viewport Settings
+//---------------------------------------------
+
+$mobile-max: 		setting("query", "mobile-max");
+$phablet-max: 		setting("query", "phablet-max");
+$tablet-max: 		setting("query", "tablet-max");
+$desktop-sml-max: 	setting("query", "desktop-sml-max");
+$desktop-mid-max: 	setting("query", "desktop-mid-max");
+
+$phablet-min: 		$mobile-max + 1;
+$tablet-min: 		$phablet-max + 1;
+$desktop-sml-min: 	$tablet-max + 1;
+$desktop-mid-min: 	$desktop-sml-max + 1;
+$desktop-lrg-min: 	$desktop-mid-max + 1;
+
+@function createBreakpoint($fromThisSize: "", $uptoThisSize: ""){
+	$query: "";
+
+	@if $fromThisSize != "" or $uptoThisSize != "" {
+
+		@if $fromThisSize != "" and $fromThisSize != 0  {
+			$query: $query + "(min-width:#{$fromThisSize})";
+		}
+
+		@if  ($fromThisSize != "" and $fromThisSize != 0) and $uptoThisSize != "" {
+			$query: $query + " and ";
+		}
+
+		@if $uptoThisSize != "" {
+			$query: $query + "(max-width:#{$uptoThisSize})";
+		}
+
+		@return unquote($query);
+	}
+}
+
+// Media Queries
+//---------------------------------------------
+
+// Map of set breakpoints
+$neutron_breakpoints: (
+	mobile: 			createBreakpoint(0, $mobile-max),
+	phablet: 			createBreakpoint($phablet-min, $phablet-max),
+	from-phablet: 		createBreakpoint($phablet-min),
+	tablet: 			createBreakpoint($tablet-min, $tablet-max),
+	from-tablet: 		createBreakpoint($tablet-min),
+	desktop-sml: 		createBreakpoint($desktop-sml-min, $desktop-sml-max),
+	desktop: 			createBreakpoint($desktop-sml-min),
+	from-desktop: 		createBreakpoint($desktop-sml-min),
+	from-desktop-sml: 	createBreakpoint($desktop-sml-min),
+	desktop-mid: 		createBreakpoint($desktop-mid-min, $desktop-mid-max),
+	from-desktop-mid: 	createBreakpoint($desktop-mid-min),
+	desktop-lrg: 		createBreakpoint($desktop-lrg-min),
+	from-desktop-lrg: 	createBreakpoint($desktop-lrg-min)
+);
+
+@mixin breakpoint($breakpoint: "", $resolution: "", $media-type: "", $media-feature: "") {
+	@if $breakpoint != "" or $resolution != "" or $media-feature != "" or $media-type {
+
+		$media: "";
+
+		// Add breakpoint to media string
+		@if $breakpoint != "" {
+			@if map-has-key($neutron_breakpoints, $breakpoint) {
+				$media: inspect(map-get($neutron_breakpoints, $breakpoint));
+			}
+		}
+
+		// Add dpi to media string
+		@if $resolution != "" {
+			$res-dpi: $resolution * 96;
+
+			@if $media != "" {
+				$media: $media + " and";
+			}
+
+			$media: $media + " all and (min-resolution: #{$res-dpi}dpi) ";
+		}
+
+		// Add additional supplied query types to media string
+		@if $media-type != "" {
+			@if $media != "" {
+				$media: $media + " and ";
+			}
+
+			$media: $media + $media-type;
+		}
+		
+		// Add additional supplied query features to media string
+		@if $media-feature != "" {
+			@if $media != "" {
+				$media: $media + " and ";
+			}
+
+			$media: $media + "all and (" + $media-feature + ")";
+		}
+
+		@media #{$media} {
+			@content;
+		}
+	}
+}

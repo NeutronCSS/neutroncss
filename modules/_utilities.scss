@@ -3,25 +3,23 @@
 
 //hides the element when the 
 //provided media query is supplied.
-@mixin hide($media-query...) {
-	@if length($media-query) > 0 {
-
-		@media #{$media-query} {
+@mixin hide($breakpoint: null) {
+	@if $breakpoint {
+		@include breakpoint($breakpoint) {
 			& {
-				display:none;
+				display: none;
 			}
 		}
 	} @else {
-		display:none;
+		display: none;
 	}
 }
 
 //shows the element when the 
 //provided media query is supplied.
-@mixin show($media-query...) {
-	@if length($media-query) > 0 {
-
-		@media #{$media-query} {
+@mixin show($breakpoint: null) {
+	@if $breakpoint {
+		@include breakpoint($breakpoint) {
 			& {
 				display: block;
 				display: initial;
@@ -30,6 +28,17 @@
 	} @else {
 		display: block;
 		display: initial;
+	}
+
+}
+
+//Adds block element self clearing
+@mixin clear-fix() {
+
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
 	}
 
 }
