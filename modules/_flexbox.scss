@@ -1,0 +1,149 @@
+// Flexbox Grid
+//---------------------------------------------
+
+//Declares the container element of child rows or columns
+@mixin flex-columns(
+	$columns:"", 
+	$container-width: $neutron-container-max-width,
+	$align-container: "",
+	$align-content: "",
+	$margin: "",
+	$flush-margin: $neutron-flush-margin,
+	$flush-padding: $neutron-flush-padding,
+	$target: "*",
+	$order: "",
+	$rows: true
+) {
+	@include container-width($container-width);
+	margin-left: auto;
+	margin-right: auto;
+	@include clear-fix();
+
+	@if $columns != "" {
+		
+		$columns: neutron_calc-column-ratio($columns);
+		$column-sum: neutron_sum($columns);	
+		$column-count: length($columns);
+		$target-child-selector: neutron_child-selector($target);
+		
+		display: flex;
+		clear: left;
+		
+		@if $rows {
+			flex-wrap: wrap;
+		}
+		
+		@if $align-content != "" {
+			align-content: $align-content;
+		}
+		
+		$margin-left: 0;
+		$margin-right: 0;
+		
+		@if $margin != "" {
+			//get margins for left and right of the columns
+			$margin-left: neutron_extract-position($margin,left);
+			$margin-right: neutron_extract-position($margin,right);
+		}
+		
+		$rows-selector: #{$column-count};
+	
+		//assign calculated widths to elements
+		$index: 0;
+		@each $ratio in $columns {	
+			$index: $index + 1;
+
+			& > #{$target}:#{$target-child-selector}(#{$rows-selector}n+#{$index}) {
+				
+				@if $rows {
+					
+					$base-width: (100% / $column-sum) * $ratio;
+					
+					// Offset 
+					$flex-width-calc: "#{$base-width} - 0px";
+					
+					@if $margin != "" {
+						
+						@if $index == 1 {
+							$flex-width-calc: $flex-width-calc + " - #{$margin-right}";
+						}
+						
+						@if $index == $column-count {
+							$flex-width-calc: $flex-width-calc + " - #{$margin-left}";
+						}
+						
+						@if $index != 1 and $index != $column-count {
+							$flex-width-calc: $flex-width-calc + " - #{$margin-left} - #{$margin-right}";
+						}
+					}
+					
+					flex-basis: calc(#{$flex-width-calc});
+					
+				}
+
+				flex-shrink: $ratio;
+				flex-grow: $ratio;
+
+
+				@content;
+
+				@if $margin != "" {
+					margin: $margin;
+				}
+				
+				@include neutron_margin-application($index, $column-count, $flush-margin, $flush-padding);
+								
+			}
+		}	
+	}
+
+	//Set alignment of container
+	@if $align-container != "" {
+		@include align-container($align-container);
+	}
+	
+	// Change order of columns
+	@if type-of($order) == list and type-of($columns) == list {
+		@include flex-order($order, $columns, $margin, $flush-margin, $target);
+	}
+
+}
+
+//Alias for flex-columns()
+@mixin flex-column($arguments...) {
+	@include flex-columns($arguments...) {
+		@content;
+	};
+}
+
+@mixin flex-col($arguments...) {
+	@include flex-columns($arguments...) {
+		@content;
+	};
+}
+
+@mixin flex-order($order: "", $columns:"", $margin:"", $flush-margin: $neutron-flush-margin, $target:"*") {
+	
+	@if type-of($order) == list {
+		
+		//if no ratio is set, use $order to determine number of equal width columns
+		@if $columns == "" {
+			$columns: length($order);
+		}
+
+		//if column ratio is not a list, generate it
+		$columns: neutron_calc-column-ratio($columns);
+		$column-count: length($columns);
+		$target-child-selector: neutron_child-selector($target);
+
+		//iterate over each column
+		$i: 0;
+		@each $column in $order {
+			$i: $i + 1;
+
+			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$column}) {
+				order: $i;
+			}
+		}
+	}
+}

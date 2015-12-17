@@ -4,11 +4,11 @@
 //Declares the container element of child rows or columns
 @mixin columns(
 	$columns:"", 
-	$container-width: setting("layout","container-max-width"),
-	$container-align: "",
+	$container-width: $neutron-container-max-width,
+	$align-container: "",
 	$margin: "",
-	$flush-margin: setting("layout","flush-margin"),
-	$flush-padding: setting("layout","flush-padding"),
+	$flush-margin: $neutron-flush-margin,
+	$flush-padding: $neutron-flush-padding,
 	$target: "*",
 	$order: ""
 ) {
@@ -36,12 +36,14 @@
 		
 		}
 	
+		$rows-selector: #{$column-count};
+	
 		//assign calculated widths to elements
 		$index: 0;
 		@each $width in $column-widths {	
 			$index: $index + 1;
-
-			& > #{$target}:#{$target-child-selector}(#{$column-count}n+#{$index}) {
+			
+			& > #{$target}:#{$target-child-selector}(#{$rows-selector}n+#{$index}) {
 			
 				$calc-contents: "#{$width}";
 					
@@ -72,37 +74,16 @@
 				@if $margin != "" {
 					margin: $margin;
 				}
-				
-				//if first column
-				@if $index == 1 {
-					clear: left;
-					
-					@if $flush-padding {
-						padding-left: 0;
-					}
-					@if $flush-margin {
-						margin-left: 0;
-					}
-				} @else {
-					clear: none;
-				}
-				
-				//if last column
-				@if $index == $column-count {
-					@if $flush-padding {
-						padding-right: 0;
-					}
-					@if $flush-margin {
-						margin-right: 0;
-					}
-				}
+
+				@include neutron_margin-application($index, $column-count, $flush-margin, $flush-padding);
+
 			}
 		}	
 	}
 
 	//Set alignment of container
-	@if $container-align != "" {
-		@include container-align($container-align);
+	@if $align-container != "" {
+		@include align-container($align-container);
 	}
 	
 	// Change order of columns
@@ -143,7 +124,7 @@
 	};
 }
 
-@mixin order($order: "", $columns:"", $margin:"", $flush-margin:setting("layout","flush-margin"), $target:"*") {
+@mixin order($order: "", $columns:"", $margin:"", $flush-margin:$neutron-flush-margin, $target:"*") {
 	
 	@if type-of($order) == list {
 		
@@ -232,80 +213,4 @@
 			}
 		}
 	}
-}
-
-@mixin container-align($align:"") {
-	//Set alignment 
-	@if $align != "" {
-		float:none;
-		
-		@if $align == left {
-			margin-left: 0;
-		}
-		
-		@if $align == right {
-			margin-right: 0;
-		}
-		
-		@if $align == center {
-			margin-right: auto;
-			margin-left: auto;
-		}
-	}
-}
-
-@mixin container-width($container-width: setting("layout","container-max-width")) {
-	max-width: $container-width;
-}
-
-// UTILITY FUNCTIONS
-@function neutron_reorder-list($list, $order) {
-	
-	$new-list:();
-
-	@each $index in $order {
-		$item: nth($list, $index);
-		$new-list: append($new-list, $item, comma);
-	}
-	
-	@return $new-list;
-}
-
-@function neutron_calculate-column-widths($column-ratio) {
-	
-	$column-sum: neutron_sum($column-ratio);
-	$column-count: length($column-ratio);
-	$column-widths: ();
-
-	//Determine width of each column
-	@each $column in $column-ratio {
-		$width: (100% / $column-sum) * $column;
-		$column-widths: append($column-widths, $width, comma);
-	}
-	
-	@return $column-widths;
-}
-
-@function neutron_calc-column-ratio($columns) {
-	$column-ratio: $columns;
-	
-	@if type-of($columns) != list {
-		$column-ratio: ();
-		
-		@for $i from 1 through $columns {
-			$column-ratio: append($column-ratio, 1, comma);
-		}
-	}
-	
-	@return $column-ratio;
-}
-
-@function neutron_child-selector($target-selector) {
-	$child-selector: "nth-of-type";
-	
-	@if $target-selector == "*" {
-		$child-selector: "nth-child";
-	}
-	
-	@return $child-selector;
 }
