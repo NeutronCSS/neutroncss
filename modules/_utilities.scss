@@ -3,9 +3,8 @@
 
 //hides the element when the 
 //provided media query is supplied.
-@mixin hide($breakpoint: "") {
-	@if $breakpoint != "" {
-		
+@mixin hide($breakpoint: null) {
+	@if $breakpoint {
 		@include breakpoint($breakpoint) {
 			& {
 				display: none;
@@ -18,9 +17,8 @@
 
 //shows the element when the 
 //provided media query is supplied.
-@mixin show($breakpoint: "") {
-	@if $breakpoint != "" {
-		
+@mixin show($breakpoint: null) {
+	@if $breakpoint {
 		@include breakpoint($breakpoint) {
 			& {
 				display: block;
