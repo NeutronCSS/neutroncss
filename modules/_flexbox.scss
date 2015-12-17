@@ -12,7 +12,7 @@
 	$flush-padding: $neutron-flush-padding,
 	$target: "*",
 	$order: "",
-	$rows: all
+	$rows: true
 ) {
 	@include container-width($container-width);
 	margin-left: auto;
@@ -29,7 +29,7 @@
 		display: flex;
 		clear: left;
 		
-		@if $rows == all {
+		@if $rows {
 			flex-wrap: wrap;
 		}
 		
@@ -41,17 +41,12 @@
 		$margin-right: 0;
 		
 		@if $margin != "" {
-			
 			//get margins for left and right of the columns
 			$margin-left: neutron_extract-position($margin,left);
 			$margin-right: neutron_extract-position($margin,right);
-
 		}
 		
 		$rows-selector: #{$column-count};
-		@if $rows != all {
-			$rows-selector: "-" + $rows-selector;
-		}
 	
 		//assign calculated widths to elements
 		$index: 0;
@@ -60,7 +55,7 @@
 
 			& > #{$target}:#{$target-child-selector}(#{$rows-selector}n+#{$index}) {
 				
-				@if $rows == all {
+				@if $rows {
 					
 					$base-width: (100% / $column-sum) * $ratio;
 					
