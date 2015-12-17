@@ -10,8 +10,7 @@
 	$flush-margin: $neutron-flush-margin,
 	$flush-padding: $neutron-flush-padding,
 	$target: "*",
-	$order: "",
-	$rows: all
+	$order: ""
 ) {
 	@include container-width($container-width);
 	margin-left: auto;
@@ -38,9 +37,6 @@
 		}
 	
 		$rows-selector: #{$column-count};
-		@if $rows != all {
-			$rows-selector: "-" + $rows-selector;
-		}
 	
 		//assign calculated widths to elements
 		$index: 0;
