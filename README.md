@@ -17,7 +17,7 @@ When building it we did away with redundant concepts and ideas that many framewo
 ##Adding Neutron to your project.
 Adding Neutron to your project is as simple as downloading the neutron assets and then including the `_neutron.scss` at the top of your Sass stylesheet.
 
-	@include "neutron/neutron";
+	@import "neutron/neutron";
 
 ##Learn more about Neutron
 You can learn more about Neutron by visiting the website <a href="http://neutroncss.com/">neutroncss.com</a>. If you're looking for information on how to use Neutron you can check our documentation at <a href="http://neutroncss.com/docs/">neutroncss.com/docs</a>
