@@ -19,7 +19,7 @@ $_neutron: (
 		desktop-sml-max:	1199px,
 		desktop-mid-max:	1799px
 	)
-);
+) !default;
 
 @function setting($map_name: "", $setting: "") {
 	@if $map_name != "" and $setting != "" {
